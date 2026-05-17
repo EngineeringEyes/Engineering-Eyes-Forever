@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engineering Eyes — Civil & BIM</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Code+Pro:wght@400;600&family=Barlow+Condensed:wght@300;400;600;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="preloader">
+  <div class="loader-logo">ENGINEERING EYES</div>
+  <div class="loader-bar"></div>
+</div>
+<!-- CURSOR -->
+<div class="cursor-ring" id="cring"></div>
+<div class="cursor-dot"  id="cdot"></div>
+
+<!-- ═══════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════ -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-sq"></div>
+    <div class="nav-logo-text">Engineering Eyes</div>
+  </div>
+  <div class="nav-links">
+    <a href="#inicio" class="active">Inicio</a>
+    <a href="#softwares">Software</a>
+    <a href="#cursos">Cursos</a>
+    <a href="#membresias">Membresía</a>
+  </div>
+  <div class="nav-search">
+    <input type="text" placeholder="search...">
+    <button class="nav-search-btn"><i class="ti ti-arrow-right"></i></button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO — SLIDER CINEMATOGRÁFICO
+═══════════════════════════════════════ -->
+<section class="hero" id="inicio">
+
+  <!-- SLIDE 1 — GEO5 -->
+  <div class="hero-slide active" id="slide-0">
+    <div class="slide-bg" style="background-image:url('https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes/main/fondo.jpg')"></div>
+    <div class="slide-overlay"></div>
+    <div class="scanlines"></div>
+    <div class="slide-content-left">
+      <div class="slide-tag">
+        <span class="slide-num">01 —</span>
+        Software Geotécnico · 2025
+      </div>
+      <div class="slide-title">GEO5<br><span class="accent">2025</span></div>
+      <div class="slide-sub">Análisis Geotécnico · Cimentaciones · Taludes</div>
+      <div class="slide-btns">
+        <a href="https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/geo5.html" target="_blank" class="btn-play">
+          <i class="ti ti-download"></i> Descargar
+        </a>
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="btn-trailer">
+          <i class="ti ti-brand-telegram"></i> Soporte
+        </a>
+      </div>
+    </div>
+    <div class="slide-content-right">
+      <div class="slide-right-tag">GEO5 2025</div>
+      <div class="slide-right-meta">
+        v25.0 <span class="badge">DISPONIBLE</span> Geotecnia
+      </div>
+      <div class="slide-right-desc">
+        Suite completa para análisis geotécnico. Diseño de cimentaciones superficiales y profundas, análisis de taludes y muros de contención.
+      </div>
+      <div class="version-chips">
+        <div class="vchip active">2025</div>
+        <div class="vchip" onclick="goSlide(1)">2026 →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — GEO5 2026 -->
+  <div class="hero-slide" id="slide-1">
+    <div class="slide-bg" style="background-image:url('https://raw.githubusercontent.com/EngineeringEyes/Engineering_Eyes_2.0/main/fondo1.jpg');filter:saturate(0.6) brightness(0.45) hue-rotate(20deg)"></div>
+    <div class="slide-overlay"></div>
+    <div class="scanlines"></div>
+    <div class="slide-content-left">
+      <div class="slide-tag">
+        <span class="slide-num">02 —</span>
+        Software Geotécnico · 2026
+      </div>
+      <div class="slide-title">GEO5<br><span class="accent">2026</span></div>
+      <div class="slide-sub">Nueva Versión · Módulos Avanzados · BIM Ready</div>
+      <div class="slide-btns">
+        <a href="https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/geo52026.html" target="_blank" class="btn-play">
+          <i class="ti ti-download"></i> Descargar
+        </a>
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="btn-trailer">
+          <i class="ti ti-brand-telegram"></i> Soporte
+        </a>
+      </div>
+    </div>
+    <div class="slide-content-right">
+      <div class="slide-right-tag">GEO5 2026</div>
+      <div class="slide-right-meta">
+        v26.0 <span class="badge">NUEVO</span> Geotecnia
+      </div>
+      <div class="slide-right-desc">
+        La versión más reciente con módulos actualizados para análisis dinámico sísmico, integración BIM y reportes automáticos.
+      </div>
+      <div class="version-chips">
+        <div class="vchip" onclick="goSlide(0)">← 2025</div>
+        <div class="vchip active">2026</div>
+        <div class="vchip" onclick="goSlide(2)">ETABS →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — ETABS -->
+  <div class="hero-slide" id="slide-2">
+    <div class="slide-bg" style="background-image:url('https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes/main/fondo.jpg');filter:saturate(0.5) brightness(0.4) hue-rotate(180deg)"></div>
+    <div class="slide-overlay"></div>
+    <div class="scanlines"></div>
+    <div class="slide-content-left">
+      <div class="slide-tag">
+        <span class="slide-num">03 —</span>
+        CSI Software · Análisis Estructural
+      </div>
+      <div class="slide-title">ETABS<br><span class="accent">22/23</span></div>
+      <div class="slide-sub">Diseño Estructural · Análisis Sísmico · Edificios</div>
+      <div class="slide-btns">
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="btn-play">
+          <i class="ti ti-download"></i> Descargar
+        </a>
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="btn-trailer">
+          <i class="ti ti-brand-telegram"></i> Soporte
+        </a>
+      </div>
+    </div>
+    <div class="slide-content-right">
+      <div class="slide-right-tag">ETABS 22/23</div>
+      <div class="slide-right-meta">
+        v22 & v23 <span class="badge">CSI</span> Estructural
+      </div>
+      <div class="slide-right-desc">
+        El estándar mundial para análisis y diseño de estructuras de edificios. Análisis sísmico, diseño en concreto y acero.
+      </div>
+      <div class="version-chips">
+        <div class="vchip active">ETABS 22</div>
+        <div class="vchip">ETABS 23</div>
+        <div class="vchip">SAP2000</div>
+        <div class="vchip">SAFE 22</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — REVIT -->
+  <div class="hero-slide" id="slide-3">
+    <div class="slide-bg" style="background-image:url('https://raw.githubusercontent.com/EngineeringEyes/Engineering_Eyes_2.0/main/fondo1.jpg');filter:saturate(0.4) brightness(0.4) hue-rotate(260deg)"></div>
+    <div class="slide-overlay"></div>
+    <div class="scanlines"></div>
+    <div class="slide-content-left">
+      <div class="slide-tag">
+        <span class="slide-num">04 —</span>
+        Autodesk · BIM
+      </div>
+      <div class="slide-title">REVIT<br><span class="accent">2025/26</span></div>
+      <div class="slide-sub">Modelado BIM · Coordinación · Planos · Renders</div>
+      <div class="slide-btns">
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="btn-play">
+          <i class="ti ti-download"></i> Descargar
+        </a>
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="btn-trailer">
+          <i class="ti ti-brand-telegram"></i> Soporte
+        </a>
+      </div>
+    </div>
+    <div class="slide-content-right">
+      <div class="slide-right-tag">Revit BIM</div>
+      <div class="slide-right-meta">
+        <span class="badge">AUTODESK</span> BIM
+      </div>
+      <div class="slide-right-desc">
+        La plataforma BIM líder para modelado arquitectónico y estructural. Coordinación multidisciplinaria y generación automática de planos.
+      </div>
+      <div class="version-chips">
+        <div class="vchip active">Revit 2025</div>
+        <div class="vchip">Revit 2026</div>
+        <div class="vchip">Revit 2027</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECORACIONES -->
+  <div class="corner-teal"></div>
+
+  <!-- DOTS -->
+  <div class="slide-dots" id="sdots">
+    <div class="sdot active" onclick="goSlide(0)"></div>
+    <div class="sdot" onclick="goSlide(1)"></div>
+    <div class="sdot" onclick="goSlide(2)"></div>
+    <div class="sdot" onclick="goSlide(3)"></div>
+  </div>
+
+  <!-- NAV BUTTONS -->
+  <div class="slider-nav">
+    <button class="snav-btn" onclick="prevSlide()"><i class="ti ti-arrow-left"></i></button>
+    <button class="snav-btn" onclick="nextSlide()"><i class="ti ti-arrow-right"></i></button>
+  </div>
+
+  <!-- COUNTER -->
+  <div class="slide-counter"><span id="snum">01</span> / 04</div>
+
+  <!-- SOCIAL -->
+  <div class="hero-social">
+    <div class="credit-line"></div>
+    <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank">TELEGRAM</a>
+    <a href="http://t.me/engineeringeyes_bot" target="_blank">BOT</a>
+    <a href="#" target="_blank">YOUTUBE</a>
+    <div class="credit-line"></div>
+  </div>
+
+  <!-- BOTÓN REGISTRAR — encendido/apagado, visible tras cerrar el login -->
+  <button class="login-open-btn" id="loginOpenBtn" onclick="openLogin()">
+    <div class="pwr-ring">
+      <div class="pwr-circle">
+        <i class="ti ti-power"></i>
+      </div>
+    </div>
+    <span class="pwr-label">Registrar</span>
+  </button>
+
+  <!-- ════════════════════════════════════════
+       LOGIN OVERLAY — NEUMÓRFICO PREMIUM
+       Aparece automáticamente al cargar
+  ════════════════════════════════════════ -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="nm-wrapper">
+
+      <div class="nm-brand">Engineering <span>Eyes</span></div>
+
+      <div style="position:relative;width:740px;max-width:calc(100vw - 48px);display:flex;justify-content:flex-end;margin-bottom:6px;">
+        <button class="nm-close-btn" onclick="closeLogin()" title="Cerrar y explorar">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+
+      <!-- TARJETA NEUMÓRFICA -->
+      <div class="nm-card" id="nm-card">
+
+        <!-- SWITCH OVERLAY — panel azul que se desliza -->
+        <div id="switch-cnt">
+          <div class="nm-switch-bg"></div>
+          <div class="switch-circle"></div>
+          <div class="switch-circle-2"></div>
+
+          <!-- C1: panel derecho visible cuando estás en modo "Registrar" (izquierda activa) -->
+          <div id="switch-c1">
+            <div class="sw-title">¡Ya estás<br>Registrado!</div>
+            <div class="sw-desc">Si ya ingresaste tu correo, haz clic para ver tus actualizaciones</div>
+            <button class="switch-btn" onclick="switchToRegistrado()">REGISTRADO</button>
+          </div>
+
+          <!-- C2: panel izquierdo visible cuando estás en modo "Registrado" (derecha activa) -->
+          <div id="switch-c2">
+            <div class="sw-title">Registra<br>tu correo</div>
+            <div class="sw-desc">Suscríbete para recibir actualizaciones exclusivas de software y cursos</div>
+            <button class="switch-btn" onclick="switchToRegistrar()">REGISTRAR</button>
+          </div>
+        </div>
+
+        <!-- CONTENEDOR A — REGISTRAR CORREO (izquierda) -->
+        <div id="a-container">
+          <div class="nm-form-title">Registra tu correo electrónico</div>
+          <div class="nm-form-sub">para recibir actualizaciones de recursos</div>
+
+          <div class="nm-social" style="margin-top:8px">
+            <button class="nm-soc-btn" title="YouTube"><i class="ti ti-brand-youtube"></i></button>
+            <button class="nm-soc-btn" title="Telegram"><i class="ti ti-brand-telegram"></i></button>
+            <button class="nm-soc-btn" title="Twitter"><i class="ti ti-brand-twitter"></i></button>
+          </div>
+
+          <div class="nm-or">Ingresa tu correo</div>
+
+          <div class="nm-field">
+            <input class="nm-input" type="email" id="signin-email" placeholder="tucorreo@email.com" autocomplete="off">
+          </div>
+
+          <button class="nm-submit" onclick="handleRegistrar()">REGISTRAR</button>
+          <div id="nm-msg-a" class="nm-msg"></div>
+        </div>
+
+        <!-- CONTENEDOR B — CONFIRMACIÓN "REGISTRADO" (derecha) -->
+        <div id="b-container">
+          <div class="nm-form-title">¡Registrado!</div>
+          <div class="nm-form-sub">Confirma tu correo para seguir recibiendo novedades</div>
+
+          <div class="nm-check-wrap">
+            <div class="nm-check-icon"><i class="ti ti-circle-check"></i></div>
+          </div>
+
+          <div class="nm-or" style="margin-top:0">Tu correo registrado</div>
+          <div class="nm-field">
+            <input class="nm-input" type="email" id="signup-email" placeholder="tucorreo@email.com" autocomplete="off">
+          </div>
+
+          <button class="nm-submit" onclick="handleConfirmar()">CONFIRMAR</button>
+          <div id="nm-msg-b" class="nm-msg"></div>
+        </div>
+
+      </div><!-- /nm-card -->
+    </div><!-- /nm-wrapper -->
+  </div><!-- /login-overlay -->
+
+</section>
+
+<div class="divider-line"></div>
+
+<!-- ═══════════════════════════════════════
+     SOFTWARES SECTION
+═══════════════════════════════════════ -->
+<section class="softwares-section" id="softwares">
+<div class="sec-wrap">
+
+  <div class="reveal">
+    <div class="sec-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Catálogo Completo</div></div>
+    <div class="sec-title">SOFTWARE<br><span class="dim">DISPONIBLE</span></div>
+    <p class="sec-desc">Selecciona la categoría y elige la versión que necesitas. Acceso directo a cada herramienta de ingeniería civil.</p>
+  </div>
+
+  <div class="sw-layout">
+
+    <!-- CATEGORÍAS -->
+    <div class="sw-cat-list">
+      <div class="sw-cat active" onclick="swCat(this,'panel-geo')">
+        <div class="sw-cat-icon">🌐</div>
+        <div class="sw-cat-info">
+          <div class="sw-cat-name">Geo5</div>
+          <div class="sw-cat-count">Geotecnia · <span>2 versiones</span></div>
+        </div>
+      </div>
+      <div class="sw-cat" onclick="swCat(this,'panel-csi')">
+        <div class="sw-cat-icon">🏗️</div>
+        <div class="sw-cat-info">
+          <div class="sw-cat-name">CSI Software</div>
+          <div class="sw-cat-count">Estructural · <span>4 programas</span></div>
+        </div>
+      </div>
+      <div class="sw-cat" onclick="swCat(this,'panel-autodesk')">
+        <div class="sw-cat-icon">🔩</div>
+        <div class="sw-cat-info">
+          <div class="sw-cat-name">Autodesk</div>
+          <div class="sw-cat-count">BIM & CAD · <span>9 versiones</span></div>
+        </div>
+      </div>
+      <div class="sw-cat" onclick="swCat(this,'panel-cype')">
+        <div class="sw-cat-icon">🧱</div>
+        <div class="sw-cat-info">
+          <div class="sw-cat-name">Cypecad</div>
+          <div class="sw-cat-count">Estructural · <span>2 versiones</span></div>
+        </div>
+      </div>
+      <div class="sw-cat" onclick="swCat(this,'panel-office')">
+        <div class="sw-cat-icon">📊</div>
+        <div class="sw-cat-info">
+          <div class="sw-cat-name">Microsoft Office</div>
+          <div class="sw-cat-count">Productividad · <span>3 versiones</span></div>
+        </div>
+      </div>
+      <div class="sw-cat" onclick="swCat(this,'panel-plantillas')">
+        <div class="sw-cat-icon">📋</div>
+        <div class="sw-cat-info">
+          <div class="sw-cat-name">Plantillas</div>
+          <div class="sw-cat-count">Excel · AutoCAD · Revit · <span>3 packs</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANELES VERSIONES -->
+    <div class="sw-panels">
+
+      <!-- GEO5 -->
+      <div class="sw-panel-inner active" id="panel-geo">
+        <div class="sw-panel-header">
+          <div>
+            <div class="sw-panel-title">GEO5</div>
+            <div class="sw-panel-subtitle">Suite Geotécnica · Fine Software</div>
+          </div>
+          <div class="sw-available">Disponible: <span>2 versiones</span></div>
+        </div>
+        <div class="sw-versions">
+          <div class="sw-ver-card">
+            <div class="ver-year">2025</div>
+            <div class="ver-name">Geo5 2025</div>
+            <div class="ver-tag">Geotecnia · Estable</div>
+            <a href="https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/geo5.html" target="_blank" class="ver-btn">
+              <i class="ti ti-download"></i> Descargar
+            </a>
+            <div class="corner-mark"></div>
+          </div>
+          <div class="sw-ver-card">
+            <div class="ver-year">2026</div>
+            <div class="ver-name">Geo5 2026</div>
+            <div class="ver-tag">Geotecnia · Nuevo</div>
+            <a href="https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/geo52026.html" target="_blank" class="ver-btn">
+              <i class="ti ti-download"></i> Descargar
+            </a>
+            <div class="corner-mark"></div>
+          </div>
+        </div>
+        <div class="sw-quicklinks">
+          <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="sw-qlink"><i class="ti ti-brand-telegram"></i> Soporte</a>
+          <a href="http://t.me/engineeringeyes_bot" target="_blank" class="sw-qlink"><i class="ti ti-robot"></i> Bot Oficial</a>
+        </div>
+      </div>
+
+      <!-- CSI -->
+      <div class="sw-panel-inner" id="panel-csi">
+        <div class="sw-panel-header">
+          <div>
+            <div class="sw-panel-title">CSI</div>
+            <div class="sw-panel-subtitle">Computers & Structures · Análisis Estructural</div>
+          </div>
+          <div class="sw-available">Disponible: <span>4 programas</span></div>
+        </div>
+        <div class="sw-versions">
+          <div class="sw-ver-card">
+            <div class="ver-year">22</div>
+            <div class="ver-name">ETABS 22</div>
+            <div class="ver-tag">Edificios · Sísmico</div>
+            <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a>
+            <div class="corner-mark"></div>
+          </div>
+          <div class="sw-ver-card">
+            <div class="ver-year">23</div>
+            <div class="ver-name">ETABS 23</div>
+            <div class="ver-tag">Edificios · Actualizado</div>
+            <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a>
+            <div class="corner-mark"></div>
+          </div>
+          <div class="sw-ver-card">
+            <div class="ver-year">22</div>
+            <div class="ver-name">SAFE 22</div>
+            <div class="ver-tag">Losas · Cimentaciones</div>
+            <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a>
+            <div class="corner-mark"></div>
+          </div>
+          <div class="sw-ver-card">
+            <div class="ver-year">v25</div>
+            <div class="ver-name">SAP2000</div>
+            <div class="ver-tag">General · Puentes</div>
+            <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a>
+            <div class="corner-mark"></div>
+          </div>
+        </div>
+        <div class="sw-quicklinks">
+          <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="sw-qlink"><i class="ti ti-brand-telegram"></i> Soporte</a>
+        </div>
+      </div>
+
+      <!-- AUTODESK -->
+      <div class="sw-panel-inner" id="panel-autodesk">
+        <div class="sw-panel-header">
+          <div>
+            <div class="sw-panel-title">AUTODESK</div>
+            <div class="sw-panel-subtitle">BIM & CAD · Suite Completa</div>
+          </div>
+          <div class="sw-available">Disponible: <span>9 versiones</span></div>
+        </div>
+        <div class="sw-versions">
+          <div class="sw-ver-card"><div class="ver-year">25</div><div class="ver-name">Revit 2025</div><div class="ver-tag">BIM · Arquitectura</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">26</div><div class="ver-name">Revit 2026</div><div class="ver-tag">BIM · Nuevo</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">27</div><div class="ver-name">Revit 2027</div><div class="ver-tag">BIM · Beta</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">23</div><div class="ver-name">AutoCAD 2023</div><div class="ver-tag">CAD · 2D/3D</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">24</div><div class="ver-name">AutoCAD 2024</div><div class="ver-tag">CAD · Estable</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">25</div><div class="ver-name">AutoCAD 2025</div><div class="ver-tag">CAD · Nuevo</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">23</div><div class="ver-name">Civil 3D 2023</div><div class="ver-tag">Infraestructura</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">24</div><div class="ver-name">Civil 3D 2024</div><div class="ver-tag">Infraestructura</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">25</div><div class="ver-name">Civil 3D 2025</div><div class="ver-tag">Infraestructura</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+        </div>
+        <div class="sw-quicklinks">
+          <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="sw-qlink"><i class="ti ti-brand-telegram"></i> Soporte</a>
+        </div>
+      </div>
+
+      <!-- CYPECAD -->
+      <div class="sw-panel-inner" id="panel-cype">
+        <div class="sw-panel-header"><div><div class="sw-panel-title">CYPECAD</div><div class="sw-panel-subtitle">Cálculo Estructural</div></div><div class="sw-available">Disponible: <span>2 versiones</span></div></div>
+        <div class="sw-versions">
+          <div class="sw-ver-card"><div class="ver-year">19</div><div class="ver-name">Cypecad 2019</div><div class="ver-tag">Estructuras</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">26</div><div class="ver-name">Cypecad 2026.c</div><div class="ver-tag">Estructuras · Nuevo</div><a href="https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/cypecad2026.html" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+        </div>
+        <div class="sw-quicklinks"><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="sw-qlink"><i class="ti ti-brand-telegram"></i> Soporte</a></div>
+      </div>
+
+      <!-- OFFICE -->
+      <div class="sw-panel-inner" id="panel-office">
+        <div class="sw-panel-header"><div><div class="sw-panel-title">OFFICE</div><div class="sw-panel-subtitle">Microsoft · Productividad</div></div><div class="sw-available">Disponible: <span>3 versiones</span></div></div>
+        <div class="sw-versions">
+          <div class="sw-ver-card"><div class="ver-year">19</div><div class="ver-name">Office 2019</div><div class="ver-tag">Suite · Completa</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">21</div><div class="ver-name">Office 2021</div><div class="ver-tag">Suite · Estable</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">365</div><div class="ver-name">Office 365</div><div class="ver-tag">Suite · Cloud</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+        </div>
+        <div class="sw-quicklinks"><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="sw-qlink"><i class="ti ti-brand-telegram"></i> Soporte</a></div>
+      </div>
+
+      <!-- PLANTILLAS -->
+      <div class="sw-panel-inner" id="panel-plantillas">
+        <div class="sw-panel-header"><div><div class="sw-panel-title">PLANTILLAS</div><div class="sw-panel-subtitle">Packs Profesionales</div></div><div class="sw-available">Disponible: <span>3 packs</span></div></div>
+        <div class="sw-versions">
+          <div class="sw-ver-card"><div class="ver-year">XLS</div><div class="ver-name">Excel</div><div class="ver-tag">Cálculos · Presupuestos</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">DWG</div><div class="ver-name">AutoCAD</div><div class="ver-tag">Bloques · Cajetines</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+          <div class="sw-ver-card"><div class="ver-year">RVT</div><div class="ver-name">Revit</div><div class="ver-tag">Familias · Proyectos</div><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="ver-btn"><i class="ti ti-download"></i> Descargar</a><div class="corner-mark"></div></div>
+        </div>
+        <div class="sw-quicklinks"><a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="sw-qlink"><i class="ti ti-brand-telegram"></i> Soporte</a></div>
+      </div>
+
+    </div><!-- /sw-panels -->
+  </div>
+</div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- ═══════════════════════════════════════
+     CURSOS — VERSIÓN LIMPIA Y CINEMÁTICA
+═══════════════════════════════════════ -->
+<section class="cursos-section" id="cursos" style="padding-top: 140px; position: relative;">
+
+  <div class="cursos-header reveal" style="position: relative; text-align: center; max-width: 800px; margin: 0 auto; padding: 0 24px;">
+    <div class="sec-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Formación Profesional</div></div>
+    <div class="sec-title">CURSOS<br><span class="dim">& MAESTRÍAS</span></div>
+    <p class="sec-desc" style="margin: 0 auto; max-width: 520px;">
+      Domina las herramientas más potentes de la ingeniería civil con proyectos reales y metodología 100% práctica.
+    </p>
+  </div>
+
+  <!-- MAIN ORIGINAL EE — ADAPTADO A CURSOS (Con animación) -->
+  <main>
+    <cards>
+      <!-- Card 1: Título Principal -->
+      <cardWrapper>
+        <card id="codepen">
+          <header class="type">
+            <span class="tp">Alvisión Civil</span><br>
+            <span class="tp" style="color:var(--teal); font-size:0.9em;">— Aprende sin Límites —</span>
+          </header>
+        </card>
+      </cardWrapper>
+
+      <!-- Card 2: Estructural -->
+      <cardWrapper>
+        <card id="html">
+          <code id="c0">
+            <dl>
+              <dt><span class="tp wd">CURSO ESTRUCTURAL</span><span class="tp"> AVANZADO</span></dt><br>
+              <dd>
+                <span class="tp">• Revit 2025/2026 + ETABS 23</span><br>
+                <span class="tp">• Análisis Sísmico y Diseño de Acero/Concreto</span><br>
+                <span class="tp">• Modelado BIM + Planos Automáticos</span><br>
+                <span class="tp">• Proyecto Final: Edificio de 15 pisos</span>
+              </dd><br>
+              <dt><span class="tp" style="color:var(--teal);">48 HORAS • NIVEL AVANZADO</span></dt>
+            </dl>
+          </code>
+        </card>
+      </cardWrapper>
+
+      <!-- Card 3: Geotécnico -->
+      <cardWrapper>
+        <card id="css">
+          <code class="type">
+            <dl>
+              <dt><span class="tp wd">GEO5</span><span class="tp"> MASTERY</span></dt><br>
+              <dd>
+                <span class="tp">• GEO5 2025 + 2026 Completo</span><br>
+                <span class="tp">• Cimentaciones • Taludes • Muros</span><br>
+                <span class="tp">• Análisis de Estabilidad y Retención</span><br>
+                <span class="tp">• Proyectos Reales + Reportes Profesionales</span>
+              </dd><br>
+              <dt><span class="tp" style="color:var(--teal);">36 HORAS • NIVEL PROFESIONAL</span></dt>
+            </dl>
+          </code>
+        </card>
+      </cardWrapper>
+
+      <!-- Card 4: Infraestructura -->
+      <cardWrapper>
+        <card id="js">
+          <code class="type">
+            <dl>
+              <dt><span class="tp wd">CIVIL 3D</span><span class="tp"> INFRAESTRUCTURA</span></dt><br>
+              <dd>
+                <span class="tp">• Diseño de Carreteras y Corredores</span><br>
+                <span class="tp">• Perfiles • Volúmenes • Movimiento de Tierra</span><br>
+                <span class="tp">• Intersecciones y Señalización Vial</span><br>
+                <span class="tp">• Proyecto Final: Carretera Real</span>
+              </dd><br>
+              <dt><span class="tp" style="color:var(--teal);">52 HORAS • NIVEL INTERMEDIO-AVANZADO</span></dt>
+            </dl>
+          </code>
+        </card>
+      </cardWrapper>
+    </cards>
+<!-- PANEL EXPANDIBLE -->
+<div class="expand-panel" id="expandPanel">
+
+  <div class="expand-header">
+    <span id="panelTitle">CURSO ESTRUCTURAL AVANZADO</span>
+
+    <button class="close-panel" onclick="closePanel()">
+      ✕
+    </button>
+  </div>
+
+<div class="scroll-controls">
+
+  <button class="scroll-btn"
+    onclick="scrollCourses(-220)">
+    ↑
+  </button>
+
+  <button class="scroll-btn"
+    onclick="scrollCourses(220)">
+    ↓
+  </button>
+
+</div>
+
+<div class="course-list" id="courseList">
+
+<button class="course-btn"
+onclick="showCourse(
+'Curso de Modelado y Detallado de Estructuras de Acero utilizando Tekla Structures',
+'Contenido: obtendrás video y material únicamente.'
+)">
+  Curso de Modelado y Detallado de Estructuras de Acero utilizando Tekla Structures
+</button>
+
+<button class="course-btn"
+onclick="showCourse(
+'Revit en Edificaciones para Principiantes',
+'Contenido: obtendrás video y material únicamente.'
+)">
+  Revit en Edificaciones para Principiantes
+</button>
+
+<button class="course-btn"
+onclick="showCourse(
+'Diseño y Análisis Estructural utilizando ETABS 23',
+'Contenido: obtendrás video y material únicamente.'
+)">
+  Diseño y Análisis Estructural utilizando ETABS 23
+</button>
+
+<button class="course-btn"
+onclick="showCourse(
+'Especialización Profesional en Civil 3D para Infraestructura Vial',
+'Contenido: obtendrás video y material únicamente.'
+)">
+  Especialización Profesional en Civil 3D para Infraestructura Vial
+</button>
+  </div>
+
+  <div class="course-info">
+
+    <h3 id="courseName">
+      Selecciona un curso
+    </h3>
+
+    <p id="courseDescription">
+      Aquí aparecerá la descripción.
+    </p>
+
+    <div class="panel-actions">
+
+      <a href="https://t.me/TUUSUARIO"
+         target="_blank"
+         class="contact-btn">
+         CONTACTAR
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+    <div id="world3d"><div id="tablet"></div></div>
+    <svg id="svgPaths" width="740" height="2000" xmlns="http://www.w3.org/2000/svg">
+      <use href="#linePath01" />
+      <use href="#linePath02" />
+      <use href="#linePath03" />
+      <use href="#linePath04" />
+    </svg>
+  </main>
+
+</section>
+}
+<div class="divider-line"></div>
+<!-- ═══════════════════════════════════════
+     MEMBRESÍAS — HEXAGONAL
+═══════════════════════════════════════ -->
+<section class="membresia-section" id="membresias">
+  <div class="mem-header reveal">
+    <div class="sec-eyebrow" style="justify-content:center"><div class="eyebrow-line"></div><div class="eyebrow-text">Acceso Exclusivo</div><div class="eyebrow-line"></div></div>
+    <div class="sec-title" style="color:var(--white)">PLANES DE<br><span style="color:var(--teal)">MEMBRESÍA</span></div>
+    <p class="sec-desc" style="margin:14px auto 0;text-align:center;max-width:500px">Elige el nivel que mejor se adapta a tus objetivos profesionales en ingeniería.</p>
+  </div>
+
+  <div class="infographic">
+    <div class="hex-center-wrap">
+      <div class="hex-center">
+        <div class="hex-center-text">
+          <span>MEM</span><span>BRES</span><span>ÍA</span>
+          <div class="color-dots">
+            <span style="background:#00d4c8"></span><span style="background:#0099cc"></span>
+            <span style="background:#0066aa"></span><span style="background:#004488"></span>
+            <span style="background:#003366"></span><span style="background:#886600"></span>
+            <span style="background:#996600"></span><span style="background:#aa3300"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="svg-connectors" id="svg-wrap">
+      <svg id="conn-svg" viewBox="0 0 80 520" preserveAspectRatio="none"></svg>
+    </div>
+
+    <div class="cards-col" id="cards-col">
+      <div class="mem-card-row" data-idx="0"><div class="node-mini nd-t1"></div><div class="mem-card-body bg-teal1"><div class="icon-circle"><i class="ti ti-crown"></i></div><div class="card-texts"><div class="card-title">Plan Básico</div><div class="card-sub">Acceso esencial · Software básico · Soporte email</div></div><div class="card-badge">DESDE $9/mes</div></div></div>
+      <div class="mem-card-row" data-idx="1"><div class="node-mini nd-t2"></div><div class="mem-card-body bg-teal2"><div class="icon-circle"><i class="ti ti-rocket"></i></div><div class="card-texts"><div class="card-title">Plan Estándar</div><div class="card-sub">Más software · Cursos básicos · Soporte 24h</div></div><div class="card-badge">DESDE $19/mes</div></div></div>
+      <div class="mem-card-row" data-idx="2"><div class="node-mini nd-t3"></div><div class="mem-card-body bg-teal3"><div class="icon-circle"><i class="ti ti-settings"></i></div><div class="card-texts"><div class="card-title">Plan Premium</div><div class="card-sub">Suite completa · Cursos avanzados · Sin límites</div></div><div class="card-badge">DESDE $39/mes</div></div></div>
+      <div class="mem-card-row" data-idx="3"><div class="node-mini nd-t4"></div><div class="mem-card-body bg-teal4"><div class="icon-circle"><i class="ti ti-certificate"></i></div><div class="card-texts"><div class="card-title">Plan Profesional</div><div class="card-sub">Maestrías · Diplomados · Analítica avanzada</div></div><div class="card-badge">DESDE $59/mes</div></div></div>
+      <div class="mem-card-row" data-idx="4"><div class="node-mini nd-t5"></div><div class="mem-card-body bg-teal5"><div class="icon-circle"><i class="ti ti-chart-bar"></i></div><div class="card-texts"><div class="card-title">Plan VIP</div><div class="card-sub">Todo incluido · Gestor dedicado · Betas</div></div><div class="card-badge">DESDE $89/mes</div></div></div>
+      <div class="mem-card-row" data-idx="5"><div class="node-mini nd-t6"></div><div class="mem-card-body bg-teal6"><div class="icon-circle"><i class="ti ti-building"></i></div><div class="card-texts"><div class="card-title">Plan Empresarial</div><div class="card-sub">Licencias equipo · API · Auditoría</div></div><div class="card-badge">DESDE $149/mes</div></div></div>
+      <div class="mem-card-row" data-idx="6"><div class="node-mini nd-t7"></div><div class="mem-card-body bg-teal7"><div class="icon-circle"><i class="ti ti-star"></i></div><div class="card-texts"><div class="card-title">Plan Elite</div><div class="card-sub">Config. personalizada · SLA 99.9%</div></div><div class="card-badge">DESDE $249/mes</div></div></div>
+      <div class="mem-card-row" data-idx="7"><div class="node-mini nd-t8"></div><div class="mem-card-body bg-teal8"><div class="icon-circle"><i class="ti ti-diamond"></i></div><div class="card-texts"><div class="card-title">Plan Platinum</div><div class="card-sub">Infraestructura dedicada · Consultor exclusivo</div></div><div class="card-badge">A MEDIDA</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close"><i class="ti ti-x"></i></button>
+    <div class="modal-bar" id="modal-bar"></div>
+    <div class="modal-icon" id="modal-icon"><i id="modal-icon-i" class="ti ti-crown"></i></div>
+    <div class="modal-plan" id="modal-plan"></div>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-desc" id="modal-desc"></div>
+    <div class="modal-features" id="modal-features"></div>
+    <div class="modal-price" id="modal-price"></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="reveal">ENGINEERING<br><span>EYES</span></h2>
+    <p class="reveal">𝗥𝗘𝗖𝗨𝗥𝗦𝗢𝗦 𝗗𝗘𝗦𝗕𝗟𝗢𝗤𝗨𝗘𝗔𝗗𝗢𝗦 · Accede ahora a todos los recursos, cursos y software de ingeniería civil.</p>
+    <div class="cta-btns reveal">
+      <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" class="btn-play"><i class="ti ti-brand-telegram"></i> Ingresar al Telegram</a>
+      <a href="#softwares" class="btn-trailer"><i class="ti ti-download"></i> Ver Software</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="footer-logo-sq"></div>
+      <div class="footer-logo-text">Engineering Eyes</div>
+    </div>
+    <div class="footer-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#softwares">Software</a>
+      <a href="#cursos">Cursos</a>
+      <a href="#membresias">Membresía</a>
+      <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank">Telegram</a>
+    </div>
+    <div class="footer-copy">© 2025 Engineering Eyes</div>
+  </div>
+</footer>
+
+<!-- SVG DEFS — ORIGINALES PRESERVADOS -->
+<svg width="0" height="0" role="none">
+  <defs>
+    <path id="linePath01" d="m 106,45h 375c 114,0 226,128 226,235v 236c 0,136 -122,222 -224,221l -182,-2c -89,1 -141,42 -142,158l -2,204c -1,117 37,173 134,173h 186c 110,-3 230,111 230,220v 242c 0,113 -125,225 -248,225H 105" />
+    <path id="linePath02" d="m 33,85h 444c 96,0 190,107 190,201v 224c 0,116 -98,188 -190,187l -192,-2c -92,0 -166,75 -166,168v 278c 0,94 74,169 166,169h 194c 92,0 188,94 188,188v 228c 0,94 -104,191 -214,191H 105" />
+    <path id="linePath03" d="m 155,127h 308c 94,0 162,86 162,177v 178c 0,109 -50,174 -166,173L 277,653C 158,653 77,762 77,849v 302c 0,118 107,196 180,197l 204,4c 92,0 164,67 164,160v 200c 0,91 -89,163 -188,163H 105" />
+    <path id="linePath04" d="m 283,173c 2,0 165,0 165,0C 544,175 577,238 577,330v 156c 0,94 -48,126 -140,125L 269,609C 167,602 29,702 29,851v 312c 0,111 101,235 242,235h 162c 109,1 144,49 144,136v 162c 0,73 -53,130 -118,130l -353,1" />
+    <path id="codepenIcon" fill="#FFFFFF" d="m 214,306 -57,37c -1,0 -2,2 -2,3v 40c 0,1 1,2 2,3l 57,40c 2,1 6,1 7,0l 58,-40c 1,0 2,-1 2,-3v -40c 0,-2 -2,-3 -2,-3l -57,-37c -4,-3 -8,0 -8,0zm -2,13 1,26 -24,16 -19,-14zm 10,0 43,28 -19,14 -24,-16zm -6,35 19,14 -19,14 -19,-14zm -52,3 14,9 -14,9zm 106,0v 19l -14,-9zm -84,15 24,16v 26l -42,-28zm 59,0 17,14 -42,28v -26z" />
+    <path id="htmlIcon"   fill="#FFFFFF" d="m 94,318v 109h 16v -47h 12v 47h 16V 318h -16v 45h -12v -45zm 47,0v 18h 14v 92h 15v -92h 14v -18zm 45,0v 109h 15v -54l 7,41h 12l 5,-42v 55h 15V 318h -16l -11,72 -11,-72zm 62,0 1,109h 34v -19h -19v -91z" />
+    <path id="cssIcon"    fill="#FFFFFF" d="m 94,398c 0,26 18,31 30,31 9,0 32,-3 31,-34h -19c 0,23 -22,21 -22,0v -43c 0,-25 22,-21 22,1h 18c 1,-32 -22,-35 -30,-35 -10,0 -30,3 -30,32zm 105,-1c 0,22 -23,18 -23,-2h -18c 0,0 1,33 30,33 9,0 30,-4 30,-31 0,-42 -39,-26 -39,-50 0,-16 22,-20 22,3h 18c -2,-21 -11,-31 -30,-31 -9,0 -28,0 -29,28 -1,40 39,23 39,50zm 62,0c 0,21 -22,22 -23,-2h -17c 0,0 0,33 30,33 18,0 30,-9 30,-31 0,-41 -39,-27 -39,-50 0,-15 22,-20 22,3h 18c -1,-22 -13,-31 -27,-31 -11,0 -32,1 -33,27 1,38 39,25 39,51z" />
+    <path id="jsIcon"     fill="#FFFFFF" d="m 262,395c 0,20 -22,20 -22,-1h -18c 0,14 5,31 28,31 16,0 30,-9 30,-31 0,-41 -39,-26 -39,-49 0,-16 20,-19 20,3h 18c -1,-27 -14,-30 -27,-30 -19,-1 -29,8 -29,27 -2,38 39,24 39,50zm -67,-76v 74c 0,22 -22,20 -22,-1h -19c -1,26 15,34 30,34 27,0 30,-20 30,-30v -77z" />
+    <mask id="block"><path fill="#FFFFFF" d="M 0,0 H 300 V 450 H 0 Z"/></mask>
+    <mask id="codepenMask"><use href="#codepenIcon"/></mask>
+    <mask id="htmlMask"><use href="#htmlIcon"/></mask>
+    <mask id="cssMask"><use href="#cssIcon"/></mask>
+    <mask id="jsMask"><use href="#jsIcon"/></mask>
+    <mask id="codepenMask2"><use href="#codepenIcon" stroke="#FFFFFF" stroke-width="4"/></mask>
+    <mask id="htmlMask2"><use href="#htmlIcon" stroke="#FFFFFF" stroke-width="4"/></mask>
+    <mask id="cssMask2"><use href="#cssIcon" stroke="#FFFFFF" stroke-width="4"/></mask>
+    <mask id="jsMask2"><use href="#jsIcon" stroke="#FFFFFF" stroke-width="4"/></mask>
+    <linearGradient id="cl1" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="20%" stop-color="#b169db"/>
+      <stop offset="45%" stop-color="#f7d152"/>
+      <stop offset="65%" stop-color="#46cf71"/>
+      <stop offset="85%" stop-color="#0fbffa"/>
+      <stop offset="100%" stop-color="#0fbffa"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- GSAP -->
+<script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/gsap@3/dist/SplitText.min.js"></script>
+
+</script>
+<script src="script.js"></script>
+</body>
+</html>
