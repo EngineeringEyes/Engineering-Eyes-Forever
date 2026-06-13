@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Launch Gallery - Cinematic Accordion Showcase</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   ESTILOS DEL NEONACCORDION — ORIGINAL, SIN MODIFICAR.
+═══════════════════════════════════════════════════════════════ */
+:root {
+    --bg0: #05070c;
+    --bg1: #0a1020;
+    --card: rgba(255, 255, 255, 0.06);
+    --card2: rgba(255, 255, 255, 0.1);
+    --text: #eaf0ff;
+    --muted: rgba(234, 240, 255, 0.72);
+    --line: rgba(255, 255, 255, 0.12);
+    --shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --dur: 720ms;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    background: radial-gradient(1000px 600px at 15% 10%, rgba(124, 255, 178, 0.1), transparent 55%),
+        radial-gradient(900px 520px at 85% 25%, rgba(122, 167, 255, 0.1), transparent 58%),
+        radial-gradient(900px 600px at 55% 90%, rgba(255, 125, 125, 0.08), transparent 62%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.wrap { width: min(1200px, 96vw); height: min(720px, 92vh); display: flex; flex-direction: column; gap: 14px; }
+.topbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    padding: 14px 16px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35); backdrop-filter: blur(10px);
+}
+.brand { display: flex; align-items: center; gap: 12px; min-width: 240px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: #7cffb2; box-shadow: 0 0 18px rgba(124, 255, 178, 0.55); }
+.brand-title { font-weight: 800; letter-spacing: 0.2px; }
+.brand-sub { font-size: 12px; color: var(--muted); }
+.top-actions { display: flex; gap: 10px; }
+.chip {
+    border: 1px solid var(--line); background: rgba(255, 255, 255, 0.06); color: var(--text);
+    padding: 10px 12px; border-radius: 999px; cursor: pointer;
+    transition: transform 180ms var(--ease), background 180ms var(--ease);
+}
+.chip:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.1); }
+.chip:active { transform: translateY(0px) scale(0.98); }
+.stage {
+    position: relative; flex: 1; border-radius: 18px; overflow: hidden;
+    box-shadow: var(--shadow); border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(0, 0, 0, 0.18);
+}
+.status {
+    position: absolute; z-index: 10; top: 14px; left: 14px;
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 999px;
+    background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(10px);
+}
+.status-led { width: 8px; height: 8px; border-radius: 50%; background: #7cffb2; box-shadow: 0 0 18px rgba(124, 255, 178, 0.55); }
+.status-text { font-size: 12px; color: var(--muted); }
+.status-text b { color: var(--text); }
+.status-hint { font-size: 12px; color: rgba(234, 240, 255, 0.55); }
+.accordion { height: 100%; display: flex; }
+.panel {
+    position: relative; flex: 1; cursor: pointer;
+    transition: flex var(--dur) var(--ease), filter var(--dur) var(--ease);
+    overflow: hidden; filter: saturate(0.75) grayscale(0.2) brightness(0.9); isolation: isolate;
+}
+.panel.active { flex: 2.7; filter: saturate(1.05) grayscale(0) brightness(1); }
+.panel-bg {
+    position: absolute; inset: 0; background-image: var(--bg); background-size: cover; background-position: center;
+    transform: scale(1.05); transition: transform 900ms var(--ease);
+}
+.panel.active .panel-bg { transform: scale(1.12); }
+.panel::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(800px 380px at 40% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.84)); z-index: 1;
+}
+.panel::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.55)); opacity: 0.25; z-index: 1;
+}
+.panel-content { position: absolute; left: 24px; right: 24px; bottom: 22px; z-index: 2; color: var(--text); }
+.panel-kicker {
+    display: flex; gap: 8px; align-items: center; margin-bottom: 10px;
+    opacity: 0; transform: translateY(10px); transition: opacity 420ms var(--ease), transform 420ms var(--ease);
+}
+.panel.active .panel-kicker { opacity: 1; transform: translateY(0); transition-delay: 140ms; }
+.pill { font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.16); background: rgba(0, 0, 0, 0.2); }
+.pill.ghost { color: rgba(234, 240, 255, 0.7); background: rgba(255, 255, 255, 0.06); }
+.panel-id {
+    position: absolute; left: 0; bottom: -8px; font-size: 64px; font-weight: 300;
+    color: rgba(255, 255, 255, 0.25); letter-spacing: -2px; transition: all var(--dur) var(--ease);
+}
+.panel.active .panel-id { bottom: auto; top: -56px; font-size: 52px; color: rgba(255, 255, 255, 0.35); }
+.panel-title {
+    font-size: 30px; letter-spacing: 0.2px; font-weight: 800; margin-bottom: 6px;
+    opacity: 0; transform: translateY(18px); transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+}
+.panel.active .panel-title { opacity: 1; transform: translateY(0); transition-delay: 220ms; }
+.panel-subtitle {
+    max-width: 520px; font-size: 14px; line-height: 1.4; color: rgba(234, 240, 255, 0.78); margin-bottom: 16px;
+    opacity: 0; transform: translateY(18px); transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+}
+.panel.active .panel-subtitle { opacity: 1; transform: translateY(0); transition-delay: 300ms; }
+.grid {
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 14px;
+    opacity: 0; transform: translateY(18px); transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+}
+.panel.active .grid { opacity: 1; transform: translateY(0); transition-delay: 380ms; }
+.specs { border-radius: 14px; padding: 12px 12px; background: rgba(0, 0, 0, 0.22); border: 1px solid rgba(255, 255, 255, 0.12); }
+.row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 8px; border-radius: 10px; transition: background 220ms var(--ease); }
+.row:hover { background: rgba(255, 255, 255, 0.06); }
+.k { color: rgba(234, 240, 255, 0.7); font-size: 13px; }
+.v { font-weight: 700; font-size: 13px; }
+.meta { display: flex; flex-direction: column; gap: 10px; }
+.meta-card { border-radius: 14px; padding: 12px 12px; background: rgba(0, 0, 0, 0.22); border: 1px solid rgba(255, 255, 255, 0.12); }
+.meta-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.label { font-size: 12px; color: rgba(234, 240, 255, 0.7); }
+.value { font-size: 12px; font-weight: 800; }
+.bar { height: 10px; border-radius: 999px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.06); }
+.bar-fill { display: block; height: 100%; width: 50%; background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.55)); }
+.fine { margin-top: 8px; font-size: 12px; color: rgba(234, 240, 255, 0.62); }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge {
+    font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.06);
+    opacity: 0; transform: scale(0.92); transition: opacity 340ms var(--ease), transform 340ms var(--ease), border-color 340ms var(--ease);
+}
+.panel.active .badge { opacity: 1; transform: scale(1); }
+.panel.active .badge:nth-child(1) { transition-delay: 520ms; }
+.panel.active .badge:nth-child(2) { transition-delay: 580ms; }
+.panel.active .badge:nth-child(3) { transition-delay: 640ms; }
+.cta-row {
+    display: flex; align-items: center; gap: 10px; margin-top: 14px;
+    opacity: 0; transform: translateY(16px); transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+}
+.panel.active .cta-row { opacity: 1; transform: translateY(0); transition-delay: 520ms; }
+.cta {
+    border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(0, 0, 0, 0.22); color: var(--text);
+    padding: 10px 12px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-decoration: none;
+    transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+}
+.cta:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.1); }
+.cta:active { transform: translateY(0px) scale(0.985); }
+.cta-ico { display: inline-flex; width: 28px; height: 28px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); }
+.ghost-btn {
+    border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.06); color: rgba(234, 240, 255, 0.82);
+    padding: 10px 12px; border-radius: 12px; cursor: pointer; text-decoration: none; transition: transform 180ms var(--ease), background 180ms var(--ease);
+}
+.ghost-btn:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.1); }
+.ghost-btn:active { transform: translateY(0px) scale(0.985); }
+.corner {
+    position: absolute; right: 16px; bottom: 16px; width: 38px; height: 38px; border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, 0.2); background: transparent; cursor: pointer; z-index: 3;
+    transition: transform 200ms var(--ease), border-color 200ms var(--ease), background 200ms var(--ease);
+}
+.corner::before, .corner::after {
+    content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.75); transition: transform 200ms var(--ease), opacity 200ms var(--ease);
+}
+.corner::before { width: 14px; height: 2px; }
+.corner::after { width: 2px; height: 14px; }
+.panel.active .corner::after { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+.corner:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.08); }
+.corner:active { transform: translateY(0px) scale(0.98); }
+.nav {
+    position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(0, 0, 0, 0.3); color: var(--text);
+    font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px); z-index: 12; transition: background 180ms var(--ease), transform 180ms var(--ease);
+}
+.nav:hover { background: rgba(255, 255, 255, 0.12); }
+.nav:active { transform: translateY(-50%) scale(0.98); }
+.nav-prev { left: 12px; }
+.nav-next { right: 12px; }
+.foot {
+    display: flex; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(10px);
+}
+.mini { display: flex; align-items: center; gap: 10px; font-size: 12px; color: rgba(234, 240, 255, 0.7); }
+.mini-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, 0.4); }
+@media (max-width: 860px) {
+    body { overflow: auto; }
+    .wrap { height: auto; }
+    .stage { height: 78vh; }
+    .accordion { flex-direction: column; }
+    .panel { min-height: 96px; }
+    .panel.active { flex: 2.2; }
+    .grid { grid-template-columns: 1fr; }
+    .panel-id { font-size: 44px; }
+    .panel.active .panel-id { top: -44px; }
+    .nav { top: auto; bottom: 12px; transform: none; }
+    .nav-prev { left: 12px; }
+    .nav-next { right: 12px; }
+}
+body.ambient { filter: saturate(1.25) contrast(1.1) brightness(1.02); }
+body.ambient::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+    background: radial-gradient(1200px 700px at 20% 15%, rgba(124, 255, 178, 0.1), transparent 55%),
+        radial-gradient(1100px 650px at 80% 25%, rgba(122, 167, 255, 0.1), transparent 58%),
+        radial-gradient(900px 650px at 55% 90%, rgba(255, 125, 125, 0.08), transparent 62%),
+        radial-gradient(1200px 900px at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.55) 78%, rgba(0, 0, 0, 0.72) 100%);
+}
+body.ambient::after {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: 0.08; mix-blend-mode: overlay;
+    background-image: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 3px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 4px);
+}
+body.ambient .stage {
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.12), 0 0 40px rgba(124, 255, 178, 0.1), 0 0 40px rgba(122, 167, 255, 0.1);
+}
+body.ambient .nav { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.22); }
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO DE COMPRA — AGREGADO. No toca los estilos originales.
+═══════════════════════════════════════════════════════════════ */
+.buy-price { font-size: 15px; }
+.buy-proof { display: flex; align-items: center; gap: 7px; }
+.buy-live {
+    width: 7px; height: 7px; border-radius: 50%; flex: none;
+    background: #7cffb2; box-shadow: 0 0 12px rgba(124, 255, 178, 0.7);
+    animation: buyPulse 1.6s ease-in-out infinite;
+}
+@keyframes buyPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+.bm-back {
+    position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center;
+    background: rgba(3, 6, 12, 0.62); backdrop-filter: blur(9px);
+    opacity: 0; pointer-events: none; transition: opacity 260ms var(--ease); padding: 18px;
+}
+.bm-back.open { opacity: 1; pointer-events: auto; }
+.bm-card {
+    width: min(430px, 94vw); border-radius: 18px; padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6); backdrop-filter: blur(14px);
+    transform: translateY(14px) scale(0.98); transition: transform 280ms var(--ease);
+}
+.bm-back.open .bm-card { transform: none; }
+.bm-title { font-size: 20px; font-weight: 800; margin: 10px 0 4px; }
+.bm-sub { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+.bm-prices { display: flex; gap: 10px; margin-bottom: 12px; }
+.bm-price {
+    flex: 1; cursor: pointer; border-radius: 14px; padding: 12px 10px; text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(0, 0, 0, 0.25);
+    transition: transform 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
+}
+.bm-price:hover { transform: translateY(-1px); }
+.bm-price.sel { border-color: var(--bma, #7cffb2); box-shadow: 0 0 0 1px var(--bma, #7cffb2), 0 0 26px rgba(255, 255, 255, 0.08); }
+.bm-price .cur { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.bm-price .amt { font-size: 20px; font-weight: 800; }
+.bm-proof { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(234, 240, 255, 0.8); margin-bottom: 12px; }
+.bm-note { font-size: 12px; color: rgba(234, 240, 255, 0.55); margin-bottom: 14px; }
+.bm-actions { display: flex; gap: 10px; justify-content: flex-end; }
+.bm-actions.col { flex-direction: column; justify-content: stretch; }
+.bm-actions.col .cta, .bm-actions.col .ghost-btn { justify-content: center; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <header class="topbar">
+        <div class="brand">
+            <span class="dot"></span>
+            <div class="brand-text">
+                <div class="brand-title" id="brandTitle">Neon Launch Gallery</div>
+                <div class="brand-sub">Season '26 • curated prototypes • interactive deck</div>
+            </div>
+        </div>
+        <div class="top-actions">
+            <button class="chip" type="button" data-action="shuffle" aria-label="Shuffle lineup">Shuffle</button>
+            <button class="chip" type="button" data-action="toggle-ambient" aria-label="Toggle ambient mode">Ambient</button>
+        </div>
+    </header>
+    <main class="stage" aria-label="Launch lineup accordion slider">
+        <div class="status">
+            <span class="status-led"></span>
+            <span class="status-text">Live Preview: <b id="statusName">Aether One</b></span>
+            <span class="status-hint">Tip: Use &larr; &rarr; keys</span>
+        </div>
+        <section class="accordion" id="accordion"></section>
+        <button class="nav nav-prev" type="button" aria-label="Previous">&lt;</button>
+        <button class="nav nav-next" type="button" aria-label="Next">&gt;</button>
+    </main>
+    <footer class="foot">
+        <div class="mini"><span class="mini-dot"></span><span>Interaction: click panels &bull; arrows &bull; keyboard</span></div>
+        <div class="mini"><span class="mini-dot"></span><span id="modeText">Mode: Crisp</span></div>
+    </footer>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   DATOS POR PROGRAMA — edita SOLO los objetos de abajo.
+
+   ⚠️ REGLA DE ORO:
+   • DEFAULT_PANELS  = plantilla COMPARTIDA (los 4 autos).
+     La usan TODOS los programas que NO estén en SW_DETAIL.
+     ¡NO la edites para personalizar un programa!
+   • SW_DETAIL       = contenido POR PROGRAMA. Aquí sí se edita.
+═══════════════════════════════════════════════════════════════ */
+
+/* Los 4 paneles ORIGINALES, intactos (autos + colores + fotos Unsplash). */
+const DEFAULT_PANELS = [
+  {
+    accent: "#7CFFB2",
+    bg: "https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?auto=format&fit=crop&w=2070&q=80",
+    id: "01", title: "Aether One", pill: "Concept", pillGhost: "Studio: ARC",
+    subtitle: "A modular electric hyper-coupe with adaptive aero + silent torque.",
+    specs: [["Power","820 kW (\u22481100 hp)"],["0-100","2.4s"],["Range","610 km (est.)"],["Drive","Tri-motor AWD"]],
+    metaLabel: "Launch Window", metaValue: "Q3 \u2022 2026", bar: 72, fine: "Prototype readiness: 72%",
+    badges: ["Active Aero","Track Pack","Carbon Monocoque"],
+    ctaText: "View Build Sheet", ctaUrl: "", ghostText: "Save to Deck", ghostUrl: ""
+  },
+  {
+    accent: "#7AA7FF",
+    bg: "https://images.unsplash.com/photo-1511910849309-0dffb878f1b3?auto=format&fit=crop&w=2070&q=80",
+    id: "02", title: "Vanta GT", pill: "Prototype", pillGhost: "Program: Nightline",
+    subtitle: "Twin-turbo hybrid grand tourer built for long-haul speed + comfort.",
+    specs: [["Engine","3.5L TT V6 + e-boost"],["Output","980 hp combined"],["Top","352 km/h"],["Gearbox","8-spd DCT"]],
+    metaLabel: "Route Mode", metaValue: "Adaptive", bar: 58, fine: "Touring calibration: 58%",
+    badges: ["Glass Cockpit","Mag Ride","Cabin Quiet+"],
+    ctaText: "Compare Specs", ctaUrl: "", ghostText: "Save to Deck", ghostUrl: ""
+  },
+  {
+    accent: "#FF7D7D",
+    bg: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2070&q=80",
+    id: "03", title: "Kinetic R", pill: "R&D", pillGhost: "Cell: K-Lab",
+    subtitle: "A lightweight track rocket with precision downforce tuning.",
+    specs: [["Mass","1,180 kg"],["0-100","2.8s"],["Downforce","860 kg @ 250"],["Tires","Semi-slick R"]],
+    metaLabel: "Track Bias", metaValue: "High", bar: 84, fine: "Aero stability: 84%",
+    badges: ["Aero Map","Data Telemetry","Ceramic Brakes"],
+    ctaText: "Open Telemetry", ctaUrl: "", ghostText: "Save to Deck", ghostUrl: ""
+  },
+  {
+    accent: "#FFD36A",
+    bg: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2070&q=80",
+    id: "04", title: "Solstice S", pill: "Edition", pillGhost: "Series: Sunburst",
+    subtitle: "A refined performance roadster with sunset-mode lighting + torque vectoring.",
+    specs: [["Power","690 hp"],["0-100","3.1s"],["Roof","Active hardtop"],["Assist","Vector+ AWD"]],
+    metaLabel: "Road Feel", metaValue: "Balanced", bar: 66, fine: "Daily drive score: 66%",
+    badges: ["Sunset LEDs","Comfort+","Brembo Spec"],
+    ctaText: "Book a Demo", ctaUrl: "", ghostText: "Save to Deck", ghostUrl: ""
+  }
+];
+
+/* ───────────────────────────────────────────────────────────────
+   CONFIGURACIÓN DE COMPRA (global, vale para todos los programas).
+   Cada panel con "buy" usará este correo y este Telegram,
+   salvo que el panel traiga los suyos propios.
+─────────────────────────────────────────────────────────────── */
+const BUY_CONFIG = {
+  email: "engineeringeyes68@gmail.com",
+  telegram: "https://t.me/+xT9picqsAUI5MDAx"
+};
+
+/* ───────────────────────────────────────────────────────────────
+   PROGRAMAS PERSONALIZADOS — SISTEMA DE CATÁLOGO.
+
+   Cada programa es un bloque corto dentro de CATALOGO. La función
+   makeSW() construye automáticamente los 4 paneles estándar:
+     01 El programa (+ Comprar) · 02 Novedades · 03 Requisitos · 04 Tutorial
+
+   ➕ PARA AGREGAR UN PROGRAMA NUEVO EN EL FUTURO:
+      copia un bloque { ... } de CATALOGO, pégalo antes del cierre ],
+      cambia los textos y listo. Nada más que tocar.
+
+   💰 CAMBIAR PRECIOS: en cada programa edita su última línea:
+        pen: 199, usd: 60, buyers: 10
+      pen = soles · usd = dólares (con tu comisión incluida; de aquí
+      salen las conversiones a otras monedas) · buyers = contador.
+
+   🆓 HACERLO GRATUITO: agrega estas líneas dentro del programa
+      (los precios se ignoran y el botón lleva directo al enlace):
+        gratis: true,
+        urlGratis: "https://t.me/TU_ENLACE",      // opcional (por defecto tu Telegram)
+        textoGratis: "Descargar gratis",          // opcional (texto del botón)
+
+   ✏️ EN CADA PROGRAMA, EDITA: pen / usd / buyers (precios y ventas),
+      la versión si cambia, y las imágenes (las 4 actuales son TEMPORALES).
+─────────────────────────────────────────────────────────────── */
+
+/* Imágenes TEMPORALES (los autos del original) mientras subes tus capturas.
+   Puedes dar a cada programa las suyas con  imgs: ["url1","url2","url3","url4"] */
+const IMG_TEMP = [
+  "https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?auto=format&fit=crop&w=2070&q=80",
+  "https://images.unsplash.com/photo-1511910849309-0dffb878f1b3?auto=format&fit=crop&w=2070&q=80",
+  "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2070&q=80",
+  "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=2070&q=80"
+];
+
+function makeSW(c) {
+  const img = i => (c.imgs && c.imgs[i]) || IMG_TEMP[i];
+  const req = c.requisitos || [
+    ["Sistema", "Windows 10 / 11 · 64 bits"],
+    ["RAM", "8 GB mín. · 16 GB recom."],
+    ["Gráficos", "Dedicada recomendada"],
+    ["Disco", "SSD recomendado"]
+  ];
+  return {
+    brandTitle: c.nombre,
+    panels: [
+      { accent: c.color, bg: img(0),
+        id: "01", title: c.nombre, pill: c.categoria, pillGhost: c.dev,
+        subtitle: c.desc, specs: c.ficha, badges: c.badges || [],
+        buy: { gratis: c.gratis === true, pen: c.pen, usd: c.usd, buyers: c.buyers,
+               product: c.nombre, urlGratis: c.urlGratis },
+        ctaText: c.gratis ? (c.textoGratis || "Descargar gratis") : "Comprar",
+        ghostText: "Web oficial", ghostUrl: c.web },
+      { accent: c.color, bg: img(1),
+        id: "02", title: "Novedades", pill: "Actualización", pillGhost: c.version,
+        subtitle: c.vIntro || "Lo más reciente de esta versión.", specs: c.novedades,
+        metaLabel: "Versión actual", metaValue: c.version, bar: 100, fine: c.vNota || "",
+        badges: c.nBadges || [],
+        ctaText: "Más información", ctaUrl: c.webNovedades || c.web,
+        ghostText: "Video resumen", ghostUrl: "URL-VIDEO-YOUTUBE" },
+      { accent: c.color, bg: img(2),
+        id: "03", title: "Requisitos del sistema", pill: "Compatibilidad", pillGhost: "PC",
+        subtitle: "Lo que necesita tu equipo para trabajar con fluidez.", specs: req,
+        metaLabel: "Compatibilidad", metaValue: c.so || "Win 10 / 11", bar: 100,
+        fine: c.rNota || "Datos referenciales · verifica en la web oficial",
+        badges: ["64-bit", "Multiprocesador"],
+        ctaText: "Guía completa", ctaUrl: c.webReq || c.web,
+        ghostText: "Consultar", ghostUrl: BUY_CONFIG.telegram },
+      { accent: c.color, bg: img(3),
+        id: "04", title: "Instalación paso a paso", pill: "Video tutorial", pillGhost: "Guía",
+        subtitle: "Video completo: descarga, instalación y primeros pasos en " + c.nombre + ".",
+        specs: [["Formato","Video HD"],["Duración","≈ 15 min"],["Nivel","Principiante"],["Idioma","Español"]],
+        metaLabel: "Dificultad", metaValue: "Fácil", bar: 25, fine: "No requiere experiencia previa",
+        badges: ["Paso a paso", "Soporte incluido"],
+        ctaText: "Ver tutorial", ctaUrl: "URL-VIDEO-YOUTUBE",
+        ghostText: "Soporte", ghostUrl: BUY_CONFIG.telegram }
+    ]
+  };
+}
+
+const CATALOGO = [
+
+  /* ════ GEOTECNIA ════ */
+  {
+    llave: "geo5-2025", nombre: "GEO5 2025", color: "#2ecc71",
+    categoria: "Geotecnia", dev: "Fine (Chequia)",
+    desc: "Suite geotécnica modular: cimentaciones superficiales y profundas, taludes, muros de contención y asentamientos.",
+    ficha: [["Versión","2025 (v25)"],["Desarrollador","Fine"],["Idioma","Español · Inglés"],["Sistema","Windows 64 bits"]],
+    badges: ["Taludes","Cimentaciones","Muros"],
+    version: "2025", vIntro: "Versión estable de la suite geotécnica profesional.",
+    novedades: [["Taludes","Estabilidad y refuerzos"],["Cimentaciones","Zapatas y pilotes"],["Muros","Contención · tablestacas"],["MEF","Elementos finitos"]],
+    nBadges: ["Estable","Suite modular"],
+    web: "https://www.finesoftware.es/geo5/",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "geo5-2026", nombre: "GEO5 2026", color: "#2ecc71",
+    categoria: "Geotecnia", dev: "Fine (Chequia)",
+    desc: "La versión más reciente: módulos actualizados para análisis dinámico sísmico, integración BIM y reportes automáticos.",
+    ficha: [["Versión","2026 (v26)"],["Desarrollador","Fine"],["Idioma","Español · Inglés"],["Sistema","Windows 64 bits"]],
+    badges: ["Nuevo","Análisis dinámico","BIM Ready"],
+    version: "2026", vIntro: "Nueva versión: módulos avanzados y flujo BIM.",
+    novedades: [["Sismo","Análisis dinámico"],["BIM","Integración IFC"],["Reportes","Automáticos"],["Módulos","Actualizados v26"]],
+    nBadges: ["BIM","Sismo","Reportes"],
+    web: "https://www.finesoftware.es/geo5/",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+
+  /* ════ ESTRUCTURAL · CSI ════ */
+  {
+    llave: "etabs-22", nombre: "ETABS 22", color: "#3498db",
+    categoria: "Estructuras · Edificios", dev: "CSI · Computers & Structures",
+    desc: "Análisis estructural y diseño integral de edificios: modelado, análisis sísmico y detallado en un solo entorno.",
+    ficha: [["Versión","22"],["Desarrollador","CSI (EE. UU.)"],["Enfoque","Edificaciones"],["Sistema","Windows 64 bits"]],
+    badges: ["Análisis no lineal","Diseño sísmico","Concreto y acero"],
+    version: "v22",
+    novedades: [["Análisis","Estático y dinámico"],["No lineal","Pushover · Tiempo-historia"],["Diseño","Concreto · Acero · Muros"],["Normas","ACI · AISC · ASCE"]],
+    nBadges: ["Muros y losas","Detallado"],
+    web: "https://www.csiamerica.com/products/etabs",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "etabs-23", nombre: "ETABS 23", color: "#3498db",
+    categoria: "Estructuras · Edificios", dev: "CSI · Computers & Structures",
+    desc: "La actualización más reciente de ETABS: mejor rendimiento, flujo de diseño optimizado y nuevas verificaciones.",
+    ficha: [["Versión","23"],["Desarrollador","CSI (EE. UU.)"],["Enfoque","Edificaciones"],["Sistema","Windows 64 bits"]],
+    badges: ["Actualizado","Diseño sísmico","Concreto y acero"],
+    version: "v23",
+    novedades: [["Rendimiento","Optimizado"],["Análisis","Estático y dinámico"],["No lineal","Pushover · Tiempo-historia"],["Diseño","Concreto · Acero · Muros"]],
+    nBadges: ["Nuevo","Más rápido"],
+    web: "https://www.csiamerica.com/products/etabs",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "safe-22", nombre: "SAFE 22", color: "#3498db",
+    categoria: "Losas y cimentaciones", dev: "CSI · Computers & Structures",
+    desc: "Diseño de losas de concreto y cimentaciones, con postensado y verificación de punzonamiento integrada.",
+    ficha: [["Versión","22"],["Desarrollador","CSI (EE. UU.)"],["Enfoque","Losas · Plateas"],["Sistema","Windows 64 bits"]],
+    badges: ["Postensado","Punzonamiento","Cimentaciones"],
+    version: "v22",
+    novedades: [["Losas","Macizas · Nervadas"],["Postensado","Tendones y pérdidas"],["Punzonamiento","Verificación integrada"],["Cimentación","Zapatas y plateas"]],
+    nBadges: ["ACI 318","Deflexiones"],
+    web: "https://www.csiamerica.com/products/safe",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "sap2000-v25", nombre: "SAP2000 v25", color: "#3498db",
+    gratis: true,
+    urlGratis: "https://t.me/+xT9picqsAUI5MDAx",
+    textoGratis: "Descargar gratis",
+    categoria: "Estructuras · Uso general", dev: "CSI · Computers & Structures",
+    desc: "Análisis estructural avanzado por elementos finitos: puentes, estructuras especiales, análisis no lineal y pushover.",
+    ficha: [["Versión","v25"],["Desarrollador","CSI (EE. UU.)"],["Enfoque","Uso general"],["Sistema","Windows 64 bits"]],
+    badges: ["Elementos finitos","Cargas móviles","No lineal"],
+    version: "v25",
+    novedades: [["Elementos","Frame · Shell · Solid"],["Cargas","Móviles y dinámicas"],["No lineal","Geométrico y material"],["Normas","ACI · AISC · Eurocódigo"]],
+    nBadges: ["Puentes","Torres","Tanques"],
+    web: "https://www.csiamerica.com/products/sap2000",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "csibridge", nombre: "CSiBridge", color: "#62d9c8",
+    categoria: "Puentes", dev: "CSI · Computers & Structures",
+    desc: "Modelado paramétrico, análisis y diseño de puentes con cargas móviles y etapas constructivas.",
+    ficha: [["Tipo","Diseño de puentes"],["Desarrollador","CSI (EE. UU.)"],["Enfoque","Puentes"],["Sistema","Windows 64 bits"]],
+    badges: ["Paramétrico","Cargas móviles","Etapas"],
+    version: "v26" /* ← verifica/edita */,
+    novedades: [["Modelado","Paramétrico por ejes"],["Cargas","Vehiculares AASHTO"],["Etapas","Constructivas"],["Diseño","Súper e infraestructura"]],
+    nBadges: ["AASHTO LRFD","Pretensado","Sismo"],
+    web: "https://www.csiamerica.com/products/csibridge",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+
+  /* ════ ESTRUCTURAL · CYPE ════ */
+  {
+    llave: "cypecad-2019", nombre: "Cypecad 2019", color: "#e67e22",
+    categoria: "Estructuras", dev: "CYPE Ingenieros",
+    desc: "Versión clásica de CYPECAD: diseño y cálculo de estructuras de hormigón armado con planos de armado automáticos.",
+    ficha: [["Versión","2019"],["Desarrollador","CYPE Ingenieros"],["Idioma","Español"],["Sistema","Windows 64 bits"]],
+    badges: ["Clásica","Hormigón armado","Planos"],
+    version: "2019", vIntro: "Versión clásica, ligera y probada en miles de proyectos.",
+    novedades: [["Estructuras","Hormigón armado"],["Planos","Armado automático"],["Memorias","De cálculo incluidas"],["Equipos","Funciona en PC modestas"]],
+    nBadges: ["Ligera","Estable"],
+    web: "https://www.cype.com",
+    pen: 99, usd: 30, buyers: 10             /* ← EDITA */
+  },
+  {
+    llave: "cypecad-2026", nombre: "CYPECAD 2026", color: "#f6b73c",
+    categoria: "Estructuras", dev: "CYPE Ingenieros",
+    desc: "Cálculo y dimensionamiento de estructuras de hormigón armado y mixtas, integrado en el flujo de trabajo Open BIM.",
+    ficha: [["Versión","2026.c"],["Desarrollador","CYPE Ingenieros"],["Idioma","Español · Inglés"],["Sistema","Windows 64 bits"]],
+    badges: ["Open BIM","Hormigón armado","Análisis sísmico"],
+    version: "2026.c", vIntro: "«Más en menos tiempo»: productividad, fluidez y nuevos módulos de cálculo estructural.",
+    novedades: [["Losas aligeradas","Cálculo automático"],["Sismo","Modal espectral · CQC"],["Hormigón","ACI 318-25"],["Cimentaciones","Tensiones en zapatas"]],
+    vNota: "Publicada el 2 de febrero de 2026",
+    nBadges: ["Nuevas normativas","Más rendimiento","BIMserver.center"],
+    webNovedades: "https://info.cype.com/es/novedades/version-2026-c/",
+    requisitos: [["Sistema","Windows 10 / 11 · 64 bits"],["RAM","8 GB mín. · 16 GB recom."],["Gráficos","OpenGL 3+ (NVIDIA / AMD)"],["Pantalla","1366×768 mínimo"]],
+    rNota: "Solo 64 bits desde la versión 2025.a",
+    webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
+    web: "https://www.cype.com",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "cypecad-2027", nombre: "Cypecad 2027.a", color: "#f6b73c",
+    categoria: "Estructuras", dev: "CYPE Ingenieros",
+    desc: "Cálculo y dimensionamiento de estructuras de hormigón armado y mixtas, integrado en el flujo de trabajo Open BIM.",
+    ficha: [["Versión","2027.a"],["Desarrollador","CYPE Ingenieros"],["Idioma","Español · Inglés"],["Sistema","Windows 64 bits"]],
+    badges: ["Open BIM","Modo oscuro","Análisis sísmico"],
+    version: "2027.a", vIntro: "Recién lanzada: modo oscuro en todas las aplicaciones y nuevos módulos de cálculo.",
+    novedades: [["Micropilotes","Nuevo módulo IV"],["Losas aligeradas","Generación optimizada"],["Normas","ASCE 7-22 · NBR 6118:2026"],["CYPE 3D","2.º orden · Pushover"]],
+    vNota: "Lanzada en junio de 2026 · incluye CIRSOC 102-2025",
+    nBadges: ["Modo oscuro","Uniones paramétricas","Nuevas normativas"],
+    webNovedades: "https://info.cype.com/es/novedades/version-2027-a/",
+    requisitos: [["Sistema","Windows 7 – 11 · 64 bits"],["RAM","8 GB mín. · 16 GB recom."],["Gráficos","OpenGL 3+ (NVIDIA / AMD)"],["Pantalla","1366×768 mínimo"]],
+    webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
+    web: "https://www.cype.com",
+    pen: 199, usd: 60, buyers: 3             /* ← EDITA */
+  },
+
+  /* ════ OTROS ESTRUCTURALES ════ */
+  {
+    llave: "risa-suite", nombre: "RISA Suite", color: "#7cffb2",
+    categoria: "Estructuras · Suite", dev: "RISA Tech (EE. UU.)",
+    desc: "Suite integrada de análisis y diseño: RISA-3D, RISAFloor y RISAFoundation para acero, concreto, madera y aluminio.",
+    ficha: [["Incluye","RISA-3D · Floor · Foundation"],["Desarrollador","RISA Tech"],["Materiales","Acero · Concreto · Madera"],["Sistema","Windows 64 bits"]],
+    badges: ["Suite integrada","Acero","Conexiones"],
+    version: "2026" /* ← verifica/edita */,
+    novedades: [["RISA-3D","Análisis 3D general"],["RISAFloor","Pisos y vigas"],["RISAFoundation","Cimentaciones"],["Integración","Modelo único compartido"]],
+    nBadges: ["AISC","Madera NDS","Aluminio"],
+    web: "https://risa.com",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "adapt-builder", nombre: "ADAPT-Builder", color: "#ff7da3",
+    categoria: "Postensado", dev: "ADAPT · RISA Tech",
+    desc: "Diseño de losas y vigas de concreto postensado con modelado 3D y flujo de trabajo BIM.",
+    ficha: [["Tipo","Diseño PT"],["Desarrollador","ADAPT (RISA)"],["Enfoque","Losas postensadas"],["Sistema","Windows 64 bits"]],
+    badges: ["Postensado","BIM 3D","Concreto"],
+    version: "2026" /* ← verifica/edita */,
+    novedades: [["Postensado","Adherido y no adherido"],["Losas","PT y reforzadas"],["Vigas","Continuas PT"],["Verificación","ACI 318 · deflexiones"]],
+    nBadges: ["Tendones","Pérdidas","Deflexiones"],
+    web: "https://risa.com/products/adapt-builder",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "idea-statica", nombre: "IDEA StatiCa", color: "#6fb8ff",
+    categoria: "Conexiones de acero", dev: "IDEA StatiCa (Chequia)",
+    desc: "Diseño y verificación de conexiones de acero y detalles de concreto con el método CBFEM, sin límites de topología.",
+    ficha: [["Tipo","Conexiones"],["Desarrollador","IDEA StatiCa"],["Método","CBFEM"],["Sistema","Windows 64 bits"]],
+    badges: ["CBFEM","Acero","Anclajes"],
+    version: "25" /* ← verifica/edita */,
+    novedades: [["Método","CBFEM"],["Conexiones","Cualquier topología"],["Enlaces","ETABS · SAP2000 · Robot"],["Concreto","Detalles y anclajes"]],
+    nBadges: ["AISC · EC3","Importación BIM","Reportes"],
+    web: "https://www.ideastatica.com",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+
+  /* ════ BIM & CAD · AUTODESK ════ */
+  {
+    llave: "revit-2025", nombre: "Revit 2025", color: "#e74c3c",
+    categoria: "BIM · Arquitectura", dev: "Autodesk",
+    desc: "Plataforma BIM líder para modelado arquitectónico y estructural, coordinación multidisciplinaria y planos automáticos.",
+    ficha: [["Versión","2025"],["Desarrollador","Autodesk"],["Enfoque","BIM"],["Sistema","Windows 64 bits"]],
+    badges: ["BIM","Coordinación","Planos"],
+    version: "2025",
+    novedades: [["BIM","Modelado paramétrico"],["Planos","Generación automática"],["Coordinación","Multidisciplinaria"],["Familias","Biblioteca editable"]],
+    nBadges: ["Estable","Renders"],
+    web: "https://www.autodesk.com/products/revit/overview",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "revit-2026", nombre: "Revit 2026", color: "#e74c3c",
+    categoria: "BIM · Arquitectura", dev: "Autodesk",
+    desc: "La versión más reciente de Revit: rendimiento mejorado, nuevas herramientas de modelado y colaboración en la nube.",
+    ficha: [["Versión","2026"],["Desarrollador","Autodesk"],["Enfoque","BIM"],["Sistema","Windows 64 bits"]],
+    badges: ["Nuevo","BIM","Nube"],
+    version: "2026",
+    novedades: [["Rendimiento","Vistas más rápidas"],["Modelado","Herramientas nuevas"],["Nube","Colaboración BIM"],["Interfaz","Modernizada"]],
+    nBadges: ["Nuevo","Más rápido"],
+    web: "https://www.autodesk.com/products/revit/overview",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "revit-2027", nombre: "Revit 2027", color: "#e74c3c",
+    categoria: "BIM · Arquitectura", dev: "Autodesk",
+    desc: "Acceso anticipado a la próxima generación de Revit. Versión beta para probar las funciones más nuevas.",
+    ficha: [["Versión","2027 (Beta)"],["Desarrollador","Autodesk"],["Enfoque","BIM"],["Sistema","Windows 64 bits"]],
+    badges: ["Beta","Acceso anticipado","BIM"],
+    version: "2027 β", vNota: "Versión beta · puede tener cambios",
+    novedades: [["Estado","Beta pública"],["Funciones","En desarrollo"],["BIM","Próxima generación"],["Feedback","Acceso anticipado"]],
+    nBadges: ["Beta","Anticipado"],
+    web: "https://www.autodesk.com/products/revit/overview",
+    pen: 199, usd: 60, buyers: 3             /* ← EDITA */
+  },
+  {
+    llave: "autocad-2023", nombre: "AutoCAD 2023", color: "#e74c3c",
+    categoria: "CAD · 2D/3D", dev: "Autodesk",
+    desc: "El estándar del dibujo técnico: dibujo 2D de precisión y modelado 3D con formato DWG nativo.",
+    ficha: [["Versión","2023"],["Desarrollador","Autodesk"],["Enfoque","Dibujo técnico"],["Sistema","Windows 64 bits"]],
+    badges: ["2D / 3D","DWG","Bloques"],
+    version: "2023",
+    novedades: [["Dibujo","2D de precisión"],["3D","Modelado sólido"],["Bloques","Dinámicos"],["Compatibilidad","DWG nativo"]],
+    nBadges: ["Estable","Ligero"],
+    web: "https://www.autodesk.com/products/autocad/overview",
+    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "autocad-2024", nombre: "AutoCAD 2024", color: "#e74c3c",
+    categoria: "CAD · 2D/3D", dev: "Autodesk",
+    desc: "El estándar del dibujo técnico: dibujo 2D de precisión y modelado 3D con formato DWG nativo.",
+    ficha: [["Versión","2024"],["Desarrollador","Autodesk"],["Enfoque","Dibujo técnico"],["Sistema","Windows 64 bits"]],
+    badges: ["2D / 3D","DWG","Marcas inteligentes"],
+    version: "2024",
+    novedades: [["Marcas","Importación inteligente"],["Dibujo","2D de precisión"],["3D","Modelado sólido"],["Compatibilidad","DWG nativo"]],
+    nBadges: ["Estable","Recomendado"],
+    web: "https://www.autodesk.com/products/autocad/overview",
+    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "autocad-2025", nombre: "AutoCAD 2025", color: "#e74c3c",
+    categoria: "CAD · 2D/3D", dev: "Autodesk",
+    desc: "La versión más reciente de AutoCAD: marcas inteligentes con IA, rendimiento mejorado y DWG nativo.",
+    ficha: [["Versión","2025"],["Desarrollador","Autodesk"],["Enfoque","Dibujo técnico"],["Sistema","Windows 64 bits"]],
+    badges: ["Nuevo","IA","DWG"],
+    version: "2025",
+    novedades: [["IA","Marcas inteligentes"],["Rendimiento","Mejorado"],["Dibujo","2D de precisión"],["Compatibilidad","DWG nativo"]],
+    nBadges: ["Nuevo","IA"],
+    web: "https://www.autodesk.com/products/autocad/overview",
+    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "civil-3d-2023", nombre: "Civil 3D 2023", color: "#e74c3c",
+    categoria: "Infraestructura", dev: "Autodesk",
+    desc: "Diseño de infraestructura civil: carreteras, corredores, perfiles, plataformas y movimiento de tierras.",
+    ficha: [["Versión","2023"],["Desarrollador","Autodesk"],["Enfoque","Vial · Saneamiento"],["Sistema","Windows 64 bits"]],
+    badges: ["Corredores","Superficies","Vial"],
+    version: "2023",
+    novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["Perfiles","Longitudinales"],["Tuberías","Redes sanitarias"]],
+    nBadges: ["Estable","Vial"],
+    web: "https://www.autodesk.com/products/civil-3d/overview",
+    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "civil-3d-2024", nombre: "Civil 3D 2024", color: "#e74c3c",
+    categoria: "Infraestructura", dev: "Autodesk",
+    desc: "Diseño de infraestructura civil: carreteras, corredores, perfiles, plataformas y movimiento de tierras.",
+    ficha: [["Versión","2024"],["Desarrollador","Autodesk"],["Enfoque","Vial · Saneamiento"],["Sistema","Windows 64 bits"]],
+    badges: ["Corredores","Superficies","Vial"],
+    version: "2024",
+    novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["Perfiles","Longitudinales"],["Tuberías","Redes sanitarias"]],
+    nBadges: ["Estable","Recomendado"],
+    web: "https://www.autodesk.com/products/civil-3d/overview",
+    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "civil-3d-2025", nombre: "Civil 3D 2025", color: "#e74c3c",
+    categoria: "Infraestructura", dev: "Autodesk",
+    desc: "La versión más reciente de Civil 3D para diseño vial e infraestructura con flujos BIM conectados.",
+    ficha: [["Versión","2025"],["Desarrollador","Autodesk"],["Enfoque","Vial · Saneamiento"],["Sistema","Windows 64 bits"]],
+    badges: ["Nuevo","Corredores","BIM"],
+    version: "2025",
+    novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["BIM","Flujos conectados"],["Tuberías","Redes sanitarias"]],
+    nBadges: ["Nuevo","BIM"],
+    web: "https://www.autodesk.com/products/civil-3d/overview",
+    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+  },
+
+  /* ════ BIM & CAD · OTROS ════ */
+  {
+    llave: "archicad-28", nombre: "ARCHICAD 28", color: "#5ad1ff",
+    categoria: "BIM · Arquitectura", dev: "Graphisoft (Nemetschek)",
+    desc: "BIM arquitectónico: diseño, documentación y colaboración OpenBIM en un flujo de trabajo integrado.",
+    ficha: [["Versión","28"],["Desarrollador","Graphisoft"],["Enfoque","Arquitectura BIM"],["Sistema","Windows · macOS"]],
+    badges: ["BIM nativo","OpenBIM","Documentación"],
+    version: "28", so: "Win · macOS",
+    novedades: [["Diseño","Modelado BIM nativo"],["Documentación","Planos automáticos"],["OpenBIM","IFC · BCF"],["Colaboración","BIMcloud"]],
+    nBadges: ["Render","Teamwork","Detalles"],
+    web: "https://graphisoft.com/es/soluciones/archicad",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "bluebeam-revu", nombre: "Bluebeam Revu", color: "#4f8df9",
+    categoria: "PDF para construcción", dev: "Bluebeam (Nemetschek)",
+    desc: "PDF inteligente para AEC: revisión de planos, mediciones, metrados y colaboración en tiempo real con Studio.",
+    ficha: [["Tipo","PDF · Markups"],["Desarrollador","Bluebeam"],["Enfoque","Planos AEC"],["Sistema","Windows 64 bits"]],
+    badges: ["Markups","Metrados","Studio"],
+    version: "21" /* ← verifica/edita */,
+    novedades: [["Markups","Herramientas AEC"],["Mediciones","Áreas · longitudes · conteos"],["Studio","Colaboración en vivo"],["Comparar","Revisiones de planos"]],
+    nBadges: ["Sellos","OCR","Nube"],
+    web: "https://www.bluebeam.com",
+    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+  },
+
+  /* ════ GIS ════ */
+  {
+    llave: "global-mapper", nombre: "Global Mapper", color: "#ffd36a",
+    categoria: "SIG · Terreno", dev: "Blue Marble Geographics",
+    desc: "SIG todo en uno: análisis de terreno, LiDAR, datos ráster y vectoriales con cientos de formatos compatibles.",
+    ficha: [["Tipo","SIG de escritorio"],["Desarrollador","Blue Marble"],["Enfoque","Terreno · LiDAR"],["Sistema","Windows 64 bits"]],
+    badges: ["MDE","LiDAR","Ráster y vector"],
+    version: "v26" /* ← verifica/edita */,
+    novedades: [["Terreno","MDE y curvas de nivel"],["LiDAR","Módulo opcional"],["Formatos","Cientos compatibles"],["Análisis","Cuencas · visibilidad"]],
+    nBadges: ["Georreferencia","3D","Scripts"],
+    web: "https://www.bluemarblegeo.com/global-mapper/",
+    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+  },
+  {
+    llave: "arcgis-pro", nombre: "ArcGIS Pro 3.4.2", color: "#6fd3ff",
+    categoria: "SIG profesional", dev: "Esri",
+    desc: "SIG de escritorio de Esri: cartografía 2D/3D, análisis espacial avanzado y ciencia de datos geográfica.",
+    ficha: [["Versión","3.4.2"],["Desarrollador","Esri"],["Enfoque","Cartografía · Análisis"],["Sistema","Windows 64 bits"]],
+    badges: ["2D / 3D","Geoprocesos","Python"],
+    version: "3.4.2",
+    novedades: [["Cartografía","2D y 3D"],["Geoprocesos","Cientos de herramientas"],["Python","ArcPy · Notebooks"],["Nube","ArcGIS Online"]],
+    nBadges: ["Imágenes","Deep Learning","Layouts"],
+    web: "https://www.esri.com/es-es/arcgis/products/arcgis-pro/overview",
+    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+  },
+
+  /* ════ PRODUCTIVIDAD ════ */
+  {
+    llave: "office-2019", nombre: "Office 2019", color: "#f7d152",
+    categoria: "Productividad", dev: "Microsoft",
+    desc: "Suite ofimática completa: Word, Excel, PowerPoint y más para informes, cálculos y presentaciones de ingeniería.",
+    ficha: [["Versión","2019"],["Desarrollador","Microsoft"],["Incluye","Word · Excel · PPT"],["Sistema","Windows 64 bits"]],
+    badges: ["Suite completa","Sin suscripción"],
+    version: "2019",
+    novedades: [["Word","Documentos e informes"],["Excel","Cálculos y tablas"],["PowerPoint","Presentaciones"],["Licencia","Permanente"]],
+    nBadges: ["Clásico","Estable"],
+    web: "https://www.microsoft.com/es-es/microsoft-365",
+    pen: 99, usd: 30, buyers: 10             /* ← EDITA */
+  },
+  {
+    llave: "office-2021", nombre: "Office 2021", color: "#f7d152",
+    categoria: "Productividad", dev: "Microsoft",
+    desc: "Suite ofimática estable con funciones modernas de Excel (XLOOKUP, matrices dinámicas) y colaboración mejorada.",
+    ficha: [["Versión","2021"],["Desarrollador","Microsoft"],["Incluye","Word · Excel · PPT"],["Sistema","Windows 64 bits"]],
+    badges: ["Suite estable","XLOOKUP"],
+    version: "2021",
+    novedades: [["Excel","XLOOKUP · matrices"],["Interfaz","Modernizada"],["Word","Coautoría"],["Licencia","Permanente"]],
+    nBadges: ["Recomendado","Estable"],
+    web: "https://www.microsoft.com/es-es/microsoft-365",
+    pen: 99, usd: 30, buyers: 10             /* ← EDITA */
+  },
+  {
+    llave: "office-365", nombre: "Office 365", color: "#f7d152",
+    categoria: "Productividad", dev: "Microsoft",
+    desc: "Microsoft 365: la suite en la nube con actualizaciones continuas, OneDrive y aplicaciones siempre al día.",
+    ficha: [["Tipo","Suscripción cloud"],["Desarrollador","Microsoft"],["Incluye","Apps + OneDrive"],["Sistema","Win · macOS · Móvil"]],
+    badges: ["Cloud","Siempre actualizado"],
+    version: "365", so: "Multiplataforma",
+    novedades: [["Nube","OneDrive incluido"],["Actualizaciones","Continuas"],["Apps","PC · web · móvil"],["Copilot","IA integrada"]],
+    nBadges: ["Cloud","IA"],
+    web: "https://www.microsoft.com/es-es/microsoft-365",
+    pen: 99, usd: 30, buyers: 10             /* ← EDITA */
+  },
+
+  /* ════ RECURSOS · PLANTILLAS ════ */
+  {
+    llave: "plantillas-excel", nombre: "Plantillas Excel", color: "#9b59b6",
+    categoria: "Recursos", dev: "Engineering Eyes",
+    desc: "Pack de plantillas de cálculo y presupuestos listas para usar: ahorra horas de armado en tus proyectos.",
+    ficha: [["Tipo","Pack de plantillas"],["Formato","Excel (.xlsx)"],["Edición","100% editables"],["Entrega","Descarga digital"]],
+    badges: ["Cálculos","Presupuestos","APU"],
+    version: "Pack 2026", vIntro: "Contenido del pack:",
+    novedades: [["Cálculos","Estructurales y geotécnicos"],["Presupuestos","APU y metrados"],["Formatos","Cronogramas · valorizaciones"],["Soporte","Incluido"]],
+    nBadges: ["Editable","Listo para usar"],
+    web: "https://t.me/+xT9picqsAUI5MDAx",
+    pen: 49, usd: 15, buyers: 10             /* ← EDITA */
+  },
+  {
+    llave: "plantillas-autocad", nombre: "Plantillas AutoCAD", color: "#9b59b6",
+    categoria: "Recursos", dev: "Engineering Eyes",
+    desc: "Bloques, cajetines y láminas listas para producción de planos profesionales en AutoCAD.",
+    ficha: [["Tipo","Pack de plantillas"],["Formato","DWG"],["Edición","100% editables"],["Entrega","Descarga digital"]],
+    badges: ["Bloques","Cajetines","Láminas"],
+    version: "Pack 2026", vIntro: "Contenido del pack:",
+    novedades: [["Bloques","Civil y arquitectura"],["Cajetines","Formatos A4 – A0"],["Láminas","Listas para plotear"],["Soporte","Incluido"]],
+    nBadges: ["Editable","Listo para usar"],
+    web: "https://t.me/+xT9picqsAUI5MDAx",
+    pen: 49, usd: 15, buyers: 10             /* ← EDITA */
+  },
+  {
+    llave: "plantillas-revit", nombre: "Plantillas Revit", color: "#9b59b6",
+    categoria: "Recursos", dev: "Engineering Eyes",
+    desc: "Familias y proyectos base para arrancar tus modelos BIM con estándares listos desde el día uno.",
+    ficha: [["Tipo","Pack de plantillas"],["Formato","RVT · RFA"],["Edición","100% editables"],["Entrega","Descarga digital"]],
+    badges: ["Familias","Proyectos base","BIM"],
+    version: "Pack 2026", vIntro: "Contenido del pack:",
+    novedades: [["Familias","Paramétricas"],["Proyectos","Base configurados"],["Estándares","Vistas y planos"],["Soporte","Incluido"]],
+    nBadges: ["Editable","Listo para usar"],
+    web: "https://t.me/+xT9picqsAUI5MDAx",
+    pen: 49, usd: 15, buyers: 10             /* ← EDITA */
+  }
+
+  /* ➕ Copia aquí el siguiente programa cuando lo necesites */
+];
+
+/* Construye SW_DETAIL automáticamente desde el catálogo. */
+const SW_DETAIL = {};
+CATALOGO.forEach(c => { SW_DETAIL[c.llave] = makeSW(c); });
+
+/* ═══════════════════════════════════════════════════════════════
+   MOTOR — construye el panel EXACTAMENTE como el original
+   y aplica la lógica original (NeonAccordion). No tocar.
+═══════════════════════════════════════════════════════════════ */
+(function(){
+  const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  /* ── MÓDULO DE COMPRA: detección de moneda (estilo Hotmart, sin backend).
+       Si el navegador está en Perú (zona horaria America/Lima o idioma es-PE)
+       muestra SOLES primero; para el resto del mundo, USD primero. ── */
+  const isPeru = (() => {
+    try {
+      const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+      const langs = [navigator.language].concat(navigator.languages || []).join(' ').toUpperCase();
+      return tz === 'America/Lima' || /[-_]PE\b/.test(langs);
+    } catch (e) { return false; }
+  })();
+  const moneyPEN = v => 'S/ ' + v;
+  const moneyUSD = v => '$ ' + v + ' USD';
+
+  /* ── MULTIMONEDA (estilo Hotmart): convierte el precio USD a la moneda
+       local del visitante con el tipo de cambio del día (API gratuita,
+       sin clave). Perú ve soles exactos; EE. UU. ve USD; el resto ve
+       "≈ su moneda" y paga en USD. Si la API falla, todo queda en USD. ── */
+  const FX = { cur: null, rate: null };
+  const REGION_CUR = {
+    PE:'PEN', MX:'MXN', CO:'COP', AR:'ARS', CL:'CLP', BO:'BOB', PY:'PYG', UY:'UYU',
+    BR:'BRL', VE:'VES', EC:'USD', PA:'USD', SV:'USD', GT:'GTQ', HN:'HNL', NI:'NIO',
+    CR:'CRC', DO:'DOP', US:'USD', CA:'CAD', GB:'GBP', AU:'AUD', NZ:'NZD', JP:'JPY',
+    KR:'KRW', CN:'CNY', IN:'INR', CH:'CHF', SE:'SEK', NO:'NOK', DK:'DKK', PL:'PLN',
+    CZ:'CZK', RO:'RON', TR:'TRY', ZA:'ZAR',
+    ES:'EUR', FR:'EUR', DE:'EUR', IT:'EUR', PT:'EUR', NL:'EUR', BE:'EUR', AT:'EUR',
+    IE:'EUR', FI:'EUR', GR:'EUR'
+  };
+  const TZ_REGION = {
+    'America/Lima':'PE','America/Bogota':'CO','America/Mexico_City':'MX','America/Santiago':'CL',
+    'America/La_Paz':'BO','America/Asuncion':'PY','America/Montevideo':'UY','America/Sao_Paulo':'BR',
+    'America/Caracas':'VE','America/Guayaquil':'EC','America/Panama':'PA','America/Guatemala':'GT',
+    'America/Tegucigalpa':'HN','America/Managua':'NI','America/Costa_Rica':'CR',
+    'America/Santo_Domingo':'DO','Europe/Madrid':'ES'
+  };
+  function userRegion() {
+    try { const r = new Intl.Locale(navigator.language).region; if (r) return r.toUpperCase(); } catch (e) {}
+    const m = String(navigator.language || '').match(/[-_]([A-Za-z]{2})$/);
+    if (m) return m[1].toUpperCase();
+    try { return TZ_REGION[Intl.DateTimeFormat().resolvedOptions().timeZone] || null; } catch (e) { return null; }
+  }
+  function niceRound(v) {
+    if (v >= 100000) return Math.round(v / 1000) * 1000;
+    if (v >= 1000) return Math.round(v / 10) * 10;
+    if (v >= 100) return Math.round(v);
+    return Math.round(v * 10) / 10;
+  }
+  function fmtLocal(usd) {
+    const v = niceRound(usd * FX.rate);
+    let out;
+    try {
+      out = new Intl.NumberFormat(navigator.language || 'es',
+        { style: 'currency', currency: FX.cur, maximumFractionDigits: v >= 100 ? 0 : 2 }).format(v);
+    } catch (e) { out = v + ' ' + FX.cur; }
+    /* Si el símbolo local es solo "$" (MXN, COP, CLP...), añade el código
+       para que no se confunda con dólares: "≈ $1,110 MXN". */
+    if (FX.cur !== 'USD' && out.indexOf('$') !== -1 && out.indexOf(FX.cur) === -1) out += ' ' + FX.cur;
+    return out;
+  }
+  function applyFx() {
+    if (!FX.rate || !FX.cur) return;
+    document.querySelectorAll('.buy-price[data-usd]').forEach(el => {
+      el.textContent = '\u2248 ' + fmtLocal(Number(el.getAttribute('data-usd')) || 0);
+    });
+    document.querySelectorAll('[data-fxline]').forEach(el => {
+      el.textContent = 'Pago: ' + moneyUSD(el.getAttribute('data-usd2')) + ' · comisión incluida';
+    });
+  }
+  (function loadFx() {
+    if (isPeru || typeof fetch !== 'function') return;     /* Perú usa soles manuales */
+    const region = userRegion();
+    const cur = region ? REGION_CUR[region] : null;
+    if (!cur || cur === 'USD' || cur === 'PEN') return;    /* USD o sin datos: no convertir */
+    fetch('https://open.er-api.com/v6/latest/USD')
+      .then(r => r.json())
+      .then(d => {
+        const rate = d && d.rates && d.rates[cur];
+        if (!rate) return;
+        FX.cur = cur; FX.rate = rate;
+        applyFx();
+      })
+      .catch(() => {});                                    /* Falla → se queda en USD */
+  })();
+
+  /* Tarjeta derecha (meta): si el panel tiene "buy" se vuelve PRECIO;
+     si no, se construye EXACTAMENTE como el original. */
+  const buildMeta = p => {
+    if (p.buy) {
+      const b = p.buy;
+      const proof = b.buyers
+        ? `<div class="fine buy-proof"><span class="buy-live" aria-hidden="true"></span><b data-countup="${Number(b.buyers)||0}">0</b>&nbsp;personas ya lo adquirieron</div>`
+        : '';
+      /* Programa GRATUITO: muestra "GRATIS" sin montos ni conversión. */
+      if (b.gratis) {
+        return `<div class="meta-top">
+                  <span class="label">Precio</span>
+                  <span class="value buy-price">GRATIS</span>
+                </div>
+                <div class="fine">Descarga sin costo</div>
+                ${proof}`;
+      }
+      const prim = isPeru ? moneyPEN(b.pen) : moneyUSD(b.usd);
+      const sec  = isPeru ? moneyUSD(b.usd) + ' · comisión incluida' : moneyPEN(b.pen);
+      return `<div class="meta-top">
+                  <span class="label">Precio</span>
+                  <span class="value buy-price" data-usd="${Number(b.usd)||0}">${esc(prim)}</span>
+                </div>
+                <div class="fine" data-fxline data-usd2="${Number(b.usd)||0}">También: ${esc(sec)}</div>
+                ${proof}`;
+    }
+    return `<div class="meta-top">
+                  <span class="label">${esc(p.metaLabel)}</span>
+                  <span class="value">${esc(p.metaValue)}</span>
+                </div>
+                <div class="bar"><span class="bar-fill" style="width: ${Number(p.bar)||0}%"></span></div>
+                <div class="fine">${esc(p.fine)}</div>`;
+  };
+
+  /* Contador animado (0 → cifra) con frenado suave. */
+  const counted = new WeakSet();
+  function countUp(el) {
+    if (counted.has(el)) return;
+    counted.add(el);
+    const target = Number(el.getAttribute('data-countup')) || 0;
+    const t0 = performance.now(), dur = 950;
+    const tick = now => {
+      const k = Math.min(1, (now - t0) / dur);
+      const e2 = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(target * e2);
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  /* Búsqueda tolerante de la llave: ignora mayúsculas, espacios,
+     puntos y guiones (ej. "Cypecad 2026", "CYPECAD-2026" o
+     "cypecad-2026.c" encuentran la entrada "cypecad-2026"). */
+  const params = new URLSearchParams(location.search);
+  const rawKey = params.get('sw');
+  const norm = s => String(s == null ? '' : s).toLowerCase().replace(/[^a-z0-9]/g, '');
+  let conf = null;
+  if (rawKey) {
+    const nk = norm(rawKey);
+    for (const k in SW_DETAIL) {
+      const nm = norm(k);
+      if (nm === nk || (nm.length >= 4 && (nk.startsWith(nm) || nm.startsWith(nk)))) { conf = SW_DETAIL[k]; break; }
+    }
+  }
+  const panelsData = (conf && conf.panels) ? conf.panels : DEFAULT_PANELS;
+  if (conf && conf.brandTitle) document.getElementById('brandTitle').textContent = conf.brandTitle;
+  /* Si llegó una llave pero NO está personalizada, la muestra en la
+     píldora de estado para que sepas qué llave usar en SW_DETAIL. */
+  if (!conf && rawKey) {
+    const hint = document.querySelector('.status-hint');
+    if (hint) hint.textContent = 'sw: "' + rawKey + '" · sin personalizar';
+  }
+
+  const accEl = document.getElementById('accordion');
+  accEl.innerHTML = panelsData.map((p, i) => {
+    const specs = (p.specs||[]).map(r =>
+      `<div class="row"><span class="k">${esc(r[0])}</span><span class="v">${esc(r[1])}</span></div>`).join('');
+    const badges = (p.badges||[]).map(b => `<span class="badge">${esc(b)}</span>`).join('');
+    const cta = (p.buy && p.buy.gratis)
+      ? `<a class="cta" href="${esc(p.buy.urlGratis || BUY_CONFIG.telegram)}" target="_blank" rel="noopener noreferrer">${esc(p.ctaText||'Descargar gratis')}<span class="cta-ico" aria-hidden="true">\u2197</span></a>`
+      : p.buy
+      ? `<a class="cta" href="#comprar" data-buy="${i}">${esc(p.ctaText||'Comprar')}<span class="cta-ico" aria-hidden="true">\u2197</span></a>`
+      : p.ctaUrl
+      ? `<a class="cta" href="${esc(p.ctaUrl)}" target="_blank" rel="noopener noreferrer">${esc(p.ctaText||'')}<span class="cta-ico" aria-hidden="true">\u2197</span></a>`
+      : `<button class="cta" type="button">${esc(p.ctaText||'')}<span class="cta-ico" aria-hidden="true">\u2197</span></button>`;
+    const ghost = p.ghostUrl
+      ? `<a class="ghost-btn" href="${esc(p.ghostUrl)}" target="_blank" rel="noopener noreferrer">${esc(p.ghostText||'')}</a>`
+      : `<button class="ghost-btn" type="button">${esc(p.ghostText||'')}</button>`;
+    return `
+      <article class="panel${i===0?' active':''}" data-title="${esc(p.title)}" data-accent="${esc(p.accent)}" style="--bg: url('${esc(p.bg)}');">
+        <div class="panel-bg" aria-hidden="true"></div>
+        <div class="panel-content">
+          <div class="panel-kicker">
+            <span class="pill">${esc(p.pill)}</span>
+            <span class="pill ghost">${esc(p.pillGhost)}</span>
+          </div>
+          <div class="panel-id">${esc(p.id)}</div>
+          <h2 class="panel-title">${esc(p.title)}</h2>
+          <p class="panel-subtitle">${esc(p.subtitle)}</p>
+          <div class="grid">
+            <div class="specs">${specs}</div>
+            <div class="meta">
+              <div class="meta-card">${buildMeta(p)}</div>
+              <div class="badges">${badges}</div>
+            </div>
+          </div>
+          <div class="cta-row">${cta}${ghost}</div>
+        </div>
+        <button class="corner" type="button" aria-label="Open details"></button>
+      </article>`;
+  }).join('');
+
+  /* ── MÓDULO DE COMPRA: modal Comprar → Confirmar → Contactar ── */
+  function openBuy(p) {
+    const b = p.buy; if (!b || b.gratis) return;
+    const accent  = p.accent || '#7cffb2';
+    const product = b.product || p.title || 'Software';
+    const email   = b.email || BUY_CONFIG.email;
+    const tg      = (b.telegram !== undefined) ? b.telegram : BUY_CONFIG.telegram;
+    let chosen    = isPeru ? 'PEN' : 'USD';
+
+    let back = document.querySelector('.bm-back');
+    if (!back) {
+      back = document.createElement('div');
+      back.className = 'bm-back';
+      document.body.appendChild(back);
+      back.addEventListener('click', e => { if (e.target === back) back.classList.remove('open'); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') back.classList.remove('open'); });
+    }
+
+    back.innerHTML = `
+      <div class="bm-card" style="--bma:${esc(accent)}">
+        <div class="bm-step" data-step="1">
+          <span class="pill" style="border-color:${esc(accent)}">Compra directa</span>
+          <h3 class="bm-title">${esc(product)}</h3>
+          <p class="bm-sub">Elige tu moneda y confirma para coordinar el pago.</p>
+          <div class="bm-prices">
+            <div class="bm-price${chosen==='PEN'?' sel':''}" data-cur="PEN">
+              <div class="cur">Soles (Perú)</div><div class="amt">${esc(moneyPEN(b.pen))}</div>
+            </div>
+            <div class="bm-price${chosen==='USD'?' sel':''}" data-cur="USD">
+              <div class="cur">Dólares</div><div class="amt">${esc(moneyUSD(b.usd))}</div><div class="cur" data-fxeq style="display:none;margin-top:4px"></div>
+            </div>
+          </div>
+          ${b.buyers ? `<div class="bm-proof"><span class="buy-live" aria-hidden="true"></span><b data-countup="${Number(b.buyers)||0}">0</b>&nbsp;personas ya lo adquirieron</div>` : ''}
+          <div class="bm-note">El precio en USD ya incluye la comisión de pago.</div>
+          <div class="bm-actions">
+            <button class="ghost-btn" type="button" data-bm="close">Cancelar</button>
+            <button class="cta" type="button" data-bm="confirm">Confirmar</button>
+          </div>
+        </div>
+        <div class="bm-step" data-step="2" hidden>
+          <span class="pill" style="border-color:${esc(accent)}">Último paso</span>
+          <h3 class="bm-title">¡Listo! Coordina tu compra</h3>
+          <p class="bm-sub">Escríbenos y te respondemos con el método de pago y la entrega.</p>
+          <div class="bm-actions col">
+            <a class="cta" data-bm="mail" href="#">\u2709&nbsp;Contactar por correo</a>
+            ${tg ? `<a class="ghost-btn" target="_blank" rel="noopener noreferrer" href="${esc(tg)}">Telegram</a>` : ''}
+            <button class="ghost-btn" type="button" data-bm="back">Volver</button>
+          </div>
+        </div>
+      </div>`;
+
+    const step1 = back.querySelector('[data-step="1"]');
+    const step2 = back.querySelector('[data-step="2"]');
+    back.querySelectorAll('.bm-price').forEach(el => {
+      el.addEventListener('click', () => {
+        chosen = el.getAttribute('data-cur');
+        back.querySelectorAll('.bm-price').forEach(x => x.classList.toggle('sel', x === el));
+      });
+    });
+    back.querySelector('[data-bm="close"]').addEventListener('click', () => back.classList.remove('open'));
+    back.querySelector('[data-bm="back"]').addEventListener('click', () => { step2.hidden = true; step1.hidden = false; });
+    back.querySelector('[data-bm="confirm"]').addEventListener('click', () => {
+      const precio = chosen === 'PEN' ? moneyPEN(b.pen) + ' (soles)' : moneyUSD(b.usd) + ' (comisión incluida)';
+      const asunto = 'Compra: ' + product;
+      const cuerpo = 'Hola Engineering Eyes,\n\nQuiero comprar: ' + product +
+                     '\nPrecio elegido: ' + precio +
+                     '\n\nMi nombre:\nMétodo de pago preferido:\n';
+      back.querySelector('[data-bm="mail"]').setAttribute('href',
+        'mailto:' + email + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo));
+      step1.hidden = true; step2.hidden = false;
+    });
+
+    back.classList.add('open');
+    if (FX.rate && FX.cur) {
+      const eq = back.querySelector('[data-fxeq]');
+      if (eq) { eq.textContent = '\u2248 ' + fmtLocal(Number(b.usd) || 0); eq.style.display = 'block'; }
+    }
+    const proof = back.querySelector('.bm-proof [data-countup]');
+    if (proof) countUp(proof);
+  }
+
+  /* Abrir el modal al pulsar un botón Comprar (delegado). */
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-buy]');
+    if (!a) return;
+    e.preventDefault();
+    const p = panelsData[Number(a.getAttribute('data-buy'))];
+    if (p && p.buy) openBuy(p);
+  });
+
+  /* Animar el contador del panel cuando su tarjeta esté activa. */
+  const runCounts = () => document.querySelectorAll('.panel.active [data-countup]').forEach(countUp);
+  new MutationObserver(runCounts).observe(accEl, { subtree: true, attributes: true, attributeFilter: ['class'] });
+  runCounts();
+
+  /* ── Lógica ORIGINAL del NeonAccordion (idéntica) ── */
+  class NeonAccordion {
+    constructor(root) {
+      this.root = root;
+      this.panels = [...root.querySelectorAll(".panel")];
+      this.prev = document.querySelector(".nav-prev");
+      this.next = document.querySelector(".nav-next");
+      this.statusName = document.getElementById("statusName");
+      this.modeText = document.getElementById("modeText");
+      this.ambientOn = false;
+      this.index = Math.max(0, this.panels.findIndex(p => p.classList.contains("active")));
+      this.bind();
+      this.apply(this.index, false);
+    }
+    bind() {
+      this.panels.forEach(p => {
+        p.addEventListener("click", () => { const li = this.panels.indexOf(p); if (li !== -1) this.apply(li, true); });
+        p.addEventListener("mousemove", e => {
+          if (!p.classList.contains("active")) return;
+          const bg = p.querySelector(".panel-bg"); if (!bg) return;
+          const r = p.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          bg.style.transform = `scale(1.14) translate(${x * 10}px, ${y * 8}px)`;
+        });
+        p.addEventListener("mouseleave", () => { const bg = p.querySelector(".panel-bg"); if (bg) bg.style.transform = ""; });
+      });
+      this.prev.addEventListener("click", e => { e.stopPropagation(); this.go(-1); });
+      this.next.addEventListener("click", e => { e.stopPropagation(); this.go(1); });
+      document.addEventListener("keydown", e => {
+        if (e.key === "ArrowLeft") this.go(-1);
+        if (e.key === "ArrowRight") this.go(1);
+        if (e.key.toLowerCase() === "a") this.toggleAmbient();
+        if (e.key.toLowerCase() === "s") this.shuffle();
+      });
+      document.querySelectorAll("[data-action]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const action = btn.getAttribute("data-action");
+          if (action === "toggle-ambient") this.toggleAmbient();
+          if (action === "shuffle") this.shuffle();
+        });
+      });
+      this.root.addEventListener("click", e => {
+        const btn = e.target.closest(".cta, .ghost-btn, .corner");
+        if (!btn) return;
+        if (btn.tagName === 'A') return;
+        e.stopPropagation();
+        this.toast(`${this.panels[this.index]?.dataset.title || "Item"}: action queued`);
+      });
+    }
+    refreshPanels() { this.panels = [...this.root.querySelectorAll(".panel")]; }
+    resetActive() {
+      this.panels.forEach(p => { p.classList.remove("active"); const bg = p.querySelector(".panel-bg"); if (bg) bg.style.transform = ""; });
+      this.index = 0;
+      if (this.panels[0]) this.panels[0].classList.add("active");
+    }
+    apply(i, focusLed = true) {
+      if (!this.panels.length) return;
+      this.panels.forEach(p => p.classList.remove("active"));
+      const panel = this.panels[i] || this.panels[0];
+      panel.classList.add("active");
+      this.index = this.panels.indexOf(panel);
+      const title = panel.dataset.title || `Item ${String(this.index + 1).padStart(2, "0")}`;
+      const accent = panel.dataset.accent || "#7CFFB2";
+      this.statusName.textContent = title;
+      const led = document.querySelector(".status-led");
+      if (led) {
+        led.style.background = accent;
+        led.style.boxShadow = `0 0 18px ${this.hexToRgba(accent, 0.55)}`;
+        if (focusLed) led.animate([{transform:"scale(1)"},{transform:"scale(1.25)"},{transform:"scale(1)"}], {duration:420,easing:"ease-out"});
+      }
+      const dot = document.querySelector(".dot");
+      if (dot) { dot.style.background = accent; dot.style.boxShadow = `0 0 18px ${this.hexToRgba(accent, 0.55)}`; }
+      this.panels.forEach((p, idx) => p.setAttribute("aria-selected", idx === this.index ? "true" : "false"));
+    }
+    go(delta) {
+      if (!this.panels.length) return;
+      const next = (this.index + delta + this.panels.length) % this.panels.length;
+      this.apply(next, true);
+    }
+    toggleAmbient() {
+      this.ambientOn = !this.ambientOn;
+      document.body.classList.toggle("ambient", this.ambientOn);
+      this.modeText.textContent = this.ambientOn ? "Mode: Ambient" : "Mode: Crisp";
+      const btn = document.querySelector('[data-action="toggle-ambient"]');
+      if (btn) btn.textContent = this.ambientOn ? "Crisp" : "Ambient";
+      this.toast(this.ambientOn ? "Ambient mode enabled" : "Crisp mode enabled");
+    }
+    shuffle() {
+      const a = [...this.panels];
+      for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+      a.forEach(p => this.root.appendChild(p));
+      this.refreshPanels();
+      this.resetActive();
+      this.apply(0, true);
+      this.toast("Lineup shuffled + reset");
+    }
+    toast(text) {
+      let t = document.querySelector(".toast");
+      if (!t) {
+        t = document.createElement("div"); t.className = "toast"; document.body.appendChild(t);
+        const s = document.createElement("style");
+        s.textContent = `.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.55);color:rgba(234,240,255,.92);font:12px ui-sans-serif,system-ui;backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.45);opacity:0;pointer-events:none;z-index:9999;}`;
+        document.head.appendChild(s);
+      }
+      t.textContent = text;
+      t.animate([
+        {opacity:0,transform:"translateX(-50%) translateY(8px)"},
+        {opacity:1,transform:"translateX(-50%) translateY(0px)"},
+        {opacity:1,transform:"translateX(-50%) translateY(0px)"},
+        {opacity:0,transform:"translateX(-50%) translateY(8px)"}
+      ], {duration:1800,easing:"cubic-bezier(.2,.8,.2,1)"});
+    }
+    hexToRgba(hex, a = 1) {
+      const h = hex.replace("#","").trim();
+      const full = h.length === 3 ? h.split("").map(c => c+c).join("") : h;
+      const n = parseInt(full, 16);
+      return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;
+    }
+  }
+  new NeonAccordion(accEl);
+})();
+</script>
+</body>
+</html>
