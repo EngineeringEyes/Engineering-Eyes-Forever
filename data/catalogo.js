@@ -146,7 +146,7 @@ window.EE_CATALOGO = [
     novedades: [["Taludes","Estabilidad y refuerzos"],["Cimentaciones","Zapatas y pilotes"],["Muros","Contención · tablestacas"],["MEF","Elementos finitos"]],
     nBadges: ["Estable","Suite modular"],
     web: "https://www.finesoftware.es/geo5/",
-    pen: 199, buyers: 10            /* ← EDITA: solo soles */
+    pen: 500, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "geo5-2026",
@@ -161,7 +161,7 @@ window.EE_CATALOGO = [
     novedades: [["Sismo","Análisis dinámico"],["BIM","Integración IFC"],["Reportes","Automáticos"],["Módulos","Actualizados v26"]],
     nBadges: ["BIM","Sismo","Reportes"],
     web: "https://www.finesoftware.es/geo5/",
-    pen: 199, buyers: 10            /* ← EDITA: solo soles */
+    pen: 700, buyers: 10            /* ← EDITA: solo soles */
   },
 
   /* ════ ESTRUCTURAL · CSI ════ */
@@ -277,7 +277,7 @@ window.EE_CATALOGO = [
     rNota: "Solo 64 bits desde la versión 2025.a",
     webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
     web: "https://www.cype.com",
-    pen: 199, buyers: 10            /* ← EDITA: solo soles */
+    pen: 400, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "cypecad-2027",
@@ -296,7 +296,7 @@ window.EE_CATALOGO = [
     requisitos: [["Sistema","Windows 7 – 11 · 64 bits"],["RAM","8 GB mín. · 16 GB recom."],["Gráficos","OpenGL 3+ (NVIDIA / AMD)"],["Pantalla","1366×768 mínimo"]],
     webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
     web: "https://www.cype.com",
-    pen: 199, buyers: 3             /* ← EDITA: solo soles */
+    pen: 900, buyers: 3             /* ← EDITA: solo soles */
   },
 
   /* ════ OTROS ESTRUCTURALES ════ */
