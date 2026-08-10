@@ -1023,23 +1023,33 @@
 ═══════════════════════════════════════════════ */
 @media (max-width: 600px) {
 
+  /* El carrusel desplaza las tarjetas vecinas a los lados; al ensanchar
+     la tarjeta, esas vecinas sobresalían 31px y provocaban scroll lateral.
+     `clip` las recorta sin crear un contenedor de scroll. */
+  .cyber-cards-section { overflow-x: clip; }
+
   /* Más grande y más alta: a 238px el contenido se pisaba */
   .cyber-cards-section .cc-card-wrap {
-    width: 92vw; max-width: 380px; height: 330px;
+    width: 92vw; max-width: 380px; height: 372px;
   }
-  .cyber-cards-section .cc-stage { height: 348px; }
+  .cyber-cards-section .cc-stage { height: 390px; }
 
   /* Una sola columna: el título deja de competir con el texto */
   .cyber-cards-section .cc-card-inner {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-rows: auto auto auto 1fr auto;
     gap: 6px 0;
     padding: 12px 14px 10px;
   }
-  .cyber-cards-section .cc-failcode  { grid-column: 1; grid-row: 1; }
-  .cyber-cards-section .cc-badge     { grid-column: 1; grid-row: 2; }
+  .cyber-cards-section .cc-failcode    { grid-column: 1; grid-row: 1; }
+  .cyber-cards-section .cc-badge       { grid-column: 1; grid-row: 2; }
   .cyber-cards-section .cc-title-block { grid-column: 1; grid-row: 3; }
-  .cyber-cards-section .cc-body-area { grid-column: 1; grid-row: 4; }
+  .cyber-cards-section .cc-body-area   { grid-column: 1; grid-row: 4; }
+  /* El código de barras venía en grid-row 4, la misma que el cuerpo:
+     se montaba encima del texto. Va a una fila propia al pie. */
+  .cyber-cards-section .cc-barcode-area { grid-column: 1; grid-row: 5; padding-top: 6px; }
+  /* Decoración de 6px que en móvil solo estorba */
+  .cyber-cards-section .cc-imperfection { display: none; }
 
   .cyber-cards-section .cc-title-main,
   .cyber-cards-section .cc-title-shadow { font-size: 30px; }
@@ -1049,11 +1059,9 @@
   .cyber-cards-section .cc-card-btn { max-width: 100%; }
   .cyber-cards-section .cc-card-btn-inner { padding: 11px 14px; }
 
-  /* El número gigante detrás, no encima del texto */
-  .cyber-cards-section .cc-big-number {
-    position: absolute; right: 12px; bottom: 8px;
-    font-size: 44px; opacity: 0.35; pointer-events: none;
-  }
-  .cyber-cards-section .cc-right-col { margin-top: 4px; }
+  /* En flujo normal: al posicionarlo absoluto se montaba sobre el botón */
+  .cyber-cards-section .cc-big-number { font-size: 34px; opacity: 0.6; line-height: 1; }
+  .cyber-cards-section .cc-right-col { margin-top: 6px; align-items: center; }
+  .cyber-cards-section .cc-counting-desc { font-size: 8px; line-height: 1.35; }
   .cyber-cards-section .cc-color-tone { display: none; }
 }
