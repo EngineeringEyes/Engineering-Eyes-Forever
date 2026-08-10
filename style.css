@@ -765,27 +765,6 @@ footer { background: #020a0c; border-top: 1px solid rgba(0,212,200,0.07); paddin
 .rc-loading { text-align: center; color: var(--muted); font-size: 13px; letter-spacing: 2px; padding: 40px; }
 
 /* ═══════════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .sw-layout { grid-template-columns: 1fr; }
-  .sw-split  { grid-template-columns: 1fr; }
-  .sw-sidebar { position: static; display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; }
-  .sw-sidebar-head { display: none; }
-  .sw-sidebar-nav { flex-direction: row; flex-wrap: wrap; padding: 0; gap: 4px; }
-  .sw-sidebar-section { margin-top: 0; padding: 0; border-top: none; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .sw-sidebar-label { display: none; }
-  .footer-inner { flex-direction: column; text-align: center; }
-}
-@media (max-width: 600px) {
-  .navbar { padding: 18px 24px; }
-  .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(3,12,14,0.97); padding: 20px 24px; gap: 16px; }
-  .nav-links.open { display: flex; }
-  .nav-hamburger { display: flex; }
-  .slide-content-right { display: none; }
-  .sec-wrap { padding: 60px 24px; }
-}
-/* ═══════════════════════════════════════════════
    SOFTWARE CATALOG — estilo lista UGS + canvas
 ═══════════════════════════════════════════════ */
 .sw-catalog { position: relative; margin-top: 50px; }
@@ -1184,3 +1163,75 @@ footer { background: #020a0c; border-top: 1px solid rgba(0,212,200,0.07); paddin
   transition: all .2s;
 }
 .acc-back:hover { background: #00d4c8; color: #04100f; font-weight: 700; }
+
+
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .sw-layout { grid-template-columns: 1fr; }
+  .sw-split  { grid-template-columns: 1fr; }
+  .sw-sidebar { position: static; display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; }
+  .sw-sidebar-head { display: none; }
+  .sw-sidebar-nav { flex-direction: row; flex-wrap: wrap; padding: 0; gap: 4px; }
+  .sw-sidebar-section { margin-top: 0; padding: 0; border-top: none; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .sw-sidebar-label { display: none; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+@media (max-width: 600px) {
+  .navbar { padding: 18px 24px; }
+  .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: rgba(3,12,14,0.97); padding: 20px 24px; gap: 16px; }
+  .nav-links.open { display: flex; }
+  .nav-hamburger { display: flex; }
+  .slide-content-right { display: none; }
+  .sec-wrap { padding: 60px 24px; }
+}
+
+
+/* ═══════════════════════════════════════════════
+   AJUSTES MÓVIL — añadidos tras revisar en celular
+   Todo va dentro de @media: la vista de escritorio
+   no se ve afectada por ninguna de estas reglas.
+═══════════════════════════════════════════════ */
+@media (max-width: 900px) {
+
+  /* ── Catálogo: una sola columna y sin desbordes ──
+     `min-width: 0` es imprescindible: sin él, un hijo de grid
+     se niega a encogerse por debajo de su contenido y empuja
+     la columna fuera de la pantalla. */
+  .sw-split, .sw-layout, .sw-panel, .sw-cards, .sw-list { min-width: 0; }
+  .sw-split { gap: 22px; }
+
+  /* Menú de categorías en horizontal, deslizable con el dedo */
+  .sw-sidebar-nav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .sw-sidebar-nav::-webkit-scrollbar { display: none; }
+  .sw-nav-item { flex: 0 0 auto; white-space: nowrap; }
+
+  /* Cabecera del panel: que el título y el contador no peleen */
+  .sw-panel-header { flex-wrap: wrap; gap: 10px; align-items: flex-start; }
+  .sw-panel-title  { font-size: 34px; }
+
+  /* Buscador a ancho completo en vez de forzar 220px */
+  .sw-search { min-width: 0; width: 100%; flex: 1 1 100%; }
+
+  /* Vista lista: que el nombre respire y no se parta letra a letra */
+  .sw-row { flex-wrap: wrap; padding: 12px 14px; }
+  .sw-row-name { flex: 1 1 auto; min-width: 0; word-break: normal; overflow-wrap: anywhere; }
+  .sw-row-vers { flex: 1 1 100%; opacity: .7; }
+
+  /* Botón flotante de registro: al pie, fuera del texto del hero */
+  .login-open-btn { bottom: 24px; left: auto; right: 16px; transform: none; }
+  .login-open-btn .pwr-ring { width: 54px; height: 54px; }
+  .login-open-btn .pwr-label { font-size: 10px; }
+}
+
+@media (max-width: 600px) {
+  .sw-cards { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .sw-panel-title { font-size: 28px; }
+  .sec-title { word-break: normal; overflow-wrap: anywhere; }
+}
