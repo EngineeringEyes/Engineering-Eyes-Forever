@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Engineering Eyes — Recursos de ingeniería civil: software, cursos, diplomados y BIM.">
+<title>Engineering Eyes — Civil & BIM</title>
+<link rel="canonical" href="https://engineeringeyes.github.io/">
+<meta name="theme-color" content="#030c0e">
+
+<!-- Favicon en línea (sin archivo extra): cuadro teal del logo -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23030c0e'/%3E%3Crect x='7' y='7' width='18' height='18' rx='3' fill='none' stroke='%2300d4c8' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%2300d4c8'/%3E%3C/svg%3E">
+
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Engineering Eyes">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Engineering Eyes — Civil & BIM">
+<meta property="og:description" content="Software, cursos y diplomados de ingeniería civil y BIM en un solo lugar.">
+<meta property="og:url" content="https://engineeringeyes.github.io/">
+<meta property="og:image" content="https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes/main/fondo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Engineering Eyes — Civil & BIM">
+<meta name="twitter:description" content="Software, cursos y diplomados de ingeniería civil y BIM en un solo lugar.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes/main/fondo.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Code+Pro:wght@400;600&family=Barlow+Condensed:wght@300;400;600;700;900&family=Rajdhani:wght@500;700&family=Anton&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="cyber-cards.css">
+<link rel="stylesheet" href="glitch-sections.css">
+<link rel="stylesheet" href="recent-courses.css">
+</head>
+<body>
+<div class="preloader">
+  <div class="loader-logo">ENGINEERING EYES</div>
+  <div class="loader-bar"></div>
+</div>
+<!-- CURSOR -->
+<div class="cursor-ring" id="cring" aria-hidden="true"></div>
+<div class="cursor-dot"  id="cdot"  aria-hidden="true"></div>
+
+<!-- ═══════════════════════════════════════
+     NAVBAR
+═══════════════════════════════════════ -->
+<nav class="navbar">
+  <div class="nav-logo">
+    <div class="nav-logo-sq" aria-hidden="true"></div>
+    <div class="nav-logo-text">Engineering Eyes</div>
+  </div>
+  <div class="nav-links">
+    <a href="#inicio" class="active">Inicio</a>
+    <a href="#softwares">Software</a>
+    <a href="#cursos">Cursos</a>
+    <a href="#diplomados">Diplomados</a>
+    <a href="#intercambios">Intercambios</a>
+  </div>
+  <!-- Hamburger móvil -->
+  <button class="nav-hamburger" id="navHamburger" aria-label="Abrir menú" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-search">
+    <input type="text" placeholder="search..." aria-label="Buscar">
+    <button class="nav-search-btn" aria-label="Buscar"><i class="ti ti-arrow-right"></i></button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO — SLIDER CINEMATOGRÁFICO
+═══════════════════════════════════════ -->
+<section class="hero" id="inicio">
+
+  <!-- SLIDE 1 — GEO5 -->
+  <div class="hero-slide active" id="slide-0">
+    <div class="slide-bg" data-bg="https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes/main/fondo.jpg" role="img" aria-label="Fondo GEO5 2025"></div>
+    <div class="slide-overlay" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="slide-content-left">
+      <div class="slide-tag">
+        <span class="slide-num">01 —</span>
+        Software Geotécnico · 2025
+      </div>
+      <div class="slide-title">GEO5<br><span class="accent">2025</span></div>
+      <div class="slide-sub">Análisis Geotécnico · Cimentaciones · Taludes</div>
+      <div class="slide-btns">
+        <a href="https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/geo5.html" target="_blank" rel="noopener noreferrer" class="btn-play">
+          <i class="ti ti-download" aria-hidden="true"></i> Descargar
+        </a>
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-trailer">
+          <i class="ti ti-brand-telegram" aria-hidden="true"></i> Soporte
+        </a>
+      </div>
+    </div>
+    <div class="slide-content-right">
+      <div class="slide-right-tag">GEO5 2025</div>
+      <div class="slide-right-meta">
+        v25.0 <span class="badge">DISPONIBLE</span> Geotecnia
+      </div>
+      <div class="slide-right-desc">
+        Suite completa para análisis geotécnico. Diseño de cimentaciones superficiales y profundas, análisis de taludes y muros de contención.
+      </div>
+      <div class="version-chips">
+        <div class="vchip active">2025</div>
+        <div class="vchip" data-slide="1">2026 →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 — GEO5 2026 -->
+  <div class="hero-slide" id="slide-1">
+    <div class="slide-bg" data-bg="https://raw.githubusercontent.com/EngineeringEyes/Engineering_Eyes_2.0/main/fondo1.jpg" data-filter="saturate(0.6) brightness(0.45) hue-rotate(20deg)" role="img" aria-label="Fondo GEO5 2026"></div>
+    <div class="slide-overlay" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="slide-content-left">
+      <div class="slide-tag">
+        <span class="slide-num">02 —</span>
+        Software Geotécnico · 2026
+      </div>
+      <div class="slide-title">GEO5<br><span class="accent">2026</span></div>
+      <div class="slide-sub">Nueva Versión · Módulos Avanzados · BIM Ready</div>
+      <div class="slide-btns">
+        <a href="https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/geo52026.html" target="_blank" rel="noopener noreferrer" class="btn-play">
+          <i class="ti ti-download" aria-hidden="true"></i> Descargar
+        </a>
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-trailer">
+          <i class="ti ti-brand-telegram" aria-hidden="true"></i> Soporte
+        </a>
+      </div>
+    </div>
+    <div class="slide-content-right">
+      <div class="slide-right-tag">GEO5 2026</div>
+      <div class="slide-right-meta">
+        v26.0 <span class="badge">NUEVO</span> Geotecnia
+      </div>
+      <div class="slide-right-desc">
+        La versión más reciente con módulos actualizados para análisis dinámico sísmico, integración BIM y reportes automáticos.
+      </div>
+      <div class="version-chips">
+        <div class="vchip" data-slide="0">← 2025</div>
+        <div class="vchip active">2026</div>
+        <div class="vchip" data-slide="2">ETABS →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 — ETABS -->
+  <div class="hero-slide" id="slide-2">
+    <div class="slide-bg" data-bg="https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes/main/fondo.jpg" data-filter="saturate(0.5) brightness(0.4) hue-rotate(180deg)" role="img" aria-label="Fondo ETABS"></div>
+    <div class="slide-overlay" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="slide-content-left">
+      <div class="slide-tag">
+        <span class="slide-num">03 —</span>
+        CSI Software · Análisis Estructural
+      </div>
+      <div class="slide-title">ETABS<br><span class="accent">22/23</span></div>
+      <div class="slide-sub">Diseño Estructural · Análisis Sísmico · Edificios</div>
+      <div class="slide-btns">
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-play">
+          <i class="ti ti-download" aria-hidden="true"></i> Descargar
+        </a>
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-trailer">
+          <i class="ti ti-brand-telegram" aria-hidden="true"></i> Soporte
+        </a>
+      </div>
+    </div>
+    <div class="slide-content-right">
+      <div class="slide-right-tag">ETABS 22/23</div>
+      <div class="slide-right-meta">
+        v22 & v23 <span class="badge">CSI</span> Estructural
+      </div>
+      <div class="slide-right-desc">
+        El estándar mundial para análisis y diseño de estructuras de edificios. Análisis sísmico, diseño en concreto y acero.
+      </div>
+      <div class="version-chips">
+        <div class="vchip active">ETABS 22</div>
+        <div class="vchip">ETABS 23</div>
+        <div class="vchip">SAP2000</div>
+        <div class="vchip">SAFE 22</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4 — REVIT -->
+  <div class="hero-slide" id="slide-3">
+    <div class="slide-bg" data-bg="https://raw.githubusercontent.com/EngineeringEyes/Engineering_Eyes_2.0/main/fondo1.jpg" data-filter="saturate(0.4) brightness(0.4) hue-rotate(260deg)" role="img" aria-label="Fondo Revit"></div>
+    <div class="slide-overlay" aria-hidden="true"></div>
+    <div class="scanlines" aria-hidden="true"></div>
+    <div class="slide-content-left">
+      <div class="slide-tag">
+        <span class="slide-num">04 —</span>
+        Autodesk · BIM
+      </div>
+      <div class="slide-title">REVIT<br><span class="accent">2025/26</span></div>
+      <div class="slide-sub">Modelado BIM · Coordinación · Planos · Renders</div>
+      <div class="slide-btns">
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-play">
+          <i class="ti ti-download" aria-hidden="true"></i> Descargar
+        </a>
+        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-trailer">
+          <i class="ti ti-brand-telegram" aria-hidden="true"></i> Soporte
+        </a>
+      </div>
+    </div>
+    <div class="slide-content-right">
+      <div class="slide-right-tag">Revit BIM</div>
+      <div class="slide-right-meta">
+        <span class="badge">AUTODESK</span> BIM
+      </div>
+      <div class="slide-right-desc">
+        La plataforma BIM líder para modelado arquitectónico y estructural. Coordinación multidisciplinaria y generación automática de planos.
+      </div>
+      <div class="version-chips">
+        <div class="vchip active">Revit 2025</div>
+        <div class="vchip">Revit 2026</div>
+        <div class="vchip">Revit 2027</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="corner-teal" aria-hidden="true"></div>
+
+  <!-- DOTS -->
+  <div class="slide-dots" id="sdots" role="tablist" aria-label="Slides">
+    <div class="sdot active" role="tab" aria-selected="true"  aria-label="Slide 1" tabindex="0"></div>
+    <div class="sdot"        role="tab" aria-selected="false" aria-label="Slide 2" tabindex="-1"></div>
+    <div class="sdot"        role="tab" aria-selected="false" aria-label="Slide 3" tabindex="-1"></div>
+    <div class="sdot"        role="tab" aria-selected="false" aria-label="Slide 4" tabindex="-1"></div>
+  </div>
+
+  <!-- NAV BUTTONS -->
+  <div class="slider-nav">
+    <button class="snav-btn" id="prevSlideBtn" aria-label="Slide anterior"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
+    <button class="snav-btn" id="nextSlideBtn" aria-label="Slide siguiente"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+  </div>
+
+  <!-- COUNTER -->
+  <div class="slide-counter" aria-hidden="true"><span id="snum">01</span> / 04</div>
+
+  <!-- SOCIAL -->
+  <div class="hero-social">
+    <div class="credit-line" aria-hidden="true"></div>
+    <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
+    <a href="http://t.me/engineeringeyes_bot" target="_blank" rel="noopener noreferrer">BOT</a>
+    <a href="#" target="_blank" rel="noopener noreferrer">YOUTUBE</a>
+    <div class="credit-line" aria-hidden="true"></div>
+  </div>
+
+<!-- LOGIN OVERLAY — dentro del hero -->
+  <div class="login-overlay" id="loginOverlay" role="dialog" aria-modal="true" aria-label="Registro de correo">
+    <div class="nm-wrapper">
+      <div class="nm-brand">Engineering <span>Eyes</span></div>
+      <div class="nm-card" id="nm-card">
+        <button class="nm-close-btn" id="nmCloseBtn">Cerrar</button>
+        <div id="switch-cnt">
+          <div class="nm-switch-bg"></div>
+          <div class="switch-circle"></div>
+          <div class="switch-circle-2"></div>
+          <div id="switch-c1">
+            <div class="sw-title">¡Ya estás<br>Registrado!</div>
+            <div class="sw-desc">Si ya ingresaste tu correo, haz clic para ver tus actualizaciones</div>
+            <button class="switch-btn" id="btnSwitchRegistrado">REGISTRADO</button>
+          </div>
+          <div id="switch-c2">
+            <div class="sw-title">Registra<br>tu correo</div>
+            <div class="sw-desc">Suscríbete para recibir actualizaciones exclusivas de software y cursos</div>
+            <button class="switch-btn" id="btnSwitchRegistrar">REGISTRAR</button>
+          </div>
+        </div>
+        <div id="a-container">
+          <div class="nm-form-title">Registra tu correo electrónico</div>
+          <div class="nm-form-sub">para recibir actualizaciones de recursos</div>
+          <div class="nm-social" style="margin-top:8px">
+            <button type="button" class="nm-soc-btn" title="YouTube" aria-label="YouTube"><i class="ti ti-brand-youtube"></i></button>
+            <button type="button" class="nm-soc-btn" title="Telegram" aria-label="Telegram"><i class="ti ti-brand-telegram"></i></button>
+            <button type="button" class="nm-soc-btn" title="Twitter" aria-label="Twitter"><i class="ti ti-brand-twitter"></i></button>
+          </div>
+          <div class="nm-or">Ingresa tu correo</div>
+          <div class="nm-field">
+            <input class="nm-input" type="email" id="signin-email" placeholder="tucorreo@email.com" autocomplete="email">
+          </div>
+          <button type="button" class="nm-submit" id="btnRegistrar">REGISTRAR</button>
+          <div id="nm-msg-a" class="nm-msg" role="alert" aria-live="polite"></div>
+        </div>
+        <div id="b-container">
+          <div class="nm-form-title">¡Registrado!</div>
+          <div class="nm-form-sub">Confirma tu correo para seguir recibiendo novedades</div>
+          <div class="nm-check-wrap">
+            <div class="nm-check-icon"><i class="ti ti-circle-check"></i></div>
+          </div>
+          <div class="nm-or" style="margin-top:0">Tu correo registrado</div>
+          <div class="nm-field">
+            <input class="nm-input" type="email" id="signup-email" placeholder="tucorreo@email.com" autocomplete="email">
+          </div>
+          <button type="button" class="nm-submit" id="btnConfirmar">CONFIRMAR</button>
+          <div id="nm-msg-b" class="nm-msg" role="alert" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section><!-- /hero -->
+
+<!-- CYBER CARDS — FUERA DEL HERO -->
+<section class="cyber-cards-section" id="cyberSoftwareCards" aria-label="Software disponible">
+  <div class="cc-stage"
+       role="region"
+       aria-roledescription="carousel"
+       aria-label="Software disponible"
+       tabindex="0">
+
+    <div class="cc-lateral cc-lat-left-top" aria-hidden="true">GEOTECHNICAL</div>
+    <div class="cc-lateral cc-lat-left-bot" aria-hidden="true">SAN SEBASTIAN<br>SONATA ARC</div>
+    <div class="cc-lateral cc-lat-right-top" aria-hidden="true">V.2026</div>
+    <div class="cc-lateral cc-lat-right-bot" aria-hidden="true">ENTERPRISE</div>
+
+    <div class="cc-play-icons">
+      <button class="cc-play-icon active" id="ccPlayBtn" title="Play" aria-label="Reproducir carrusel">&#9655;</button>
+      <button class="cc-play-icon" id="ccPauseBtn" title="Pause" aria-label="Pausar carrusel">&#9646;&#9646;</button>
+    </div>
+
+    <div class="cc-cursor-zone left" aria-hidden="true"><span class="cc-cursor-arrow">&#8249;</span></div>
+    <div class="cc-cursor-zone right" aria-hidden="true"><span class="cc-cursor-arrow">&#8250;</span></div>
+
+    <!-- CARD 1: GEO5 -->
+    <div class="cc-card-wrap active" data-card="0"
+         data-category="GEOTECHNICAL" data-version="V.2026" data-status="ENTERPRISE"
+         role="tabpanel" aria-label="GEO5 2026">
+      <div class="cc-card">
+        <div class="cc-card-inner">
+          <div class="cc-failcode">FAIL CODE : GE0526ENT00112</div>
+          <div class="cc-badge">
+            <div class="cc-badge-icons" aria-hidden="true">&#10035; &#10035; &#10035;</div>
+            <div class="cc-badge-code">GE05 2026 ENTx</div>
+          </div>
+          <div class="cc-title-block">
+            <div class="cc-title-stack">
+              <span class="cc-title-main">GEO5</span>
+              <span class="cc-title-shadow" aria-hidden="true">GEO5</span>
+              <span class="cc-title-shadow" aria-hidden="true">GEO5</span>
+            </div>
+            <div class="cc-subtitle">ENTERPRISE x64</div>
+          </div>
+          <div class="cc-body-area">
+            <div class="cc-left-col">
+              <div class="cc-labels-row" aria-hidden="true">
+                <span class="cc-label-tag">SEND</span>
+                <span class="cc-label-tag">PROCESS</span>
+              </div>
+              <div class="cc-desc">Software geotécnico avanzado para análisis de cimentaciones, taludes, muros de contención y estabilidad de suelos.</div>
+              <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="cc-card-btn"><div class="cc-card-btn-inner"><span>ACCEDER AL SOFTWARE</span></div></a>
+            </div>
+            <div class="cc-right-col">
+              <div class="cc-counting-title">COUNTING ON YOU</div>
+              <div class="cc-counting-desc">Módulos especializados para cada tipo de problema geotécnico profesional.</div>
+              <div class="cc-big-number" aria-hidden="true">26</div>
+            </div>
+          </div>
+          <div class="cc-barcode-area" aria-hidden="true">
+            <svg class="cc-barcode-svg" viewBox="0 0 100 20"><rect x="2" width="2" height="18" fill="#1a1a1a"/><rect x="6" width="1" height="18" fill="#1a1a1a"/><rect x="9" width="3" height="18" fill="#1a1a1a"/><rect x="14" width="1" height="18" fill="#1a1a1a"/><rect x="17" width="2" height="18" fill="#1a1a1a"/><rect x="21" width="1" height="18" fill="#1a1a1a"/><rect x="24" width="3" height="18" fill="#1a1a1a"/><rect x="29" width="2" height="18" fill="#1a1a1a"/><rect x="33" width="1" height="18" fill="#1a1a1a"/><rect x="36" width="2" height="18" fill="#1a1a1a"/><rect x="40" width="3" height="18" fill="#1a1a1a"/><rect x="45" width="1" height="18" fill="#1a1a1a"/><rect x="48" width="2" height="18" fill="#1a1a1a"/><rect x="52" width="1" height="18" fill="#1a1a1a"/><rect x="55" width="3" height="18" fill="#1a1a1a"/><rect x="60" width="1" height="18" fill="#1a1a1a"/><rect x="63" width="2" height="18" fill="#1a1a1a"/><rect x="67" width="3" height="18" fill="#1a1a1a"/><rect x="72" width="1" height="18" fill="#1a1a1a"/><rect x="75" width="2" height="18" fill="#1a1a1a"/></svg>
+            <span class="cc-barcode-text">XYZ001928761</span>
+          </div>
+          <div class="cc-imperfection" aria-hidden="true">IMPERFECTION</div>
+          <div class="cc-color-tone" aria-hidden="true">
+            <div class="cc-ct-title">color tone.</div>
+            <div class="cc-ct-colors"><div class="cc-ct-swatch" style="background:#2ecc71"></div><div class="cc-ct-swatch" style="background:#b0b0a8"></div></div>
+            <div class="cc-ct-desc">Geotechnical analysis suite for professional soil mechanics.</div>
+          </div>
+        </div>
+        <svg class="cc-border-svg" viewBox="0 0 820 440" aria-hidden="true"><path class="cc-border-path" d="M3 3 L700 3 L700 10 L750 10 L750 3 L790 3 L817 30 L817 400 L800 425 L800 437 L740 437 L730 425 L30 425 L18 437 L3 437 Z"/></svg>
+      </div>
+    </div>
+
+    <!-- CARD 2: ETABS -->
+    <div class="cc-card-wrap" data-card="1"
+         data-category="STRUCTURAL" data-version="V.22/23" data-status="ANALYSIS"
+         role="tabpanel" aria-label="ETABS CSI Structural">
+      <div class="cc-card">
+        <div class="cc-card-inner">
+          <div class="cc-failcode">FAIL CODE : ET2223CSI00204</div>
+          <div class="cc-badge">
+            <div class="cc-badge-icons" aria-hidden="true">&#10035; &#10035; &#10035;</div>
+            <div class="cc-badge-code">0204 0504 0304</div>
+          </div>
+          <div class="cc-title-block">
+            <div class="cc-title-stack">
+              <span class="cc-title-main">ETABS</span>
+              <span class="cc-title-shadow" aria-hidden="true">ETABS</span>
+              <span class="cc-title-shadow" aria-hidden="true">ETABS</span>
+            </div>
+            <div class="cc-subtitle">CSI STRUCTURAL</div>
+          </div>
+          <div class="cc-body-area">
+            <div class="cc-left-col">
+              <div class="cc-labels-row" aria-hidden="true">
+                <span class="cc-label-tag">SEND</span>
+                <span class="cc-label-tag">PROCESS</span>
+              </div>
+              <div class="cc-desc">El estándar mundial para análisis y diseño de estructuras de edificios. Análisis sísmico, diseño en concreto y acero.</div>
+              <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="cc-card-btn"><div class="cc-card-btn-inner"><span>ACCEDER AL SOFTWARE</span></div></a>
+            </div>
+            <div class="cc-right-col">
+              <div class="cc-counting-title">COUNTING ON YOU</div>
+              <div class="cc-counting-desc">Modelado integrado con detallado automático para edificaciones.</div>
+              <div class="cc-big-number" aria-hidden="true">23</div>
+            </div>
+          </div>
+          <div class="cc-barcode-area" aria-hidden="true">
+            <svg class="cc-barcode-svg" viewBox="0 0 100 20"><rect x="2" width="2" height="18" fill="#1a1a1a"/><rect x="6" width="1" height="18" fill="#1a1a1a"/><rect x="9" width="3" height="18" fill="#1a1a1a"/><rect x="14" width="1" height="18" fill="#1a1a1a"/><rect x="17" width="2" height="18" fill="#1a1a1a"/><rect x="21" width="1" height="18" fill="#1a1a1a"/><rect x="24" width="3" height="18" fill="#1a1a1a"/><rect x="33" width="1" height="18" fill="#1a1a1a"/><rect x="36" width="2" height="18" fill="#1a1a1a"/><rect x="40" width="3" height="18" fill="#1a1a1a"/><rect x="45" width="1" height="18" fill="#1a1a1a"/><rect x="48" width="2" height="18" fill="#1a1a1a"/><rect x="52" width="1" height="18" fill="#1a1a1a"/><rect x="55" width="3" height="18" fill="#1a1a1a"/><rect x="60" width="1" height="18" fill="#1a1a1a"/><rect x="63" width="2" height="18" fill="#1a1a1a"/><rect x="67" width="3" height="18" fill="#1a1a1a"/><rect x="72" width="1" height="18" fill="#1a1a1a"/><rect x="75" width="2" height="18" fill="#1a1a1a"/></svg>
+            <span class="cc-barcode-text">ETB022304CSI</span>
+          </div>
+          <div class="cc-imperfection" aria-hidden="true">IMPERFECTION</div>
+          <div class="cc-color-tone" aria-hidden="true">
+            <div class="cc-ct-title">color tone.</div>
+            <div class="cc-ct-colors"><div class="cc-ct-swatch" style="background:#3498db"></div><div class="cc-ct-swatch" style="background:#888"></div></div>
+            <div class="cc-ct-desc">Structural analysis platform for seismic design.</div>
+          </div>
+        </div>
+        <svg class="cc-border-svg" viewBox="0 0 820 440" aria-hidden="true"><path class="cc-border-anim" fill="none" stroke-width="2" d="M3 3 L700 3 L700 10 L750 10 L750 3 L790 3 L817 30 L817 400 L800 425 L800 437 L740 437 L730 425 L30 425 L18 437 L3 437 Z"/><path class="cc-border-trail" fill="none" stroke-width="2" d="M3 3 L700 3 L700 10 L750 10 L750 3 L790 3 L817 30 L817 400 L800 425 L800 437 L740 437 L730 425 L30 425 L18 437 L3 437 Z"/></svg>
+      </div>
+    </div>
+
+    <!-- CARD 3: CYPECAD -->
+    <div class="cc-card-wrap" data-card="2"
+         data-category="REINFORCED" data-version="V.2024" data-status="DETAILING"
+         role="tabpanel" aria-label="CYPE CAD Structural">
+      <div class="cc-sweep-ring" aria-hidden="true"></div>
+      <div class="cc-card">
+        <div class="cc-card-inner">
+          <div class="cc-failcode">FAIL CODE : CY24CAD00301</div>
+          <div class="cc-badge">
+            <div class="cc-badge-icons" aria-hidden="true">&#10035; &#10035; &#10035;</div>
+            <div class="cc-badge-code">CY24 PCAD 0001</div>
+          </div>
+          <div class="cc-title-block">
+            <div class="cc-title-stack">
+              <span class="cc-title-main">CYPE</span>
+              <span class="cc-title-shadow" aria-hidden="true">CYPE</span>
+              <span class="cc-title-shadow" aria-hidden="true">CYPE</span>
+            </div>
+            <div class="cc-subtitle">CAD STRUCTURAL</div>
+          </div>
+          <div class="cc-body-area">
+            <div class="cc-left-col">
+              <div class="cc-labels-row" aria-hidden="true">
+                <span class="cc-label-tag">SEND</span>
+                <span class="cc-label-tag">PROCESS</span>
+              </div>
+              <div class="cc-desc">Diseño y cálculo de estructuras de hormigón armado. Generación automática de planos de armado y memorias de cálculo.</div>
+              <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="cc-card-btn"><div class="cc-card-btn-inner"><span>ACCEDER AL SOFTWARE</span></div></a>
+            </div>
+            <div class="cc-right-col">
+              <div class="cc-counting-title">COUNTING ON YOU</div>
+              <div class="cc-counting-desc">Cumplimiento normativo internacional para estructuras de concreto.</div>
+              <div class="cc-big-number" aria-hidden="true">24</div>
+            </div>
+          </div>
+          <div class="cc-barcode-area" aria-hidden="true">
+            <svg class="cc-barcode-svg" viewBox="0 0 100 20"><rect x="2" width="2" height="18" fill="#1a1a1a"/><rect x="6" width="1" height="18" fill="#1a1a1a"/><rect x="9" width="3" height="18" fill="#1a1a1a"/><rect x="14" width="1" height="18" fill="#1a1a1a"/><rect x="17" width="2" height="18" fill="#1a1a1a"/><rect x="21" width="1" height="18" fill="#1a1a1a"/><rect x="24" width="3" height="18" fill="#1a1a1a"/><rect x="29" width="2" height="18" fill="#1a1a1a"/><rect x="33" width="1" height="18" fill="#1a1a1a"/><rect x="36" width="2" height="18" fill="#1a1a1a"/><rect x="40" width="3" height="18" fill="#1a1a1a"/><rect x="45" width="1" height="18" fill="#1a1a1a"/><rect x="48" width="2" height="18" fill="#1a1a1a"/><rect x="52" width="1" height="18" fill="#1a1a1a"/><rect x="55" width="3" height="18" fill="#1a1a1a"/><rect x="60" width="1" height="18" fill="#1a1a1a"/><rect x="63" width="2" height="18" fill="#1a1a1a"/><rect x="67" width="3" height="18" fill="#1a1a1a"/><rect x="72" width="1" height="18" fill="#1a1a1a"/><rect x="75" width="2" height="18" fill="#1a1a1a"/></svg>
+            <span class="cc-barcode-text">CYP024STRUCT</span>
+          </div>
+          <div class="cc-imperfection" aria-hidden="true">IMPERFECTION</div>
+          <div class="cc-color-tone" aria-hidden="true">
+            <div class="cc-ct-title">color tone.</div>
+            <div class="cc-ct-colors"><div class="cc-ct-swatch" style="background:#e67e22"></div><div class="cc-ct-swatch" style="background:#f5e6d0"></div></div>
+            <div class="cc-ct-desc">Reinforced concrete design and automatic rebar detailing.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4: SAP2000 -->
+    <div class="cc-card-wrap" data-card="3"
+         data-category="ANALYSIS" data-version="V.26" data-status="ADVANCED"
+         role="tabpanel" aria-label="SAP2000 Advanced">
+      <div class="cc-card">
+        <div class="cc-card-inner">
+          <div class="cc-failcode">FAIL CODE : SP2600ADV00426</div>
+          <div class="cc-badge">
+            <div class="cc-badge-icons" aria-hidden="true">&#10035; &#10035; &#10035;</div>
+            <div class="cc-badge-code">SP26 2000 ADVx</div>
+          </div>
+          <div class="cc-title-block">
+            <div class="cc-title-stack">
+              <span class="cc-title-main">SAP</span>
+              <span class="cc-title-shadow" aria-hidden="true">SAP</span>
+              <span class="cc-title-shadow" aria-hidden="true">SAP</span>
+            </div>
+            <div class="cc-subtitle">2000 ADVANCED</div>
+          </div>
+          <div class="cc-body-area">
+            <div class="cc-left-col">
+              <div class="cc-labels-row" aria-hidden="true">
+                <span class="cc-label-tag">SEND</span>
+                <span class="cc-label-tag">PROCESS</span>
+              </div>
+              <div class="cc-desc">Análisis estructural avanzado por elementos finitos. Puentes, estructuras especiales, análisis no lineal y pushover.</div>
+              <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="cc-card-btn"><div class="cc-card-btn-inner"><span>ACCEDER AL SOFTWARE</span></div></a>
+            </div>
+            <div class="cc-right-col">
+              <div class="cc-counting-title">COUNTING ON YOU</div>
+              <div class="cc-counting-desc">Herramienta de referencia mundial en ingeniería estructural avanzada.</div>
+              <div class="cc-big-number" aria-hidden="true">00</div>
+            </div>
+          </div>
+          <div class="cc-barcode-area" aria-hidden="true">
+            <svg class="cc-barcode-svg" viewBox="0 0 100 20"><rect x="2" width="2" height="18" fill="#1a1a1a"/><rect x="6" width="1" height="18" fill="#1a1a1a"/><rect x="9" width="3" height="18" fill="#1a1a1a"/><rect x="14" width="1" height="18" fill="#1a1a1a"/><rect x="17" width="2" height="18" fill="#1a1a1a"/><rect x="21" width="1" height="18" fill="#1a1a1a"/><rect x="24" width="3" height="18" fill="#1a1a1a"/><rect x="29" width="2" height="18" fill="#1a1a1a"/><rect x="33" width="1" height="18" fill="#1a1a1a"/><rect x="36" width="2" height="18" fill="#1a1a1a"/><rect x="40" width="3" height="18" fill="#1a1a1a"/><rect x="45" width="1" height="18" fill="#1a1a1a"/><rect x="48" width="2" height="18" fill="#1a1a1a"/><rect x="52" width="1" height="18" fill="#1a1a1a"/><rect x="55" width="3" height="18" fill="#1a1a1a"/><rect x="60" width="1" height="18" fill="#1a1a1a"/><rect x="63" width="2" height="18" fill="#1a1a1a"/><rect x="67" width="3" height="18" fill="#1a1a1a"/><rect x="72" width="1" height="18" fill="#1a1a1a"/><rect x="75" width="2" height="18" fill="#1a1a1a"/></svg>
+            <span class="cc-barcode-text">SAP2000ADV26</span>
+          </div>
+          <div class="cc-imperfection" aria-hidden="true">IMPERFECTION</div>
+          <div class="cc-color-tone" aria-hidden="true">
+            <div class="cc-ct-title">color tone.</div>
+            <div class="cc-ct-colors"><div class="cc-ct-swatch" style="background:#c0392b"></div><div class="cc-ct-swatch" style="background:#d4c5b0"></div></div>
+            <div class="cc-ct-desc">Finite element analysis for bridges and special structures.</div>
+          </div>
+        </div>
+        <svg class="cc-border-svg" viewBox="0 0 820 440" aria-hidden="true"><path class="cc-border-path" d="M3 3 L700 3 L700 10 L750 10 L750 3 L790 3 L817 30 L817 400 L800 425 L800 437 L740 437 L730 425 L30 425 L18 437 L3 437 Z"/></svg>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cc-nav-dots" role="tablist" aria-label="Navegación de cards">
+    <button class="cc-dot active" data-accent="geo5"  role="tab" aria-selected="true"  aria-label="GEO5"></button>
+    <button class="cc-dot"        data-accent="etabs" role="tab" aria-selected="false" aria-label="ETABS"></button>
+    <button class="cc-dot"        data-accent="cype"  role="tab" aria-selected="false" aria-label="CYPE"></button>
+    <button class="cc-dot"        data-accent="sap"   role="tab" aria-selected="false" aria-label="SAP2000"></button>
+  </div>
+
+  <div class="cc-acceder-wrap">
+    <button class="cc-acceder-btn" id="ccAccederBtn">ACCEDER</button>
+  </div>
+
+</section><!-- /cyber-cards-section -->
+
+<!-- BOTÓN REGISTRAR -->
+<button class="login-open-btn" id="loginOpenBtn">
+  <div class="pwr-ring" aria-hidden="true">
+    <div class="pwr-circle">
+      <i class="ti ti-power"></i>
+    </div>
+  </div>
+  <span class="pwr-label">Registrar</span>
+</button>
+
+<div class="divider-line"></div>
+
+<!-- ÚLTIMOS AÑADIDOS -->
+<section class="recent-courses-section" aria-label="Últimos añadidos">
+  <div class="section-header">
+    <div class="sec-eyebrow" style="justify-content:center">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">Actividad Reciente</div>
+      <div class="eyebrow-line"></div>
+    </div>
+    <div class="sec-title">ÚLTIMOS<br><span class="dim">AÑADIDOS</span></div>
+    <p class="sec-desc" style="margin:14px auto 0;text-align:center;max-width:620px">
+      Contenido actualizado constantemente para la comunidad Engineering Eyes.
+    </p>
+  </div>
+  <div id="recent-courses-container">
+    <p class="rc-loading">Cargando contenido...</p>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- SOFTWARES -->
+<section class="softwares-section" id="softwares" aria-label="Software disponible">
+<div class="sec-wrap">
+  <div class="sw-header-split">
+    <div class="reveal">
+      <div class="sec-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Catálogo Completo</div></div>
+      <div class="sec-title">SOFTWARE<br><span class="dim">DISPONIBLE</span></div>
+      <p class="sec-desc">Selecciona la categoría y elige la versión que necesitas. Acceso directo a cada herramienta de ingeniería civil.</p>
+    </div>
+    <div class="sw-singularity-wrap">
+      <iframe src="agujero.html" class="sw-singularity-frame" title="Singularity" tabindex="-1" scrolling="no"></iframe>
+      <!-- Fades que disuelven los 4 bordes del iframe -->
+      <div class="sg-fade sg-fade-left"></div>
+      <div class="sg-fade sg-fade-top"></div>
+      <div class="sg-fade sg-fade-right"></div>
+      <div class="sg-fade sg-fade-bottom"></div>
+    </div>
+  </div>
+<div class="sw-catalog">
+    <canvas id="swCanvas" class="sw-canvas" aria-hidden="true"></canvas>
+    <div class="sw-split">
+
+      <!-- SIDEBAR IZQUIERDO -->
+      <aside class="sw-sidebar" aria-label="Categorías de software">
+        <div class="sw-sidebar-head">
+          <i class="ti ti-stack" aria-hidden="true"></i>
+          <span>CATEGORÍAS</span>
+        </div>
+        <nav class="sw-sidebar-nav" id="swSidebarNav" role="tablist" aria-label="Filtrar por categoría"></nav>
+
+        <div class="sw-sidebar-section">
+          <div class="sw-sidebar-label">ESTADO</div>
+          <label class="sw-sidebar-check" id="swFilterAvail">
+            <span class="sw-check-box sw-check-active"><i class="ti ti-check" aria-hidden="true"></i></span>
+            <span>Disponibles</span>
+          </label>
+          <label class="sw-sidebar-check" id="swFilterSoon">
+            <span class="sw-check-box"><i class="ti ti-check" aria-hidden="true"></i></span>
+            <span>Próximamente</span>
+          </label>
+        </div>
+
+        <div class="sw-sidebar-section">
+          <div class="sw-sidebar-label">ORDENAR</div>
+          <label class="sw-sidebar-check" id="swSortAZ">
+            <span class="sw-check-box sw-check-active"><i class="ti ti-check" aria-hidden="true"></i></span>
+            <span>A — Z</span>
+          </label>
+          <label class="sw-sidebar-check" id="swSortRecent">
+            <span class="sw-check-box"><i class="ti ti-check" aria-hidden="true"></i></span>
+            <span>Más recientes</span>
+          </label>
+        </div>
+      </aside>
+
+      <!-- PANEL DERECHO -->
+      <div class="sw-panel">
+        <div class="sw-toolbar">
+          <input type="text" id="swSearch" class="sw-search" placeholder="SEARCH_FILES()..." aria-label="Buscar software" autocomplete="off">
+          <div class="sw-view-toggle" role="group" aria-label="Modo de vista">
+            <button class="sw-view-btn" id="swViewList" aria-label="Vista lista" title="Vista lista"><i class="ti ti-list" aria-hidden="true"></i></button>
+            <button class="sw-view-btn active" id="swViewGrid" aria-label="Vista tarjetas" title="Vista tarjetas"><i class="ti ti-layout-grid" aria-hidden="true"></i></button>
+          </div>
+        </div>
+        <div class="sw-count" id="swCount" aria-live="polite"></div>
+        <div class="sw-list" id="swList"></div>
+      </div>
+
+    </div><!-- /sw-split -->
+  </div>
+</div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- CURSOS -->
+<section class="cursos-section" id="cursos" style="padding-top:140px;position:relative;">
+  <div class="cursos-header reveal" style="position:relative;text-align:center;max-width:800px;margin:0 auto;padding:0 24px;">
+    <div class="sec-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Formación Profesional</div></div>
+    <div class="sec-title">CURSOS<br><span class="dim">& MAESTRÍAS</span></div>
+    <p class="sec-desc" style="margin:0 auto;max-width:520px;">
+      Domina las herramientas más potentes de la ingeniería civil con proyectos reales y metodología 100% práctica.
+    </p>
+  </div>
+
+  <main>
+    <div class="cards-wrapper">
+      <div class="card-wrap">
+        <div class="card" id="codepen">
+          <header class="type">
+            <span class="tp">Alvisión Civil</span><br>
+            <span class="tp" style="color:var(--teal);font-size:0.9em;">— Aprende sin Límites —</span>
+          </header>
+        </div>
+      </div>
+      <div class="card-wrap">
+        <div class="card" id="html">
+          <code id="c0">
+            <dl>
+              <dt><span class="tp wd">CURSO ESTRUCTURAL</span><span class="tp"> AVANZADO</span></dt><br>
+              <dd>
+                <span class="tp">• Revit 2025/2026 + ETABS 23</span><br>
+                <span class="tp">• Análisis Sísmico y Diseño de Acero/Concreto</span><br>
+                <span class="tp">• Modelado BIM + Planos Automáticos</span><br>
+                <span class="tp">• Proyecto Final: Edificio de 15 pisos</span>
+              </dd><br>
+              <dt><span class="tp" style="color:var(--teal);">48 HORAS • NIVEL AVANZADO</span></dt>
+            </dl>
+          </code>
+        </div>
+      </div>
+      <div class="card-wrap">
+        <div class="card" id="css">
+          <code class="type">
+            <dl>
+              <dt><span class="tp wd">GEO5</span><span class="tp"> MASTERY</span></dt><br>
+              <dd>
+                <span class="tp">• GEO5 2025 + 2026 Completo</span><br>
+                <span class="tp">• Cimentaciones • Taludes • Muros</span><br>
+                <span class="tp">• Análisis de Estabilidad y Retención</span><br>
+                <span class="tp">• Proyectos Reales + Reportes Profesionales</span>
+              </dd><br>
+              <dt><span class="tp" style="color:var(--teal);">36 HORAS • NIVEL PROFESIONAL</span></dt>
+            </dl>
+          </code>
+        </div>
+      </div>
+      <div class="card-wrap">
+        <div class="card" id="js">
+          <code class="type">
+            <dl>
+              <dt><span class="tp wd">CIVIL 3D</span><span class="tp"> INFRAESTRUCTURA</span></dt><br>
+              <dd>
+                <span class="tp">• Diseño de Carreteras y Corredores</span><br>
+                <span class="tp">• Perfiles • Volúmenes • Movimiento de Tierra</span><br>
+                <span class="tp">• Intersecciones y Señalización Vial</span><br>
+                <span class="tp">• Proyecto Final: Carretera Real</span>
+              </dd><br>
+              <dt><span class="tp" style="color:var(--teal);">52 HORAS • NIVEL INTERMEDIO-AVANZADO</span></dt>
+            </dl>
+          </code>
+        </div>
+      </div>
+    </div>
+
+    <div class="expand-panel" id="expandPanel">
+      <div class="expand-header">
+        <span id="panelTitle">CURSO ESTRUCTURAL AVANZADO</span>
+        <button type="button" class="close-panel" id="closePanelBtn" aria-label="Cerrar panel">✕</button>
+      </div>
+      <div class="scroll-controls">
+        <button type="button" class="scroll-btn" id="scrollUpBtn" aria-label="Subir lista">↑</button>
+        <button type="button" class="scroll-btn" id="scrollDownBtn" aria-label="Bajar lista">↓</button>
+      </div>
+      <div class="course-list" id="courseList">
+        <button type="button" class="course-btn" data-title="Curso de Modelado y Detallado de Estructuras de Acero utilizando Tekla Structures" data-desc="Contenido: obtendrás video y material únicamente.">
+          Curso de Modelado y Detallado de Estructuras de Acero utilizando Tekla Structures
+        </button>
+        <button type="button" class="course-btn" data-title="Revit en Edificaciones para Principiantes" data-desc="Contenido: obtendrás video y material únicamente.">
+          Revit en Edificaciones para Principiantes
+        </button>
+        <button type="button" class="course-btn" data-title="Diseño y Análisis Estructural utilizando ETABS 23" data-desc="Contenido: obtendrás video y material únicamente.">
+          Diseño y Análisis Estructural utilizando ETABS 23
+        </button>
+        <button type="button" class="course-btn" data-title="Especialización Profesional en Civil 3D para Infraestructura Vial" data-desc="Contenido: obtendrás video y material únicamente.">
+          Especialización Profesional en Civil 3D para Infraestructura Vial
+        </button>
+      </div>
+      <div class="course-info">
+        <h3 id="courseName">Selecciona un curso</h3>
+        <p id="courseDescription">Aquí aparecerá la descripción.</p>
+        <div class="panel-actions">
+          <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="contact-btn">CONTACTAR</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="world3d"><div id="tablet"></div></div>
+    <svg id="svgPaths" width="740" height="2000" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <use href="#linePath01" /><use href="#linePath02" />
+      <use href="#linePath03" /><use href="#linePath04" />
+    </svg>
+  </main>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- DIPLOMADOS -->
+<section class="diplomados-section" id="diplomados" aria-label="Diplomados Premium">
+  <div class="cb-bg-canvas" id="dipParticles" aria-hidden="true"></div>
+  <div class="dip-hero">
+    <div class="dip-hero-bg" aria-hidden="true"></div>
+    <div class="dip-hero-left">
+      <div class="dip-eyebrow">
+        <span class="dip-eyebrow-dot" aria-hidden="true"></span>
+        Sistema de Formación · Engineering Eyes
+      </div>
+      <h2 class="dip-title glitch-text" data-text="DIPLOMADOS PREMIUM">
+        DIPLO<span class="cy">MADOS</span><br><span class="mg">PREMIUM</span>
+      </h2>
+      <p class="dip-subtitle">
+        Formación intensiva con proyectos reales · Certificado digital incluido<br>
+        Acceso de por vida · Soporte directo con el instructor
+      </p>
+      <div class="dip-filters" role="group" aria-label="Filtrar diplomados">
+        <button type="button" class="dip-filter active" data-filter="all">Todos</button>
+        <button type="button" class="dip-filter" data-filter="estructural">Estructural</button>
+        <button type="button" class="dip-filter" data-filter="geotecnia">Geotecnia</button>
+        <button type="button" class="dip-filter" data-filter="infraestructura">Infraestructura</button>
+        <button type="button" class="dip-filter" data-filter="cad">CAD</button>
+        <button type="button" class="dip-filter" data-filter="bim">BIM</button>
+      </div>
+    </div>
+  </div>
+  <div class="dip-wrap" style="margin-bottom:32px;">
+    <div class="dip-search-wrap">
+      <input type="text" class="dip-search" id="dipSearch" placeholder="> buscar diplomado..." aria-label="Buscar diplomado">
+      <button type="button" class="dip-search-btn" id="dipSearchBtn" aria-label="Buscar"><i class="ti ti-search" aria-hidden="true"></i></button>
+    </div>
+  </div>
+  <div class="dip-wrap">
+    <div class="dip-grid" id="dipGrid" role="list"></div>
+    <div class="no-results" id="dipNoResults" role="alert">> SIN RESULTADOS PARA ESA BÚSQUEDA_</div>
+  </div>
+</section>
+
+<div class="divider-line"></div>
+
+<!-- INTERCAMBIOS -->
+<section class="intercambios-section" id="intercambios" aria-label="Intercambios de cursos">
+  <div class="cb-bg-canvas" id="interParticles" aria-hidden="true"></div>
+  <div class="inter-hero">
+    <div class="inter-hero-bg" aria-hidden="true"></div>
+    <div class="inter-hero-left">
+      <div class="dip-eyebrow" style="color:var(--mg)">
+        <span class="dip-eyebrow-dot" style="background:var(--mg);box-shadow:0 0 8px var(--mg)" aria-hidden="true"></span>
+        Marketplace de Conocimiento · Engineering Eyes
+      </div>
+      <h2 class="inter-title" data-text="INTERCAMBIOS DE CURSOS">
+        INTER<span class="cy">CAMBIOS</span><br>DE <span class="mg">CURSOS</span>
+      </h2>
+      <p class="inter-subtitle">
+        Compra, vende o intercambia cursos con otros ingenieros<br>
+        Plataforma P2P de conocimiento técnico especializado
+      </p>
+      <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer"
+         class="inter-publish-btn glitch-active" id="publishBtn">
+        <i class="ti ti-upload" aria-hidden="true"></i>
+        <span>Publicar mi Curso para Intercambio</span>
+      </a>
+    </div>
+  </div>
+  <div class="inter-controls" role="group" aria-label="Filtrar intercambios">
+    <input type="text" class="inter-search" id="interSearch" placeholder="> buscar en el vault..." aria-label="Buscar en intercambios">
+    <button type="button" class="inter-filter active" data-filter="all">Todos</button>
+    <button type="button" class="inter-filter" data-filter="bim">BIM</button>
+    <button type="button" class="inter-filter" data-filter="estructural">Estructural</button>
+    <button type="button" class="inter-filter" data-filter="geotecnia">Geotecnia</button>
+    <button type="button" class="inter-filter" data-filter="infraestructura">Infraestructura</button>
+    <button type="button" class="inter-filter" data-filter="cad">CAD</button>
+    <select class="inter-sort" id="interSort" aria-label="Ordenar por">
+      <option value="default">Orden por defecto</option>
+      <option value="price-asc">Precio: menor a mayor</option>
+      <option value="price-desc">Precio: mayor a menor</option>
+    </select>
+  </div>
+  <div class="inter-wrap">
+    <div class="inter-grid" id="interGrid" role="list"></div>
+    <div class="no-results" id="interNoResults" role="alert">> SIN RESULTADOS EN EL VAULT_</div>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="cb-modal-overlay" id="cbModalOverlay" role="dialog" aria-modal="true" aria-labelledby="cbModalTitle">
+  <div class="cb-modal">
+    <button type="button" class="cb-modal-close" id="cbModalClose" aria-label="Cerrar modal"><i class="ti ti-x" aria-hidden="true"></i></button>
+    <div class="cb-modal-tag" id="cbModalTag">DIPLOMADO</div>
+    <div class="cb-modal-title" id="cbModalTitle">Título</div>
+    <div class="cb-modal-instructor" id="cbModalInstructor"></div>
+    <div class="cb-modal-desc" id="cbModalDesc"></div>
+    <div class="cb-modal-feats" id="cbModalFeats"></div>
+    <div class="cb-modal-footer">
+      <div class="cb-modal-price" id="cbModalPrice">$0</div>
+      <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="dip-btn glitch-active">
+        <i class="ti ti-brand-telegram" aria-hidden="true"></i> Contactar
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="reveal">ENGINEERING<br><span>EYES</span></h2>
+    <p class="reveal">RECURSOS DESBLOQUEADOS · Accede ahora a todos los recursos, cursos y software de ingeniería civil.</p>
+    <div class="cta-btns reveal">
+      <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-play"><i class="ti ti-brand-telegram" aria-hidden="true"></i> Ingresar al Telegram</a>
+      <a href="#softwares" class="btn-trailer"><i class="ti ti-download" aria-hidden="true"></i> Ver Software</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="footer-logo-sq" aria-hidden="true"></div>
+      <div class="footer-logo-text">Engineering Eyes</div>
+    </div>
+    <nav class="footer-links" aria-label="Links del footer">
+      <a href="#inicio">Inicio</a>
+      <a href="#softwares">Software</a>
+      <a href="#cursos">Cursos</a>
+      <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer">Telegram</a>
+    </nav>
+    <div class="footer-copy">© 2025 Engineering Eyes</div>
+  </div>
+</footer>
+
+<!-- SVG DEFS -->
+<svg width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="linePath01" d="m 106,45h 375c 114,0 226,128 226,235v 236c 0,136 -122,222 -224,221l -182,-2c -89,1 -141,42 -142,158l -2,204c -1,117 37,173 134,173h 186c 110,-3 230,111 230,220v 242c 0,113 -125,225 -248,225H 105" />
+    <path id="linePath02" d="m 33,85h 444c 96,0 190,107 190,201v 224c 0,116 -98,188 -190,187l -192,-2c -92,0 -166,75 -166,168v 278c 0,94 74,169 166,169h 194c 92,0 188,94 188,188v 228c 0,94 -104,191 -214,191H 105" />
+    <path id="linePath03" d="m 155,127h 308c 94,0 162,86 162,177v 178c 0,109 -50,174 -166,173L 277,653C 158,653 77,762 77,849v 302c 0,118 107,196 180,197l 204,4c 92,0 164,67 164,160v 200c 0,91 -89,163 -188,163H 105" />
+    <path id="linePath04" d="m 283,173c 2,0 165,0 165,0C 544,175 577,238 577,330v 156c 0,94 -48,126 -140,125L 269,609C 167,602 29,702 29,851v 312c 0,111 101,235 242,235h 162c 109,1 144,49 144,136v 162c 0,73 -53,130 -118,130l -353,1" />
+    <path id="codepenIcon" fill="#FFFFFF" d="m 214,306 -57,37c -1,0 -2,2 -2,3v 40c 0,1 1,2 2,3l 57,40c 2,1 6,1 7,0l 58,-40c 1,0 2,-1 2,-3v -40c 0,-2 -2,-3 -2,-3l -57,-37c -4,-3 -8,0 -8,0zm -2,13 1,26 -24,16 -19,-14zm 10,0 43,28 -19,14 -24,-16zm -6,35 19,14 -19,14 -19,-14zm -52,3 14,9 -14,9zm 106,0v 19l -14,-9zm -84,15 24,16v 26l -42,-28zm 59,0 17,14 -42,28v -26z" />
+    <path id="htmlIcon"   fill="#FFFFFF" d="m 94,318v 109h 16v -47h 12v 47h 16V 318h -16v 45h -12v -45zm 47,0v 18h 14v 92h 15v -92h 14v -18zm 45,0v 109h 15v -54l 7,41h 12l 5,-42v 55h 15V 318h -16l -11,72 -11,-72zm 62,0 1,109h 34v -19h -19v -91z" />
+    <path id="cssIcon"    fill="#FFFFFF" d="m 94,398c 0,26 18,31 30,31 9,0 32,-3 31,-34h -19c 0,23 -22,21 -22,0v -43c 0,-25 22,-21 22,1h 18c 1,-32 -22,-35 -30,-35 -10,0 -30,3 -30,32zm 105,-1c 0,22 -23,18 -23,-2h -18c 0,0 1,33 30,33 9,0 30,-4 30,-31 0,-42 -39,-26 -39,-50 0,-16 22,-20 22,3h 18c -2,-21 -11,-31 -30,-31 -9,0 -28,0 -29,28 -1,40 39,23 39,50zm 62,0c 0,21 -22,22 -23,-2h -17c 0,0 0,33 30,33 18,0 30,-9 30,-31 0,-41 -39,-27 -39,-50 0,-15 22,-20 22,3h 18c -1,-22 -13,-31 -27,-31 -11,0 -32,1 -33,27 1,38 39,25 39,51z" />
+    <path id="jsIcon"     fill="#FFFFFF" d="m 262,395c 0,20 -22,20 -22,-1h -18c 0,14 5,31 28,31 16,0 30,-9 30,-31 0,-41 -39,-26 -39,-49 0,-16 20,-19 20,3h 18c -1,-27 -14,-30 -27,-30 -19,-1 -29,8 -29,27 -2,38 39,24 39,50zm -67,-76v 74c 0,22 -22,20 -22,-1h -19c -1,26 15,34 30,34 27,0 30,-20 30,-30v -77z" />
+    <mask id="block"><path fill="#FFFFFF" d="M 0,0 H 300 V 450 H 0 Z"/></mask>
+    <mask id="codepenMask"><use href="#codepenIcon"/></mask>
+    <mask id="htmlMask"><use href="#htmlIcon"/></mask>
+    <mask id="cssMask"><use href="#cssIcon"/></mask>
+    <mask id="jsMask"><use href="#jsIcon"/></mask>
+    <mask id="codepenMask2"><use href="#codepenIcon" stroke="#FFFFFF" stroke-width="4"/></mask>
+    <mask id="htmlMask2"><use href="#htmlIcon" stroke="#FFFFFF" stroke-width="4"/></mask>
+    <mask id="cssMask2"><use href="#cssIcon" stroke="#FFFFFF" stroke-width="4"/></mask>
+    <mask id="jsMask2"><use href="#jsIcon" stroke="#FFFFFF" stroke-width="4"/></mask>
+    <linearGradient id="cl1" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="20%" stop-color="#b169db"/>
+      <stop offset="45%" stop-color="#f7d152"/>
+      <stop offset="65%" stop-color="#46cf71"/>
+      <stop offset="85%" stop-color="#0fbffa"/>
+      <stop offset="100%" stop-color="#0fbffa"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<!-- FUENTE ÚNICA DE DATOS — debe ir antes de script.js -->
+<script src="data/catalogo.js"></script>
+<script src="cyber-cards.js"></script>
+<script src="script.js"></script>
+<script src="glitch-sections.js"></script>
+<script src="recent-courses.js"></script>
+</body>
+</html>
