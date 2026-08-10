@@ -1014,3 +1014,46 @@
     animation: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════
+   AJUSTES MÓVIL — tarjeta apilada en una columna
+   Solo ≤600px. La vista de escritorio no cambia.
+   El JS mide la tarjeta en vivo (getBoundingClientRect),
+   así que se adapta solo al nuevo tamaño.
+═══════════════════════════════════════════════ */
+@media (max-width: 600px) {
+
+  /* Más grande y más alta: a 238px el contenido se pisaba */
+  .cyber-cards-section .cc-card-wrap {
+    width: 92vw; max-width: 380px; height: 330px;
+  }
+  .cyber-cards-section .cc-stage { height: 348px; }
+
+  /* Una sola columna: el título deja de competir con el texto */
+  .cyber-cards-section .cc-card-inner {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto 1fr;
+    gap: 6px 0;
+    padding: 12px 14px 10px;
+  }
+  .cyber-cards-section .cc-failcode  { grid-column: 1; grid-row: 1; }
+  .cyber-cards-section .cc-badge     { grid-column: 1; grid-row: 2; }
+  .cyber-cards-section .cc-title-block { grid-column: 1; grid-row: 3; }
+  .cyber-cards-section .cc-body-area { grid-column: 1; grid-row: 4; }
+
+  .cyber-cards-section .cc-title-main,
+  .cyber-cards-section .cc-title-shadow { font-size: 30px; }
+  .cyber-cards-section .cc-desc { font-size: 11px; line-height: 1.45; }
+
+  /* El botón, a lo ancho y con área táctil decente */
+  .cyber-cards-section .cc-card-btn { max-width: 100%; }
+  .cyber-cards-section .cc-card-btn-inner { padding: 11px 14px; }
+
+  /* El número gigante detrás, no encima del texto */
+  .cyber-cards-section .cc-big-number {
+    position: absolute; right: 12px; bottom: 8px;
+    font-size: 44px; opacity: 0.35; pointer-events: none;
+  }
+  .cyber-cards-section .cc-right-col { margin-top: 4px; }
+  .cyber-cards-section .cc-color-tone { display: none; }
+}
