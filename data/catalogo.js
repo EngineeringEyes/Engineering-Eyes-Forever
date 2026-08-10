@@ -16,7 +16,9 @@
         img      miniatura (opcional)
         soon     true = "Próximamente" (sin enlace)
    • el resto     → la ficha completa del accordion
-        pen / usd / buyers = precio soles / dólares / contador
+        pen    = precio en SOLES (lo único que escribes)
+        usd    = opcional, solo para forzar un dólar concreto
+        buyers = contador de compradores (bórralo y desaparece)
         gratis: true + urlGratis = descarga directa sin cobro
         video: "https://youtu.be/..." = activa el botón "Ver tutorial"
 
@@ -43,6 +45,91 @@
       sin cambiarla en los dos sitios.
 ═══════════════════════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════════════════════
+   💵 PRECIOS — escribe SOLO soles; el dólar se calcula solo
+   ───────────────────────────────────────────────────────────────
+   El precio en dólares se calcula HACIA ATRÁS desde lo que quieres
+   recibir, restando cada costo de la cadena:
+
+     cobras $G
+       → PayPal se queda    G × paypalPct + paypalFijo
+       → el retiro se queda  (resto) × retiroPct + retiroFijo
+       → conviertes a soles  × tipoCambio
+       → debe quedarte al menos  `pen`  soles
+       → + margen  → redondeado SIEMPRE HACIA ARRIBA
+
+   ⚠️ EL NÚMERO MÁS IMPORTANTE ES `tipoCambio`, y NO es el del
+      banco ni el de Google. Son los SOLES QUE TE LLEGAN A LA MANO
+      por cada dólar, al final de toda la cadena
+      (PayPal → Prex Argentina en pesos → envío a Perú).
+
+      Mídelo con UNA venta real:
+        soles que recibiste ÷ dólares que te pagó el cliente
+      Ese cociente es tu tipoCambio verdadero. Si te da 3.20,
+      pon 3.20. Poner 3.75 cuando en realidad recibes 3.20
+      significa perder dinero en cada venta sin notarlo.
+═══════════════════════════════════════════════════════════════ */
+window.EE_PRECIOS = {
+
+  tipoCambio: 3.75,    /* ⚠️ soles que te llegan A LA MANO por dólar (mídelo) */
+
+  /* Lo que se queda PayPal al recibir el pago */
+  paypalPct:  0.054,   /* 5.4 % · tarifa estándar Latinoamérica */
+  paypalFijo: 0.30,    /* $0.30 fijos por transacción */
+
+  /* Lo que cuesta sacar el dinero de PayPal (Prex Argentina) */
+  retiroPct:  0,       /* 0 % · promoción Prex sin comisión hasta el 30/09/2026 */
+  retiroFijo: 0,       /* ⚠️ al terminar la promoción vuelve a ser ~$4 + IVA:
+                          pon  retiroFijo: 4.84  cuando eso ocurra */
+
+  margen:     0.05,    /* 5 % tuyo, colchón por si algo sube */
+  redondeo:   5,       /* precios en múltiplos de 5, siempre hacia ARRIBA */
+  minimo:     5        /* nunca cobrar menos de $5 */
+};
+
+/* Calcula el dólar de un programa. Si trae `usd` propio, ese manda.
+   Comparado contra null/undefined (no por verdadero/falso) para que
+   un usd: 0 intencional se respete en vez de recalcularse. */
+window.EE_USD = function (pen, usdForzado) {
+  if (usdForzado !== undefined && usdForzado !== null && !isNaN(usdForzado)) {
+    return Number(usdForzado);
+  }
+  const c = window.EE_PRECIOS || {};
+  const tc  = Number(c.tipoCambio) > 0 ? Number(c.tipoCambio) : 3.75;
+  const pPct = Number(c.paypalPct)  >= 0 ? Number(c.paypalPct)  : 0;
+  const pFij = Number(c.paypalFijo) >= 0 ? Number(c.paypalFijo) : 0;
+  const rPct = Number(c.retiroPct)  >= 0 ? Number(c.retiroPct)  : 0;
+  const rFij = Number(c.retiroFijo) >= 0 ? Number(c.retiroFijo) : 0;
+  const mar  = Number(c.margen)     >= 0 ? Number(c.margen)     : 0;
+  const red  = Number(c.redondeo)   >  0 ? Number(c.redondeo)   : 1;
+  const min  = Number(c.minimo)     >  0 ? Number(c.minimo)     : red;
+
+  const soles = Number(pen);
+  if (!(soles > 0)) return 0;
+  if (pPct >= 1 || rPct >= 1) return 0;        /* config imposible */
+
+  const netoUSD  = soles / tc;                 /* lo que debe quedarte */
+  const antesRet = (netoUSD + rFij) / (1 - rPct);
+  const bruto    = (antesRet + pFij) / (1 - pPct);
+  return Math.max(min, Math.ceil(bruto * (1 + mar) / red) * red);
+};
+
+/* Escribe  EE_tabla()  en la consola del navegador (F12) para ver
+   cuánto te queda realmente con la configuración actual. */
+window.EE_tabla = function () {
+  const c = window.EE_PRECIOS;
+  (window.EE_CATALOGO || []).forEach(p => {
+    const usd  = window.EE_USD(p.pen, p.usd);
+    const tras = (usd * (1 - c.paypalPct) - c.paypalFijo);
+    const fin  = (tras * (1 - c.retiroPct) - c.retiroFijo) * c.tipoCambio;
+    console.log(
+      (p.gratis ? 'GRATIS ' : '       ') + p.llave.padEnd(20),
+      'S/' + String(p.pen).padEnd(5), '→ $' + String(usd).padEnd(4),
+      '→ te queda S/' + fin.toFixed(0), fin >= p.pen ? '✔' : '✘ PIERDES'
+    );
+  });
+};
+
 window.EE_CATALOGO = [
 
   /* ════ GEOTECNIA ════ */
@@ -59,7 +146,7 @@ window.EE_CATALOGO = [
     novedades: [["Taludes","Estabilidad y refuerzos"],["Cimentaciones","Zapatas y pilotes"],["Muros","Contención · tablestacas"],["MEF","Elementos finitos"]],
     nBadges: ["Estable","Suite modular"],
     web: "https://www.finesoftware.es/geo5/",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "geo5-2026",
@@ -74,14 +161,14 @@ window.EE_CATALOGO = [
     novedades: [["Sismo","Análisis dinámico"],["BIM","Integración IFC"],["Reportes","Automáticos"],["Módulos","Actualizados v26"]],
     nBadges: ["BIM","Sismo","Reportes"],
     web: "https://www.finesoftware.es/geo5/",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
 
   /* ════ ESTRUCTURAL · CSI ════ */
   {
     llave: "etabs-22",
     lista: { cat: "Estructural", icon: "ti-building", versions: "Edificios · Sísmico", ac: "#3498db", url: "https://t.me/+xT9picqsAUI5MDAx", img: "https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes-Forever/main/etabs.png" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "ETABS 22", color: "#3498db",
     categoria: "Estructuras · Edificios", dev: "CSI · Computers & Structures",
     desc: "Análisis estructural y diseño integral de edificios: modelado, análisis sísmico y detallado en un solo entorno.",
@@ -91,12 +178,12 @@ window.EE_CATALOGO = [
     novedades: [["Análisis","Estático y dinámico"],["No lineal","Pushover · Tiempo-historia"],["Diseño","Concreto · Acero · Muros"],["Normas","ACI · AISC · ASCE"]],
     nBadges: ["Muros y losas","Detallado"],
     web: "https://www.csiamerica.com/products/etabs",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "etabs-23",
     lista: { cat: "Estructural", icon: "ti-building", versions: "Edificios · Actualizado", ac: "#3498db", url: "https://t.me/+xT9picqsAUI5MDAx", img: "https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes-Forever/main/etabs.png" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "ETABS 23", color: "#3498db",
     categoria: "Estructuras · Edificios", dev: "CSI · Computers & Structures",
     desc: "La actualización más reciente de ETABS: mejor rendimiento, flujo de diseño optimizado y nuevas verificaciones.",
@@ -106,12 +193,12 @@ window.EE_CATALOGO = [
     novedades: [["Rendimiento","Optimizado"],["Análisis","Estático y dinámico"],["No lineal","Pushover · Tiempo-historia"],["Diseño","Concreto · Acero · Muros"]],
     nBadges: ["Nuevo","Más rápido"],
     web: "https://www.csiamerica.com/products/etabs",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "safe-22",
     lista: { cat: "Estructural", icon: "ti-layout-grid", versions: "Losas · Cimentaciones", ac: "#3498db", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "SAFE 22", color: "#3498db",
     categoria: "Losas y cimentaciones", dev: "CSI · Computers & Structures",
     desc: "Diseño de losas de concreto y cimentaciones, con postensado y verificación de punzonamiento integrada.",
@@ -121,7 +208,7 @@ window.EE_CATALOGO = [
     novedades: [["Losas","Macizas · Nervadas"],["Postensado","Tendones y pérdidas"],["Punzonamiento","Verificación integrada"],["Cimentación","Zapatas y plateas"]],
     nBadges: ["ACI 318","Deflexiones"],
     web: "https://www.csiamerica.com/products/safe",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "sap2000-v25",
@@ -138,12 +225,12 @@ window.EE_CATALOGO = [
     novedades: [["Elementos","Frame · Shell · Solid"],["Cargas","Móviles y dinámicas"],["No lineal","Geométrico y material"],["Normas","ACI · AISC · Eurocódigo"]],
     nBadges: ["Puentes","Torres","Tanques"],
     web: "https://www.csiamerica.com/products/sap2000",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "csibridge",
     lista: { cat: "Estructural", icon: "ti-building-bridge", versions: "Puentes · CSI", ac: "#62d9c8", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "CSiBridge", color: "#62d9c8",
     categoria: "Puentes", dev: "CSI · Computers & Structures",
     desc: "Modelado paramétrico, análisis y diseño de puentes con cargas móviles y etapas constructivas.",
@@ -153,14 +240,14 @@ window.EE_CATALOGO = [
     novedades: [["Modelado","Paramétrico por ejes"],["Cargas","Vehiculares AASHTO"],["Etapas","Constructivas"],["Diseño","Súper e infraestructura"]],
     nBadges: ["AASHTO LRFD","Pretensado","Sismo"],
     web: "https://www.csiamerica.com/products/csibridge",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
 
   /* ════ ESTRUCTURAL · CYPE ════ */
   {
     llave: "cypecad-2019",
     lista: { cat: "Estructural", icon: "ti-box", versions: "Estructuras", ac: "#e67e22", url: "https://t.me/+xT9picqsAUI5MDAx", img: "https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes-Forever/main/cypecad.png" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Cypecad 2019", color: "#e67e22",
     categoria: "Estructuras", dev: "CYPE Ingenieros",
     desc: "Versión clásica de CYPECAD: diseño y cálculo de estructuras de hormigón armado con planos de armado automáticos.",
@@ -170,7 +257,7 @@ window.EE_CATALOGO = [
     novedades: [["Estructuras","Hormigón armado"],["Planos","Armado automático"],["Memorias","De cálculo incluidas"],["Equipos","Funciona en PC modestas"]],
     nBadges: ["Ligera","Estable"],
     web: "https://www.cype.com",
-    pen: 99, usd: 30, buyers: 10             /* ← EDITA */
+    pen: 99, buyers: 10             /* ← EDITA: solo soles */
   },
   {
     llave: "cypecad-2026",
@@ -190,7 +277,7 @@ window.EE_CATALOGO = [
     rNota: "Solo 64 bits desde la versión 2025.a",
     webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
     web: "https://www.cype.com",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "cypecad-2027",
@@ -209,7 +296,7 @@ window.EE_CATALOGO = [
     requisitos: [["Sistema","Windows 7 – 11 · 64 bits"],["RAM","8 GB mín. · 16 GB recom."],["Gráficos","OpenGL 3+ (NVIDIA / AMD)"],["Pantalla","1366×768 mínimo"]],
     webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
     web: "https://www.cype.com",
-    pen: 199, usd: 60, buyers: 3             /* ← EDITA */
+    pen: 199, buyers: 3             /* ← EDITA: solo soles */
   },
 
   /* ════ OTROS ESTRUCTURALES ════ */
@@ -226,7 +313,7 @@ window.EE_CATALOGO = [
     novedades: [["RISA-3D","Análisis 3D general"],["RISAFloor","Pisos y vigas"],["RISAFoundation","Cimentaciones"],["Integración","Modelo único compartido"]],
     nBadges: ["AISC","Madera NDS","Aluminio"],
     web: "https://risa.com",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "adapt-builder",
@@ -241,12 +328,12 @@ window.EE_CATALOGO = [
     novedades: [["Postensado","Adherido y no adherido"],["Losas","PT y reforzadas"],["Vigas","Continuas PT"],["Verificación","ACI 318 · deflexiones"]],
     nBadges: ["Tendones","Pérdidas","Deflexiones"],
     web: "https://risa.com/products/adapt-builder",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "idea-statica",
     lista: { cat: "Estructural", icon: "ti-link", versions: "Conexiones · CBFEM", ac: "#6fb8ff", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "IDEA StatiCa", color: "#6fb8ff",
     categoria: "Conexiones de acero", dev: "IDEA StatiCa (Chequia)",
     desc: "Diseño y verificación de conexiones de acero y detalles de concreto con el método CBFEM, sin límites de topología.",
@@ -256,14 +343,14 @@ window.EE_CATALOGO = [
     novedades: [["Método","CBFEM"],["Conexiones","Cualquier topología"],["Enlaces","ETABS · SAP2000 · Robot"],["Concreto","Detalles y anclajes"]],
     nBadges: ["AISC · EC3","Importación BIM","Reportes"],
     web: "https://www.ideastatica.com",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
 
   /* ════ BIM & CAD · AUTODESK ════ */
   {
     llave: "revit-2025",
     lista: { cat: "BIM & CAD", icon: "ti-3d-cube-sphere", versions: "BIM · Arquitectura", ac: "#e74c3c", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Revit 2025", color: "#e74c3c",
     categoria: "BIM · Arquitectura", dev: "Autodesk",
     desc: "Plataforma BIM líder para modelado arquitectónico y estructural, coordinación multidisciplinaria y planos automáticos.",
@@ -273,12 +360,12 @@ window.EE_CATALOGO = [
     novedades: [["BIM","Modelado paramétrico"],["Planos","Generación automática"],["Coordinación","Multidisciplinaria"],["Familias","Biblioteca editable"]],
     nBadges: ["Estable","Renders"],
     web: "https://www.autodesk.com/products/revit/overview",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "revit-2026",
     lista: { cat: "BIM & CAD", icon: "ti-3d-cube-sphere", versions: "BIM · Nuevo", ac: "#e74c3c", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Revit 2026", color: "#e74c3c",
     categoria: "BIM · Arquitectura", dev: "Autodesk",
     desc: "La versión más reciente de Revit: rendimiento mejorado, nuevas herramientas de modelado y colaboración en la nube.",
@@ -288,12 +375,12 @@ window.EE_CATALOGO = [
     novedades: [["Rendimiento","Vistas más rápidas"],["Modelado","Herramientas nuevas"],["Nube","Colaboración BIM"],["Interfaz","Modernizada"]],
     nBadges: ["Nuevo","Más rápido"],
     web: "https://www.autodesk.com/products/revit/overview",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "revit-2027",
     lista: { cat: "BIM & CAD", icon: "ti-3d-cube-sphere", versions: "BIM · Beta", ac: "#e74c3c", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Revit 2027", color: "#e74c3c",
     categoria: "BIM · Arquitectura", dev: "Autodesk",
     desc: "Acceso anticipado a la próxima generación de Revit. Versión beta para probar las funciones más nuevas.",
@@ -303,12 +390,12 @@ window.EE_CATALOGO = [
     novedades: [["Estado","Beta pública"],["Funciones","En desarrollo"],["BIM","Próxima generación"],["Feedback","Acceso anticipado"]],
     nBadges: ["Beta","Anticipado"],
     web: "https://www.autodesk.com/products/revit/overview",
-    pen: 199, usd: 60, buyers: 3             /* ← EDITA */
+    pen: 199, buyers: 3             /* ← EDITA: solo soles */
   },
   {
     llave: "autocad-2023",
     lista: { cat: "BIM & CAD", icon: "ti-ruler-2", versions: "CAD · 2D/3D", ac: "#e74c3c", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "AutoCAD 2023", color: "#e74c3c",
     categoria: "CAD · 2D/3D", dev: "Autodesk",
     desc: "El estándar del dibujo técnico: dibujo 2D de precisión y modelado 3D con formato DWG nativo.",
@@ -318,12 +405,12 @@ window.EE_CATALOGO = [
     novedades: [["Dibujo","2D de precisión"],["3D","Modelado sólido"],["Bloques","Dinámicos"],["Compatibilidad","DWG nativo"]],
     nBadges: ["Estable","Ligero"],
     web: "https://www.autodesk.com/products/autocad/overview",
-    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+    pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "autocad-2024",
     lista: { cat: "BIM & CAD", icon: "ti-ruler-2", versions: "CAD · Estable", ac: "#e74c3c", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "AutoCAD 2024", color: "#e74c3c",
     categoria: "CAD · 2D/3D", dev: "Autodesk",
     desc: "El estándar del dibujo técnico: dibujo 2D de precisión y modelado 3D con formato DWG nativo.",
@@ -333,12 +420,12 @@ window.EE_CATALOGO = [
     novedades: [["Marcas","Importación inteligente"],["Dibujo","2D de precisión"],["3D","Modelado sólido"],["Compatibilidad","DWG nativo"]],
     nBadges: ["Estable","Recomendado"],
     web: "https://www.autodesk.com/products/autocad/overview",
-    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+    pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "autocad-2025",
     lista: { cat: "BIM & CAD", icon: "ti-ruler-2", versions: "CAD · Nuevo", ac: "#e74c3c", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "AutoCAD 2025", color: "#e74c3c",
     categoria: "CAD · 2D/3D", dev: "Autodesk",
     desc: "La versión más reciente de AutoCAD: marcas inteligentes con IA, rendimiento mejorado y DWG nativo.",
@@ -348,12 +435,12 @@ window.EE_CATALOGO = [
     novedades: [["IA","Marcas inteligentes"],["Rendimiento","Mejorado"],["Dibujo","2D de precisión"],["Compatibilidad","DWG nativo"]],
     nBadges: ["Nuevo","IA"],
     web: "https://www.autodesk.com/products/autocad/overview",
-    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+    pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "civil-3d-2023",
     lista: { cat: "BIM & CAD", icon: "ti-road", versions: "Infraestructura", ac: "#e74c3c", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Civil 3D 2023", color: "#e74c3c",
     categoria: "Infraestructura", dev: "Autodesk",
     desc: "Diseño de infraestructura civil: carreteras, corredores, perfiles, plataformas y movimiento de tierras.",
@@ -363,12 +450,12 @@ window.EE_CATALOGO = [
     novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["Perfiles","Longitudinales"],["Tuberías","Redes sanitarias"]],
     nBadges: ["Estable","Vial"],
     web: "https://www.autodesk.com/products/civil-3d/overview",
-    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+    pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "civil-3d-2024",
     lista: { cat: "BIM & CAD", icon: "ti-road", versions: "Infraestructura", ac: "#e74c3c", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Civil 3D 2024", color: "#e74c3c",
     categoria: "Infraestructura", dev: "Autodesk",
     desc: "Diseño de infraestructura civil: carreteras, corredores, perfiles, plataformas y movimiento de tierras.",
@@ -378,12 +465,12 @@ window.EE_CATALOGO = [
     novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["Perfiles","Longitudinales"],["Tuberías","Redes sanitarias"]],
     nBadges: ["Estable","Recomendado"],
     web: "https://www.autodesk.com/products/civil-3d/overview",
-    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+    pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "civil-3d-2025",
     lista: { cat: "BIM & CAD", icon: "ti-road", versions: "Infraestructura", ac: "#e74c3c", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Civil 3D 2025", color: "#e74c3c",
     categoria: "Infraestructura", dev: "Autodesk",
     desc: "La versión más reciente de Civil 3D para diseño vial e infraestructura con flujos BIM conectados.",
@@ -393,14 +480,14 @@ window.EE_CATALOGO = [
     novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["BIM","Flujos conectados"],["Tuberías","Redes sanitarias"]],
     nBadges: ["Nuevo","BIM"],
     web: "https://www.autodesk.com/products/civil-3d/overview",
-    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+    pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
 
   /* ════ BIM & CAD · OTROS ════ */
   {
     llave: "archicad-28",
     lista: { cat: "BIM & CAD", icon: "ti-3d-cube-sphere", versions: "BIM · Graphisoft", ac: "#5ad1ff", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "ARCHICAD 28", color: "#5ad1ff",
     categoria: "BIM · Arquitectura", dev: "Graphisoft (Nemetschek)",
     desc: "BIM arquitectónico: diseño, documentación y colaboración OpenBIM en un flujo de trabajo integrado.",
@@ -410,7 +497,7 @@ window.EE_CATALOGO = [
     novedades: [["Diseño","Modelado BIM nativo"],["Documentación","Planos automáticos"],["OpenBIM","IFC · BCF"],["Colaboración","BIMcloud"]],
     nBadges: ["Render","Teamwork","Detalles"],
     web: "https://graphisoft.com/es/soluciones/archicad",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "bluebeam-revu",
@@ -425,14 +512,14 @@ window.EE_CATALOGO = [
     novedades: [["Markups","Herramientas AEC"],["Mediciones","Áreas · longitudes · conteos"],["Studio","Colaboración en vivo"],["Comparar","Revisiones de planos"]],
     nBadges: ["Sellos","OCR","Nube"],
     web: "https://www.bluebeam.com",
-    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+    pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
 
   /* ════ GIS ════ */
   {
     llave: "global-mapper",
     lista: { cat: "GIS", icon: "ti-map", versions: "Terreno · LiDAR", ac: "#ffd36a", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Global Mapper", color: "#ffd36a",
     categoria: "SIG · Terreno", dev: "Blue Marble Geographics",
     desc: "SIG todo en uno: análisis de terreno, LiDAR, datos ráster y vectoriales con cientos de formatos compatibles.",
@@ -442,12 +529,12 @@ window.EE_CATALOGO = [
     novedades: [["Terreno","MDE y curvas de nivel"],["LiDAR","Módulo opcional"],["Formatos","Cientos compatibles"],["Análisis","Cuencas · visibilidad"]],
     nBadges: ["Georreferencia","3D","Scripts"],
     web: "https://www.bluemarblegeo.com/global-mapper/",
-    pen: 149, usd: 45, buyers: 10            /* ← EDITA */
+    pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "arcgis-pro",
     lista: { cat: "GIS", icon: "ti-map-2", versions: "SIG · Esri", ac: "#6fd3ff", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "ArcGIS Pro 3.4.2", color: "#6fd3ff",
     categoria: "SIG profesional", dev: "Esri",
     desc: "SIG de escritorio de Esri: cartografía 2D/3D, análisis espacial avanzado y ciencia de datos geográfica.",
@@ -457,14 +544,14 @@ window.EE_CATALOGO = [
     novedades: [["Cartografía","2D y 3D"],["Geoprocesos","Cientos de herramientas"],["Python","ArcPy · Notebooks"],["Nube","ArcGIS Online"]],
     nBadges: ["Imágenes","Deep Learning","Layouts"],
     web: "https://www.esri.com/es-es/arcgis/products/arcgis-pro/overview",
-    pen: 199, usd: 60, buyers: 10            /* ← EDITA */
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
 
   /* ════ PRODUCTIVIDAD ════ */
   {
     llave: "office-2019",
     lista: { cat: "Productividad", icon: "ti-file-spreadsheet", versions: "Suite · Completa", ac: "#f7d152", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Office 2019", color: "#f7d152",
     categoria: "Productividad", dev: "Microsoft",
     desc: "Suite ofimática completa: Word, Excel, PowerPoint y más para informes, cálculos y presentaciones de ingeniería.",
@@ -474,12 +561,12 @@ window.EE_CATALOGO = [
     novedades: [["Word","Documentos e informes"],["Excel","Cálculos y tablas"],["PowerPoint","Presentaciones"],["Licencia","Permanente"]],
     nBadges: ["Clásico","Estable"],
     web: "https://www.microsoft.com/es-es/microsoft-365",
-    pen: 99, usd: 30, buyers: 10             /* ← EDITA */
+    pen: 99, buyers: 10             /* ← EDITA: solo soles */
   },
   {
     llave: "office-2021",
     lista: { cat: "Productividad", icon: "ti-file-spreadsheet", versions: "Suite · Estable", ac: "#f7d152", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Office 2021", color: "#f7d152",
     categoria: "Productividad", dev: "Microsoft",
     desc: "Suite ofimática estable con funciones modernas de Excel (XLOOKUP, matrices dinámicas) y colaboración mejorada.",
@@ -489,12 +576,12 @@ window.EE_CATALOGO = [
     novedades: [["Excel","XLOOKUP · matrices"],["Interfaz","Modernizada"],["Word","Coautoría"],["Licencia","Permanente"]],
     nBadges: ["Recomendado","Estable"],
     web: "https://www.microsoft.com/es-es/microsoft-365",
-    pen: 99, usd: 30, buyers: 10             /* ← EDITA */
+    pen: 99, buyers: 10             /* ← EDITA: solo soles */
   },
   {
     llave: "office-365",
     lista: { cat: "Productividad", icon: "ti-file-spreadsheet", versions: "Suite · Cloud", ac: "#f7d152", url: "https://t.me/+xT9picqsAUI5MDAx" },
-     gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    gratis: true,    /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "Office 365", color: "#f7d152",
     categoria: "Productividad", dev: "Microsoft",
     desc: "Microsoft 365: la suite en la nube con actualizaciones continuas, OneDrive y aplicaciones siempre al día.",
@@ -504,7 +591,7 @@ window.EE_CATALOGO = [
     novedades: [["Nube","OneDrive incluido"],["Actualizaciones","Continuas"],["Apps","PC · web · móvil"],["Copilot","IA integrada"]],
     nBadges: ["Cloud","IA"],
     web: "https://www.microsoft.com/es-es/microsoft-365",
-    pen: 99, usd: 30, buyers: 10             /* ← EDITA */
+    pen: 99, buyers: 10             /* ← EDITA: solo soles */
   },
 
   /* ════ RECURSOS · PLANTILLAS ════ */
@@ -521,7 +608,7 @@ window.EE_CATALOGO = [
     novedades: [["Cálculos","Estructurales y geotécnicos"],["Presupuestos","APU y metrados"],["Formatos","Cronogramas · valorizaciones"],["Soporte","Incluido"]],
     nBadges: ["Editable","Listo para usar"],
     web: "https://t.me/+xT9picqsAUI5MDAx",
-    pen: 49, usd: 15, buyers: 10             /* ← EDITA */
+    pen: 49, buyers: 10             /* ← EDITA: solo soles */
   },
   {
     llave: "plantillas-autocad",
@@ -536,7 +623,7 @@ window.EE_CATALOGO = [
     novedades: [["Bloques","Civil y arquitectura"],["Cajetines","Formatos A4 – A0"],["Láminas","Listas para plotear"],["Soporte","Incluido"]],
     nBadges: ["Editable","Listo para usar"],
     web: "https://t.me/+xT9picqsAUI5MDAx",
-    pen: 49, usd: 15, buyers: 10             /* ← EDITA */
+    pen: 49, buyers: 10             /* ← EDITA: solo soles */
   },
   {
     llave: "plantillas-revit",
@@ -551,8 +638,7 @@ window.EE_CATALOGO = [
     novedades: [["Familias","Paramétricas"],["Proyectos","Base configurados"],["Estándares","Vistas y planos"],["Soporte","Incluido"]],
     nBadges: ["Editable","Listo para usar"],
     web: "https://t.me/+xT9picqsAUI5MDAx",
-    pen: 49, usd: 15, buyers: 10             /* ← EDITA */
+    pen: 49, buyers: 10             /* ← EDITA: solo soles */
   }
 
   /* ➕ Copia aquí el siguiente programa cuando lo necesites */];
-
