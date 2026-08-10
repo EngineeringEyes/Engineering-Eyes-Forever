@@ -169,18 +169,39 @@ body {
 .nav-next { right: 12px; }
 
 @media (max-width: 860px) {
+    /* El acordeón deja de tener altura fija: los paneles cerrados son
+       barras cortas y el abierto crece hasta donde pida su contenido.
+       Antes .stage llevaba `flex: 1` y eso anulaba su `height`, así que
+       los 4 paneles se quedaban en 96px y el contenido (560px) no cabía. */
     body { overflow: auto; }
-    .wrap { height: auto; }
-    .stage { height: 78vh; }
-    .accordion { flex-direction: column; }
-    .panel { min-height: 96px; }
-    .panel.active { flex: 2.2; }
+    .wrap  { height: auto; width: min(1200px, 100vw); padding: 10px 8px 20px; }
+    .stage { flex: none; height: auto; border-radius: 14px; }
+    .accordion { flex-direction: column; height: auto; }
+
+    .panel { flex: none; min-height: 86px; }
+    .panel.active { flex: none; min-height: 0; }
+
+    /* Solo el panel abierto pasa a flujo normal: así estira el panel.
+       Los cerrados siguen absolutos y se mantienen como barras. */
+    .panel.active .panel-content {
+        position: relative; left: auto; right: auto; bottom: auto;
+        padding: 54px 16px 18px;
+    }
+    .panel.active .panel-id { top: 12px; bottom: auto; left: 16px; font-size: 40px; }
+    .panel:not(.active) .panel-id { font-size: 40px; }
+
     .grid { grid-template-columns: 1fr; }
-    .panel-id { font-size: 44px; }
-    .panel.active .panel-id { top: -44px; }
-    .nav { top: auto; bottom: 12px; transform: none; }
-    .nav-prev { left: 12px; }
-    .nav-next { right: 12px; }
+    .panel-title { font-size: 24px; }
+    .cta-row { flex-wrap: wrap; }
+    .cta-row .cta, .cta-row .ghost-btn { flex: 1 1 auto; justify-content: center; }
+
+    /* El botón redondo de esquina se montaba sobre "Web oficial":
+       en el panel abierto sube a la esquina superior derecha. */
+    .panel.active .corner { top: 14px; bottom: auto; right: 14px; }
+
+    /* Las flechas estorban cuando los paneles ya se tocan directamente */
+    .nav { display: none; }
+    .status { position: sticky; top: 8px; margin: 8px 0 0 8px; display: inline-flex; }
 }
 
 
