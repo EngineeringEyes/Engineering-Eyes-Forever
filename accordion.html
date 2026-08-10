@@ -312,6 +312,14 @@ const BUY_CONFIG = {
       ofrece soporte por Telegram en su lugar (nunca un enlace roto).
 ─────────────────────────────────────────────────────────────── */
 
+/* Precio en dólares. La fórmula vive en data/catalogo.js (window.EE_USD)
+   para que sea una sola en todo el proyecto. Si ese archivo no cargó,
+   se usa el `usd` escrito a mano y, en su defecto, 0. */
+function usdDe(c) {
+  if (typeof window.EE_USD === 'function') return window.EE_USD(c.pen, c.usd);
+  return (c.usd !== undefined && c.usd !== null && !isNaN(c.usd)) ? Number(c.usd) : 0;
+}
+
 /* Degradado de respaldo cuando un programa aún no tiene capturas. */
 function imgFallback(color) {
   const c = encodeURIComponent(color || '#00d4c8');
@@ -342,7 +350,7 @@ function makeSW(c) {
         specs: c.ficha,
         badges: (c.gratis ? (c.badgesGratis || (c.badges || []).concat("Descarga gratuita"))
                           : (c.badgesPago  || c.badges || [])),
-        buy: { gratis: c.gratis === true, pen: c.pen, usd: c.usd, buyers: c.buyers,
+        buy: { gratis: c.gratis === true, pen: c.pen, usd: usdDe(c), buyers: c.buyers,
                product: c.nombre, urlGratis: c.urlGratis },
         ctaText: c.gratis ? (c.textoGratis || "Descargar gratis") : "Comprar",
         ghostText: "Web oficial", ghostUrl: c.web },
