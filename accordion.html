@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha de software — Engineering Eyes</title>
+<meta name="description" content="Ficha técnica: versión, novedades, requisitos del sistema e instalación paso a paso.">
+<meta name="robots" content="noindex, follow">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   ESTILOS DEL NEONACCORDION — ORIGINAL, SIN MODIFICAR.
+═══════════════════════════════════════════════════════════════ */
+:root {
+    --bg0: #05070c;
+    --bg1: #0a1020;
+    --card: rgba(255, 255, 255, 0.06);
+    --card2: rgba(255, 255, 255, 0.1);
+    --text: #eaf0ff;
+    --muted: rgba(234, 240, 255, 0.72);
+    --line: rgba(255, 255, 255, 0.12);
+    --shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --dur: 720ms;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    background: radial-gradient(1000px 600px at 15% 10%, rgba(124, 255, 178, 0.1), transparent 55%),
+        radial-gradient(900px 520px at 85% 25%, rgba(122, 167, 255, 0.1), transparent 58%),
+        radial-gradient(900px 600px at 55% 90%, rgba(255, 125, 125, 0.08), transparent 62%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.wrap { width: min(1200px, 96vw); height: min(720px, 92vh); display: flex; flex-direction: column; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: #7cffb2; box-shadow: 0 0 18px rgba(124, 255, 178, 0.55); }
+
+.stage {
+    position: relative; flex: 1; border-radius: 18px; overflow: hidden;
+    box-shadow: var(--shadow); border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(0, 0, 0, 0.18);
+    height: 100%;
+}
+.status {
+    position: absolute; z-index: 10; top: 14px; left: 14px;
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 999px;
+    background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.12); backdrop-filter: blur(10px);
+}
+.status-led { width: 8px; height: 8px; border-radius: 50%; background: #7cffb2; box-shadow: 0 0 18px rgba(124, 255, 178, 0.55); }
+.status-text { font-size: 12px; color: var(--muted); }
+.status-text b { color: var(--text); }
+
+.accordion { height: 100%; display: flex; }
+.panel {
+    position: relative; flex: 1; cursor: pointer;
+    transition: flex var(--dur) var(--ease), filter var(--dur) var(--ease);
+    overflow: hidden; filter: saturate(0.75) grayscale(0.2) brightness(0.9); isolation: isolate;
+}
+.panel.active { flex: 2.7; filter: saturate(1.05) grayscale(0) brightness(1); }
+.panel-bg {
+    position: absolute; inset: 0; background-image: var(--bg); background-size: cover; background-position: center;
+    transform: scale(1.05); transition: transform 900ms var(--ease);
+}
+.panel.active .panel-bg { transform: scale(1.12); }
+.panel::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(800px 380px at 40% 30%, rgba(255, 255, 255, 0.12), transparent 55%),
+        linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.84)); z-index: 1;
+}
+.panel::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.55)); opacity: 0.25; z-index: 1;
+}
+.panel-content { position: absolute; left: 24px; right: 24px; bottom: 22px; z-index: 2; color: var(--text); }
+.panel-kicker {
+    display: flex; gap: 8px; align-items: center; margin-bottom: 10px;
+    opacity: 0; transform: translateY(10px); transition: opacity 420ms var(--ease), transform 420ms var(--ease);
+}
+.panel.active .panel-kicker { opacity: 1; transform: translateY(0); transition-delay: 140ms; }
+.pill { font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.16); background: rgba(0, 0, 0, 0.2); }
+.pill.ghost { color: rgba(234, 240, 255, 0.7); background: rgba(255, 255, 255, 0.06); }
+.panel-id {
+    position: absolute; left: 0; bottom: -8px; font-size: 64px; font-weight: 300;
+    color: rgba(255, 255, 255, 0.25); letter-spacing: -2px; transition: all var(--dur) var(--ease);
+}
+.panel.active .panel-id { bottom: auto; top: -56px; font-size: 52px; color: rgba(255, 255, 255, 0.35); }
+.panel-title {
+    font-size: 30px; letter-spacing: 0.2px; font-weight: 800; margin-bottom: 6px;
+    opacity: 0; transform: translateY(18px); transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+}
+.panel.active .panel-title { opacity: 1; transform: translateY(0); transition-delay: 220ms; }
+.panel-subtitle {
+    max-width: 520px; font-size: 14px; line-height: 1.4; color: rgba(234, 240, 255, 0.78); margin-bottom: 16px;
+    opacity: 0; transform: translateY(18px); transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+}
+.panel.active .panel-subtitle { opacity: 1; transform: translateY(0); transition-delay: 300ms; }
+.grid {
+    display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 14px;
+    opacity: 0; transform: translateY(18px); transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+}
+.panel.active .grid { opacity: 1; transform: translateY(0); transition-delay: 380ms; }
+.specs { border-radius: 14px; padding: 12px 12px; background: rgba(0, 0, 0, 0.22); border: 1px solid rgba(255, 255, 255, 0.12); }
+.row { display: flex; justify-content: space-between; gap: 12px; padding: 8px 8px; border-radius: 10px; transition: background 220ms var(--ease); }
+.row:hover { background: rgba(255, 255, 255, 0.06); }
+.k { color: rgba(234, 240, 255, 0.7); font-size: 13px; }
+.v { font-weight: 700; font-size: 13px; }
+.meta { display: flex; flex-direction: column; gap: 10px; }
+.meta-card { border-radius: 14px; padding: 12px 12px; background: rgba(0, 0, 0, 0.22); border: 1px solid rgba(255, 255, 255, 0.12); }
+.meta-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.label { font-size: 12px; color: rgba(234, 240, 255, 0.7); }
+.value { font-size: 12px; font-weight: 800; }
+.bar { height: 10px; border-radius: 999px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.12); background: rgba(255, 255, 255, 0.06); }
+.bar-fill { display: block; height: 100%; width: 50%; background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.55)); }
+.fine { margin-top: 8px; font-size: 12px; color: rgba(234, 240, 255, 0.62); }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge {
+    font-size: 12px; padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.06);
+    opacity: 0; transform: scale(0.92); transition: opacity 340ms var(--ease), transform 340ms var(--ease), border-color 340ms var(--ease);
+}
+.panel.active .badge { opacity: 1; transform: scale(1); }
+.panel.active .badge:nth-child(1) { transition-delay: 520ms; }
+.panel.active .badge:nth-child(2) { transition-delay: 580ms; }
+.panel.active .badge:nth-child(3) { transition-delay: 640ms; }
+.cta-row {
+    display: flex; align-items: center; gap: 10px; margin-top: 14px;
+    opacity: 0; transform: translateY(16px); transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+}
+.panel.active .cta-row { opacity: 1; transform: translateY(0); transition-delay: 520ms; }
+.cta {
+    border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(0, 0, 0, 0.22); color: var(--text);
+    padding: 10px 12px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; text-decoration: none;
+    transition: transform 180ms var(--ease), background 180ms var(--ease), border-color 180ms var(--ease);
+}
+.cta:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.1); }
+.cta:active { transform: translateY(0px) scale(0.985); }
+.cta-ico { display: inline-flex; width: 28px; height: 28px; border-radius: 10px; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); }
+.ghost-btn {
+    border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(255, 255, 255, 0.06); color: rgba(234, 240, 255, 0.82);
+    padding: 10px 12px; border-radius: 12px; cursor: pointer; text-decoration: none; transition: transform 180ms var(--ease), background 180ms var(--ease);
+}
+.ghost-btn:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.1); }
+.ghost-btn:active { transform: translateY(0px) scale(0.985); }
+.corner {
+    position: absolute; right: 16px; bottom: 16px; width: 38px; height: 38px; border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, 0.2); background: transparent; cursor: pointer; z-index: 3;
+    transition: transform 200ms var(--ease), border-color 200ms var(--ease), background 200ms var(--ease);
+}
+.corner::before, .corner::after {
+    content: ""; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.75); transition: transform 200ms var(--ease), opacity 200ms var(--ease);
+}
+.corner::before { width: 14px; height: 2px; }
+.corner::after { width: 2px; height: 14px; }
+.panel.active .corner::after { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+.corner:hover { transform: translateY(-1px); background: rgba(255, 255, 255, 0.08); }
+.corner:active { transform: translateY(0px) scale(0.98); }
+.nav {
+    position: absolute; top: 50%; transform: translateY(-50%); width: 52px; height: 52px; border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(0, 0, 0, 0.3); color: var(--text);
+    font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px); z-index: 12; transition: background 180ms var(--ease), transform 180ms var(--ease);
+}
+.nav:hover { background: rgba(255, 255, 255, 0.12); }
+.nav:active { transform: translateY(-50%) scale(0.98); }
+.nav-prev { left: 12px; }
+.nav-next { right: 12px; }
+
+@media (max-width: 860px) {
+    body { overflow: auto; }
+    .wrap { height: auto; }
+    .stage { height: 78vh; }
+    .accordion { flex-direction: column; }
+    .panel { min-height: 96px; }
+    .panel.active { flex: 2.2; }
+    .grid { grid-template-columns: 1fr; }
+    .panel-id { font-size: 44px; }
+    .panel.active .panel-id { top: -44px; }
+    .nav { top: auto; bottom: 12px; transform: none; }
+    .nav-prev { left: 12px; }
+    .nav-next { right: 12px; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   MÓDULO DE COMPRA — AGREGADO. No toca los estilos originales.
+═══════════════════════════════════════════════════════════════ */
+.buy-price { font-size: 15px; }
+.buy-proof { display: flex; align-items: center; gap: 7px; }
+.buy-live {
+    width: 7px; height: 7px; border-radius: 50%; flex: none;
+    background: #7cffb2; box-shadow: 0 0 12px rgba(124, 255, 178, 0.7);
+    animation: buyPulse 1.6s ease-in-out infinite;
+}
+@keyframes buyPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+.bm-back {
+    position: fixed; inset: 0; z-index: 10000; display: flex; align-items: center; justify-content: center;
+    background: rgba(3, 6, 12, 0.62); backdrop-filter: blur(9px);
+    opacity: 0; pointer-events: none; transition: opacity 260ms var(--ease); padding: 18px;
+}
+.bm-back.open { opacity: 1; pointer-events: auto; }
+.bm-card {
+    width: min(430px, 94vw); border-radius: 18px; padding: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6); backdrop-filter: blur(14px);
+    transform: translateY(14px) scale(0.98); transition: transform 280ms var(--ease);
+}
+.bm-back.open .bm-card { transform: none; }
+.bm-title { font-size: 20px; font-weight: 800; margin: 10px 0 4px; }
+.bm-sub { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+.bm-prices { display: flex; gap: 10px; margin-bottom: 12px; }
+.bm-price {
+    flex: 1; cursor: pointer; border-radius: 14px; padding: 12px 10px; text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.14); background: rgba(0, 0, 0, 0.25);
+    transition: transform 180ms var(--ease), border-color 180ms var(--ease), box-shadow 180ms var(--ease);
+}
+.bm-price:hover { transform: translateY(-1px); }
+.bm-price.sel { border-color: var(--bma, #7cffb2); box-shadow: 0 0 0 1px var(--bma, #7cffb2), 0 0 26px rgba(255, 255, 255, 0.08); }
+.bm-price .cur { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.bm-price .amt { font-size: 20px; font-weight: 800; }
+.bm-proof { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(234, 240, 255, 0.8); margin-bottom: 12px; }
+.bm-note { font-size: 12px; color: rgba(234, 240, 255, 0.55); margin-bottom: 14px; }
+.bm-actions { display: flex; gap: 10px; justify-content: flex-end; }
+.bm-actions.col { flex-direction: column; justify-content: stretch; }
+.bm-actions.col .cta, .bm-actions.col .ghost-btn { justify-content: center; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+    <main class="stage" aria-label="Paneles de detalle del programa">
+        <div class="status">
+            <span class="status-led"></span>
+            <span class="status-text"><b id="statusName"></b></span>
+        </div>
+        <section class="accordion" id="accordion"></section>
+        <button class="nav nav-prev" type="button" aria-label="Panel anterior">&lt;</button>
+        <button class="nav nav-next" type="button" aria-label="Panel siguiente">&gt;</button>
+    </main>
+
+</div>
+
+<!-- FUENTE ÚNICA DE DATOS — debe cargarse antes del motor de fichas -->
+<script src="data/catalogo.js"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   MOTOR DE FICHAS — no contiene datos.
+
+   ⚠️ REGLA DE ORO:
+   • data/catalogo.js = TODOS los programas. Ahí se edita todo.
+   • DEFAULT_PANELS   = paneles de respaldo si llega una llave
+     desconocida en ?sw=. No los edites para personalizar nada.
+═══════════════════════════════════════════════════════════════ */
+
+/* Respaldo: solo se ve si llega un ?sw= que no existe en el catálogo.
+   Antes mostraba los 4 coches de la plantilla original. */
+const DEFAULT_PANELS = [
+  {
+    accent: "#00d4c8", bg: imgFallback("#00d4c8"),
+    id: "01", title: "Programa no encontrado", pill: "Catálogo", pillGhost: "Engineering Eyes",
+    subtitle: "Este enlace apunta a un programa que ya no está publicado o cambió de nombre.",
+    specs: [["Qué pasó","Enlace desactualizado"],["Solución","Vuelve al catálogo"],["Soporte","Telegram"],["Respuesta","El mismo día"]],
+    metaLabel: "Estado", metaValue: "Sin ficha", bar: 0, fine: "Escríbenos y te pasamos el enlace correcto.",
+    badges: ["Catálogo activo","Soporte directo"],
+    ctaText: "Ver todo el catálogo", ctaUrl: "index.html#softwares",
+    ghostText: "Escribir por Telegram", ghostUrl: "https://t.me/+xT9picqsAUI5MDAx"
+  },
+  {
+    accent: "#f7d152", bg: imgFallback("#f7d152"),
+    id: "02", title: "¿Buscabas otra cosa?", pill: "Ayuda", pillGhost: "Engineering Eyes",
+    subtitle: "Software de geotecnia, estructuras, BIM, CAD, GIS y ofimática, con ficha, requisitos e instalación.",
+    specs: [["Geotecnia","GEO5"],["Estructural","ETABS · SAP2000 · CYPE"],["BIM & CAD","Revit · AutoCAD · Civil 3D"],["GIS","ArcGIS · Global Mapper"]],
+    metaLabel: "Categorías", metaValue: "6", bar: 100, fine: "El catálogo se actualiza cada semana.",
+    badges: ["Fichas completas","Requisitos","Instalación guiada"],
+    ctaText: "Ir al inicio", ctaUrl: "index.html",
+    ghostText: "Soporte", ghostUrl: "https://t.me/+xT9picqsAUI5MDAx"
+  }
+];
+
+/* ───────────────────────────────────────────────────────────────
+   CONFIGURACIÓN DE COMPRA (global, vale para todos los programas).
+   Cada panel con "buy" usará este correo y este Telegram,
+   salvo que el panel traiga los suyos propios.
+─────────────────────────────────────────────────────────────── */
+const BUY_CONFIG = {
+  email: "engineeringeyes68@gmail.com",
+  telegram: "https://t.me/+xT9picqsAUI5MDAx"
+};
+
+/* ───────────────────────────────────────────────────────────────
+   MOTOR DE FICHAS.
+
+   Los datos de cada programa viven en  data/catalogo.js  (fuente
+   única, compartida con el index). makeSW() toma un programa de ahí
+   y construye sus 4 paneles:
+     01 El programa (+ Comprar) · 02 Novedades · 03 Requisitos · 04 Tutorial
+
+   ➕ AGREGAR UN PROGRAMA · 💰 CAMBIAR PRECIOS · 🆓 HACERLO GRATIS
+      → todo se hace en data/catalogo.js. Este archivo no se toca.
+
+   🖼️ IMÁGENES DE PANEL: por defecto usa la miniatura del programa
+      (lista.img). Para darle 4 imágenes propias, añade al programa:
+        imgs: ["url1","url2","url3","url4"]
+      Si no hay ninguna, el panel cae en un degradado de su color.
+
+   🎬 TUTORIAL: añade  video: "https://youtu.be/XXXX"  al programa
+      para activar el botón "Ver tutorial". Sin video, el panel 04
+      ofrece soporte por Telegram en su lugar (nunca un enlace roto).
+─────────────────────────────────────────────────────────────── */
+
+/* Degradado de respaldo cuando un programa aún no tiene capturas. */
+function imgFallback(color) {
+  const c = encodeURIComponent(color || '#00d4c8');
+  return "data:image/svg+xml;charset=utf8," + encodeURIComponent(
+    '<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900">' +
+    '<defs><radialGradient id="g" cx="30%" cy="25%" r="85%">' +
+    '<stop offset="0%" stop-color="' + decodeURIComponent(c) + '" stop-opacity="0.45"/>' +
+    '<stop offset="60%" stop-color="#0a1020" stop-opacity="1"/>' +
+    '<stop offset="100%" stop-color="#05070c"/></radialGradient></defs>' +
+    '<rect width="1600" height="900" fill="url(#g)"/></svg>'
+  );
+}
+
+function makeSW(c) {
+  const img = i => (c.imgs && c.imgs[i]) || (c.lista && c.lista.img) || imgFallback(c.color);
+  const req = c.requisitos || [
+    ["Sistema", "Windows 10 / 11 · 64 bits"],
+    ["RAM", "8 GB mín. · 16 GB recom."],
+    ["Gráficos", "Dedicada recomendada"],
+    ["Disco", "SSD recomendado"]
+  ];
+  return {
+    brandTitle: c.nombre,
+    panels: [
+      { accent: c.color, bg: img(0),
+        id: "01", title: c.nombre, pill: c.categoria, pillGhost: c.dev,
+        subtitle: (c.gratis ? (c.descGratis || c.desc) : (c.descPago || c.desc)),
+        specs: c.ficha,
+        badges: (c.gratis ? (c.badgesGratis || (c.badges || []).concat("Descarga gratuita"))
+                          : (c.badgesPago  || c.badges || [])),
+        buy: { gratis: c.gratis === true, pen: c.pen, usd: c.usd, buyers: c.buyers,
+               product: c.nombre, urlGratis: c.urlGratis },
+        ctaText: c.gratis ? (c.textoGratis || "Descargar gratis") : "Comprar",
+        ghostText: "Web oficial", ghostUrl: c.web },
+      { accent: c.color, bg: img(1),
+        id: "02", title: "Novedades", pill: "Actualización", pillGhost: c.version,
+        subtitle: c.vIntro || "Lo más reciente de esta versión.", specs: c.novedades,
+        metaLabel: "Versión actual", metaValue: c.version, bar: 100, fine: c.vNota || "",
+        badges: c.nBadges || [],
+        ctaText: "Más información", ctaUrl: c.webNovedades || c.web,
+        ghostText: c.video ? "Video resumen" : "Consultar",
+        ghostUrl:  c.video || BUY_CONFIG.telegram },
+      { accent: c.color, bg: img(2),
+        id: "03", title: "Requisitos del sistema", pill: "Compatibilidad", pillGhost: "PC",
+        subtitle: "Lo que necesita tu equipo para trabajar con fluidez.", specs: req,
+        metaLabel: "Compatibilidad", metaValue: c.so || "Win 10 / 11", bar: 100,
+        fine: c.rNota || "Datos referenciales · verifica en la web oficial",
+        badges: ["64-bit", "Multiprocesador"],
+        ctaText: "Guía completa", ctaUrl: c.webReq || c.web,
+        ghostText: "Consultar", ghostUrl: BUY_CONFIG.telegram },
+      { accent: c.color, bg: img(3),
+        id: "04", title: "Instalación paso a paso", pill: c.video ? "Video tutorial" : "Guía asistida",
+        pillGhost: "Guía",
+        subtitle: c.video
+          ? "Video completo: descarga, instalación y primeros pasos en " + c.nombre + "."
+          : "Te acompañamos por Telegram en la descarga, instalación y primeros pasos en " + c.nombre + ".",
+        specs: c.video
+          ? [["Formato","Video HD"],["Duración","≈ 15 min"],["Nivel","Principiante"],["Idioma","Español"]]
+          : [["Formato","Asistencia 1 a 1"],["Canal","Telegram"],["Nivel","Principiante"],["Idioma","Español"]],
+        metaLabel: "Dificultad", metaValue: "Fácil", bar: 25, fine: "No requiere experiencia previa",
+        badges: ["Paso a paso", "Soporte incluido"],
+        ctaText: c.video ? "Ver tutorial" : "Pedir ayuda",
+        ctaUrl:  c.video || BUY_CONFIG.telegram,
+        ghostText: "Soporte", ghostUrl: BUY_CONFIG.telegram }
+    ]
+  };
+}
+
+/* Catálogo: fuente única en data/catalogo.js (cargado justo antes de este script).
+   Para agregar o editar un programa NO se toca este archivo. */
+const CATALOGO = window.EE_CATALOGO || [];
+if (!CATALOGO.length) {
+  console.error('[EE] data/catalogo.js no se cargó: no habrá fichas de programa.');
+}
+
+/* Construye SW_DETAIL automáticamente desde el catálogo. */
+const SW_DETAIL = {};
+CATALOGO.forEach(c => { SW_DETAIL[c.llave] = makeSW(c); });
+
+/* ═══════════════════════════════════════════════════════════════
+   MOTOR — construye el panel EXACTAMENTE como el original
+   y aplica la lógica original (NeonAccordion). No tocar.
+═══════════════════════════════════════════════════════════════ */
+(function(){
+  const esc = s => String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+  /* ── MÓDULO DE COMPRA: detección de moneda (estilo Hotmart, sin backend).
+       Si el navegador está en Perú (zona horaria America/Lima o idioma es-PE)
+       muestra SOLES primero; para el resto del mundo, USD primero. ── */
+  const isPeru = (() => {
+    try {
+      const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || '');
+      const langs = [navigator.language].concat(navigator.languages || []).join(' ').toUpperCase();
+      return tz === 'America/Lima' || /[-_]PE\b/.test(langs);
+    } catch (e) { return false; }
+  })();
+  const moneyPEN = v => 'S/ ' + v;
+  const moneyUSD = v => '$ ' + v + ' USD';
+
+  /* ── MULTIMONEDA (estilo Hotmart): convierte el precio USD a la moneda
+       local del visitante con el tipo de cambio del día (API gratuita,
+       sin clave). Perú ve soles exactos; EE. UU. ve USD; el resto ve
+       "≈ su moneda" y paga en USD. Si la API falla, todo queda en USD. ── */
+  const FX = { cur: null, rate: null };
+  const REGION_CUR = {
+    PE:'PEN', MX:'MXN', CO:'COP', AR:'ARS', CL:'CLP', BO:'BOB', PY:'PYG', UY:'UYU',
+    BR:'BRL', VE:'VES', EC:'USD', PA:'USD', SV:'USD', GT:'GTQ', HN:'HNL', NI:'NIO',
+    CR:'CRC', DO:'DOP', US:'USD', CA:'CAD', GB:'GBP', AU:'AUD', NZ:'NZD', JP:'JPY',
+    KR:'KRW', CN:'CNY', IN:'INR', CH:'CHF', SE:'SEK', NO:'NOK', DK:'DKK', PL:'PLN',
+    CZ:'CZK', RO:'RON', TR:'TRY', ZA:'ZAR',
+    ES:'EUR', FR:'EUR', DE:'EUR', IT:'EUR', PT:'EUR', NL:'EUR', BE:'EUR', AT:'EUR',
+    IE:'EUR', FI:'EUR', GR:'EUR'
+  };
+  const TZ_REGION = {
+    'America/Lima':'PE','America/Bogota':'CO','America/Mexico_City':'MX','America/Santiago':'CL',
+    'America/La_Paz':'BO','America/Asuncion':'PY','America/Montevideo':'UY','America/Sao_Paulo':'BR',
+    'America/Caracas':'VE','America/Guayaquil':'EC','America/Panama':'PA','America/Guatemala':'GT',
+    'America/Tegucigalpa':'HN','America/Managua':'NI','America/Costa_Rica':'CR',
+    'America/Santo_Domingo':'DO','Europe/Madrid':'ES'
+  };
+  function userRegion() {
+    try { const r = new Intl.Locale(navigator.language).region; if (r) return r.toUpperCase(); } catch (e) {}
+    const m = String(navigator.language || '').match(/[-_]([A-Za-z]{2})$/);
+    if (m) return m[1].toUpperCase();
+    try { return TZ_REGION[Intl.DateTimeFormat().resolvedOptions().timeZone] || null; } catch (e) { return null; }
+  }
+  function niceRound(v) {
+    if (v >= 100000) return Math.round(v / 1000) * 1000;
+    if (v >= 1000) return Math.round(v / 10) * 10;
+    if (v >= 100) return Math.round(v);
+    return Math.round(v * 10) / 10;
+  }
+  function fmtLocal(usd) {
+    const v = niceRound(usd * FX.rate);
+    let out;
+    try {
+      out = new Intl.NumberFormat(navigator.language || 'es',
+        { style: 'currency', currency: FX.cur, maximumFractionDigits: v >= 100 ? 0 : 2 }).format(v);
+    } catch (e) { out = v + ' ' + FX.cur; }
+    /* Si el símbolo local es solo "$" (MXN, COP, CLP...), añade el código
+       para que no se confunda con dólares: "≈ $1,110 MXN". */
+    if (FX.cur !== 'USD' && out.indexOf('$') !== -1 && out.indexOf(FX.cur) === -1) out += ' ' + FX.cur;
+    return out;
+  }
+  function applyFx() {
+    if (!FX.rate || !FX.cur) return;
+    document.querySelectorAll('.buy-price[data-usd]').forEach(el => {
+      el.textContent = '\u2248 ' + fmtLocal(Number(el.getAttribute('data-usd')) || 0);
+    });
+    document.querySelectorAll('[data-fxline]').forEach(el => {
+      el.textContent = 'Pago: ' + moneyUSD(el.getAttribute('data-usd2')) + ' · comisión incluida';
+    });
+  }
+  (function loadFx() {
+    if (isPeru || typeof fetch !== 'function') return;     /* Perú usa soles manuales */
+    const region = userRegion();
+    const cur = region ? REGION_CUR[region] : null;
+    if (!cur || cur === 'USD' || cur === 'PEN') return;    /* USD o sin datos: no convertir */
+    fetch('https://open.er-api.com/v6/latest/USD')
+      .then(r => r.json())
+      .then(d => {
+        const rate = d && d.rates && d.rates[cur];
+        if (!rate) return;
+        FX.cur = cur; FX.rate = rate;
+        applyFx();
+      })
+      .catch(() => {});                                    /* Falla → se queda en USD */
+  })();
+
+  /* Tarjeta derecha (meta): si el panel tiene "buy" se vuelve PRECIO;
+     si no, se construye EXACTAMENTE como el original. */
+  const buildMeta = p => {
+    if (p.buy) {
+      const b = p.buy;
+      const proof = b.buyers
+        ? `<div class="fine buy-proof"><span class="buy-live" aria-hidden="true"></span><b data-countup="${Number(b.buyers)||0}">0</b>&nbsp;personas ya lo adquirieron</div>`
+        : '';
+      /* Programa GRATUITO: muestra "GRATIS" sin montos ni conversión. */
+      if (b.gratis) {
+        return `<div class="meta-top">
+                  <span class="label">Precio</span>
+                  <span class="value buy-price">GRATIS</span>
+                </div>
+                <div class="fine">Descarga sin costo</div>
+                ${proof}`;
+      }
+      const prim = isPeru ? moneyPEN(b.pen) : moneyUSD(b.usd);
+      const sec  = isPeru ? moneyUSD(b.usd) + ' · comisión incluida' : moneyPEN(b.pen);
+      return `<div class="meta-top">
+                  <span class="label">Precio</span>
+                  <span class="value buy-price" data-usd="${Number(b.usd)||0}">${esc(prim)}</span>
+                </div>
+                <div class="fine" data-fxline data-usd2="${Number(b.usd)||0}">También: ${esc(sec)}</div>
+                ${proof}`;
+    }
+    return `<div class="meta-top">
+                  <span class="label">${esc(p.metaLabel)}</span>
+                  <span class="value">${esc(p.metaValue)}</span>
+                </div>
+                <div class="bar"><span class="bar-fill" style="width: ${Number(p.bar)||0}%"></span></div>
+                <div class="fine">${esc(p.fine)}</div>`;
+  };
+
+  /* Contador animado (0 → cifra) con frenado suave. */
+  const counted = new WeakSet();
+  function countUp(el) {
+    if (counted.has(el)) return;
+    counted.add(el);
+    const target = Number(el.getAttribute('data-countup')) || 0;
+    const t0 = performance.now(), dur = 950;
+    const tick = now => {
+      const k = Math.min(1, (now - t0) / dur);
+      const e2 = 1 - Math.pow(1 - k, 3);
+      el.textContent = Math.round(target * e2);
+      if (k < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+
+  /* Búsqueda tolerante de la llave: ignora mayúsculas, espacios,
+     puntos y guiones (ej. "Cypecad 2026", "CYPECAD-2026" o
+     "cypecad-2026.c" encuentran la entrada "cypecad-2026"). */
+  const params = new URLSearchParams(location.search);
+  const rawKey = params.get('sw');
+  const norm = s => String(s == null ? '' : s).toLowerCase().replace(/[^a-z0-9]/g, '');
+  let conf = null;
+  if (rawKey) {
+    const nk = norm(rawKey);
+    for (const k in SW_DETAIL) {
+      const nm = norm(k);
+      if (nm === nk || (nm.length >= 4 && (nk.startsWith(nm) || nm.startsWith(nk)))) { conf = SW_DETAIL[k]; break; }
+    }
+  }
+  const panelsData = (conf && conf.panels) ? conf.panels : DEFAULT_PANELS;
+
+  const accEl = document.getElementById('accordion');
+  accEl.innerHTML = panelsData.map((p, i) => {
+    const specs = (p.specs||[]).map(r =>
+      `<div class="row"><span class="k">${esc(r[0])}</span><span class="v">${esc(r[1])}</span></div>`).join('');
+    const badges = (p.badges||[]).map(b => `<span class="badge">${esc(b)}</span>`).join('');
+    const cta = (p.buy && p.buy.gratis)
+      ? `<a class="cta" href="${esc(p.buy.urlGratis || BUY_CONFIG.telegram)}" target="_blank" rel="noopener noreferrer">${esc(p.ctaText||'Descargar gratis')}<span class="cta-ico" aria-hidden="true">\u2197</span></a>`
+      : p.buy
+      ? `<a class="cta" href="#comprar" data-buy="${i}">${esc(p.ctaText||'Comprar')}<span class="cta-ico" aria-hidden="true">\u2197</span></a>`
+      : p.ctaUrl
+      ? `<a class="cta" href="${esc(p.ctaUrl)}" target="_blank" rel="noopener noreferrer">${esc(p.ctaText||'')}<span class="cta-ico" aria-hidden="true">\u2197</span></a>`
+      : `<button class="cta" type="button">${esc(p.ctaText||'')}<span class="cta-ico" aria-hidden="true">\u2197</span></button>`;
+    const ghost = p.ghostUrl
+      ? `<a class="ghost-btn" href="${esc(p.ghostUrl)}" target="_blank" rel="noopener noreferrer">${esc(p.ghostText||'')}</a>`
+      : `<button class="ghost-btn" type="button">${esc(p.ghostText||'')}</button>`;
+    return `
+      <article class="panel${i===0?' active':''}" data-title="${esc(p.title)}" data-accent="${esc(p.accent)}" style="--bg: url('${esc(p.bg)}');">
+        <div class="panel-bg" aria-hidden="true"></div>
+        <div class="panel-content">
+          <div class="panel-kicker">
+            <span class="pill">${esc(p.pill)}</span>
+            <span class="pill ghost">${esc(p.pillGhost)}</span>
+          </div>
+          <div class="panel-id">${esc(p.id)}</div>
+          <h2 class="panel-title">${esc(p.title)}</h2>
+          <p class="panel-subtitle">${esc(p.subtitle)}</p>
+          <div class="grid">
+            <div class="specs">${specs}</div>
+            <div class="meta">
+              <div class="meta-card">${buildMeta(p)}</div>
+              <div class="badges">${badges}</div>
+            </div>
+          </div>
+          <div class="cta-row">${cta}${ghost}</div>
+        </div>
+        <button class="corner" type="button" aria-label="Open details"></button>
+      </article>`;
+  }).join('');
+
+  /* ── MÓDULO DE COMPRA: modal Comprar → Confirmar → Contactar ── */
+  function openBuy(p) {
+    const b = p.buy; if (!b || b.gratis) return;
+    const accent  = p.accent || '#7cffb2';
+    const product = b.product || p.title || 'Software';
+    const email   = b.email || BUY_CONFIG.email;
+    const tg      = (b.telegram !== undefined) ? b.telegram : BUY_CONFIG.telegram;
+    let chosen    = isPeru ? 'PEN' : 'USD';
+
+    let back = document.querySelector('.bm-back');
+    if (!back) {
+      back = document.createElement('div');
+      back.className = 'bm-back';
+      document.body.appendChild(back);
+      back.addEventListener('click', e => { if (e.target === back) back.classList.remove('open'); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') back.classList.remove('open'); });
+    }
+
+    back.innerHTML = `
+      <div class="bm-card" style="--bma:${esc(accent)}">
+        <div class="bm-step" data-step="1">
+          <span class="pill" style="border-color:${esc(accent)}">Compra directa</span>
+          <h3 class="bm-title">${esc(product)}</h3>
+          <p class="bm-sub">Elige tu moneda y confirma para coordinar el pago.</p>
+          <div class="bm-prices">
+            <div class="bm-price${chosen==='PEN'?' sel':''}" data-cur="PEN">
+              <div class="cur">Soles (Perú)</div><div class="amt">${esc(moneyPEN(b.pen))}</div>
+            </div>
+            <div class="bm-price${chosen==='USD'?' sel':''}" data-cur="USD">
+              <div class="cur">Dólares</div><div class="amt">${esc(moneyUSD(b.usd))}</div><div class="cur" data-fxeq style="display:none;margin-top:4px"></div>
+            </div>
+          </div>
+          ${b.buyers ? `<div class="bm-proof"><span class="buy-live" aria-hidden="true"></span><b data-countup="${Number(b.buyers)||0}">0</b>&nbsp;personas ya lo adquirieron</div>` : ''}
+          <div class="bm-note">El precio en USD ya incluye la comisión de pago.</div>
+          <div class="bm-actions">
+            <button class="ghost-btn" type="button" data-bm="close">Cancelar</button>
+            <button class="cta" type="button" data-bm="confirm">Confirmar</button>
+          </div>
+        </div>
+        <div class="bm-step" data-step="2" hidden>
+          <span class="pill" style="border-color:${esc(accent)}">Último paso</span>
+          <h3 class="bm-title">¡Listo! Coordina tu compra</h3>
+          <p class="bm-sub">Escríbenos y te respondemos con el método de pago y la entrega.</p>
+          <div class="bm-actions col">
+            <a class="cta" data-bm="mail" href="#">\u2709&nbsp;Contactar por correo</a>
+            ${tg ? `<a class="ghost-btn" target="_blank" rel="noopener noreferrer" href="${esc(tg)}">Telegram</a>` : ''}
+            <button class="ghost-btn" type="button" data-bm="back">Volver</button>
+          </div>
+        </div>
+      </div>`;
+
+    const step1 = back.querySelector('[data-step="1"]');
+    const step2 = back.querySelector('[data-step="2"]');
+    back.querySelectorAll('.bm-price').forEach(el => {
+      el.addEventListener('click', () => {
+        chosen = el.getAttribute('data-cur');
+        back.querySelectorAll('.bm-price').forEach(x => x.classList.toggle('sel', x === el));
+      });
+    });
+    back.querySelector('[data-bm="close"]').addEventListener('click', () => back.classList.remove('open'));
+    back.querySelector('[data-bm="back"]').addEventListener('click', () => { step2.hidden = true; step1.hidden = false; });
+    back.querySelector('[data-bm="confirm"]').addEventListener('click', () => {
+      const precio = chosen === 'PEN' ? moneyPEN(b.pen) + ' (soles)' : moneyUSD(b.usd) + ' (comisión incluida)';
+      const asunto = 'Compra: ' + product;
+      const cuerpo = 'Hola Engineering Eyes,\n\nQuiero comprar: ' + product +
+                     '\nPrecio elegido: ' + precio +
+                     '\n\nMi nombre:\nMétodo de pago preferido:\n';
+      back.querySelector('[data-bm="mail"]').setAttribute('href',
+        'mailto:' + email + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo));
+      step1.hidden = true; step2.hidden = false;
+    });
+
+    back.classList.add('open');
+    if (FX.rate && FX.cur) {
+      const eq = back.querySelector('[data-fxeq]');
+      if (eq) { eq.textContent = '\u2248 ' + fmtLocal(Number(b.usd) || 0); eq.style.display = 'block'; }
+    }
+    const proof = back.querySelector('.bm-proof [data-countup]');
+    if (proof) countUp(proof);
+  }
+
+  /* Abrir el modal al pulsar un botón Comprar (delegado). */
+  document.addEventListener('click', e => {
+    const a = e.target.closest('[data-buy]');
+    if (!a) return;
+    e.preventDefault();
+    const p = panelsData[Number(a.getAttribute('data-buy'))];
+    if (p && p.buy) openBuy(p);
+  });
+
+  /* Animar el contador del panel cuando su tarjeta esté activa. */
+  const runCounts = () => document.querySelectorAll('.panel.active [data-countup]').forEach(countUp);
+  new MutationObserver(runCounts).observe(accEl, { subtree: true, attributes: true, attributeFilter: ['class'] });
+  runCounts();
+
+  /* ── Lógica ORIGINAL del NeonAccordion (idéntica) ── */
+  class NeonAccordion {
+    constructor(root) {
+      this.root = root;
+      this.panels = [...root.querySelectorAll(".panel")];
+      this.prev = document.querySelector(".nav-prev");
+      this.next = document.querySelector(".nav-next");
+      this.statusName = document.getElementById("statusName");
+      this.ambientOn = false;
+      this.index = Math.max(0, this.panels.findIndex(p => p.classList.contains("active")));
+      this.bind();
+      this.apply(this.index, false);
+    }
+    bind() {
+      this.panels.forEach(p => {
+        p.addEventListener("click", () => { const li = this.panels.indexOf(p); if (li !== -1) this.apply(li, true); });
+        p.addEventListener("mousemove", e => {
+          if (!p.classList.contains("active")) return;
+          const bg = p.querySelector(".panel-bg"); if (!bg) return;
+          const r = p.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          const y = (e.clientY - r.top) / r.height - 0.5;
+          bg.style.transform = `scale(1.14) translate(${x * 10}px, ${y * 8}px)`;
+        });
+        p.addEventListener("mouseleave", () => { const bg = p.querySelector(".panel-bg"); if (bg) bg.style.transform = ""; });
+      });
+      this.prev.addEventListener("click", e => { e.stopPropagation(); this.go(-1); });
+      this.next.addEventListener("click", e => { e.stopPropagation(); this.go(1); });
+      document.addEventListener("keydown", e => {
+        if (e.key === "ArrowLeft") this.go(-1);
+        if (e.key === "ArrowRight") this.go(1);
+
+      });
+
+      this.root.addEventListener("click", e => {
+        const btn = e.target.closest(".cta, .ghost-btn, .corner");
+        if (!btn) return;
+        if (btn.tagName === 'A') return;
+        e.stopPropagation();
+        this.toast(`${this.panels[this.index]?.dataset.title || "Panel"}: acción registrada`);
+      });
+    }
+    refreshPanels() { this.panels = [...this.root.querySelectorAll(".panel")]; }
+    resetActive() {
+      this.panels.forEach(p => { p.classList.remove("active"); const bg = p.querySelector(".panel-bg"); if (bg) bg.style.transform = ""; });
+      this.index = 0;
+      if (this.panels[0]) this.panels[0].classList.add("active");
+    }
+    apply(i, focusLed = true) {
+      if (!this.panels.length) return;
+      this.panels.forEach(p => p.classList.remove("active"));
+      const panel = this.panels[i] || this.panels[0];
+      panel.classList.add("active");
+      this.index = this.panels.indexOf(panel);
+      const title = panel.dataset.title || `Item ${String(this.index + 1).padStart(2, "0")}`;
+      const accent = panel.dataset.accent || "#7CFFB2";
+      this.statusName.textContent = title;
+      const led = document.querySelector(".status-led");
+      if (led) {
+        led.style.background = accent;
+        led.style.boxShadow = `0 0 18px ${this.hexToRgba(accent, 0.55)}`;
+        if (focusLed) led.animate([{transform:"scale(1)"},{transform:"scale(1.25)"},{transform:"scale(1)"}], {duration:420,easing:"ease-out"});
+      }
+      const dot = document.querySelector(".dot");
+      if (dot) { dot.style.background = accent; dot.style.boxShadow = `0 0 18px ${this.hexToRgba(accent, 0.55)}`; }
+      this.panels.forEach((p, idx) => p.setAttribute("aria-selected", idx === this.index ? "true" : "false"));
+    }
+    go(delta) {
+      if (!this.panels.length) return;
+      const next = (this.index + delta + this.panels.length) % this.panels.length;
+      this.apply(next, true);
+    }
+
+
+
+    toast(text) {
+      let t = document.querySelector(".toast");
+      if (!t) {
+        t = document.createElement("div"); t.className = "toast"; document.body.appendChild(t);
+        const s = document.createElement("style");
+        s.textContent = `.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.14);background:rgba(0,0,0,.55);color:rgba(234,240,255,.92);font:12px ui-sans-serif,system-ui;backdrop-filter:blur(10px);box-shadow:0 18px 60px rgba(0,0,0,.45);opacity:0;pointer-events:none;z-index:9999;}`;
+        document.head.appendChild(s);
+      }
+      t.textContent = text;
+      t.animate([
+        {opacity:0,transform:"translateX(-50%) translateY(8px)"},
+        {opacity:1,transform:"translateX(-50%) translateY(0px)"},
+        {opacity:1,transform:"translateX(-50%) translateY(0px)"},
+        {opacity:0,transform:"translateX(-50%) translateY(8px)"}
+      ], {duration:1800,easing:"cubic-bezier(.2,.8,.2,1)"});
+    }
+    hexToRgba(hex, a = 1) {
+      const h = hex.replace("#","").trim();
+      const full = h.length === 3 ? h.split("").map(c => c+c).join("") : h;
+      const n = parseInt(full, 16);
+      return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${a})`;
+    }
+  }
+  new NeonAccordion(accEl);
+})();
+</script>
+</body>
+</html>
