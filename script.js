@@ -778,10 +778,89 @@ document.querySelectorAll('.slide-bg[data-bg]').forEach(el => {
     setTimeout(() => { overlay.classList.remove('open'); window.scrollTo(0, savedScroll); }, 350);
   }
 
-  document.addEventListener('click', e => {
-    const row = e.target.closest('.sw-row[data-sw], a.sw-row[data-sw], .sw-card[data-sw], a.sw-card[data-sw]');
-    if (!row) return;
+  const SELECTOR = '.sw-row[data-sw], a.sw-row[data-sw], .sw-card[data-sw], a.sw-card[data-sw]';
+  function destino(nodo) {
+    return nodo && nodo.closest ? nodo.closest(SELECTOR) : null;
+  }
+
+  /* ── Apertura por toque ────────────────────────────────────────
+     Antes se escuchaba solo `click`. En móvil el navegador CANCELA
+     el click si el dedo se mueve más de ~20px entre apoyar y
+     levantar (lo interpreta como scroll), y en un dedo real ese
+     movimiento ocurre casi siempre: de ahí que "a veces no entre".
+
+     Aquí se atiende el toque directamente y se acepta hasta 24px de
+     desplazamiento, que sigue siendo mucho menos de lo que hace
+     falta para desplazar la página de verdad. Si el dedo se va más
+     lejos, era scroll y no se abre nada.
+
+     `abriendo` bloquea el click sintético que el navegador emite
+     después del toque, para no abrir la ficha dos veces.
+  ────────────────────────────────────────────────────────────── */
+  const TOLERANCIA  = 45;    /* px que puede irse el dedo sin dejar de ser toque */
+  const SCROLL_MIN  = 6;     /* px que debe moverse la PÁGINA para llamarlo scroll */
+  const MAX_MS      = 1200;  /* más lento que esto = pulsación larga */
+  let inicio = null, abriendo = false;
+
+  /* El criterio decisivo no es cuánto se movió el dedo, sino si la
+     PÁGINA se desplazó. Un dedo real siempre tiembla unos píxeles;
+     eso no significa que quisieras hacer scroll. Si la página no se
+     movió, fue un toque, y punto. */
+  document.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) { inicio = null; return; }
+    const el = destino(e.target);
+    if (!el) { inicio = null; return; }
+    const t = e.touches[0];
+    inicio = { x: t.clientX, y: t.clientY, t: Date.now(), el, scroll: window.scrollY || 0 };
+    el.classList.add('sw-pulsado');          /* respuesta visual inmediata */
+  }, { passive: true });
+
+  function limpiar() {
+    document.querySelectorAll('.sw-pulsado').forEach(n => n.classList.remove('sw-pulsado'));
+  }
+
+  document.addEventListener('touchend', e => {
+    limpiar();
+    if (!inicio) return;
+    const partida = inicio;
+    inicio = null;
+    const t = e.changedTouches && e.changedTouches[0];
+    if (!t) return;
+
+    const movioPagina = Math.abs((window.scrollY || 0) - partida.scroll) > SCROLL_MIN;
+    const dist = Math.hypot(t.clientX - partida.x, t.clientY - partida.y);
+
+    if (movioPagina) return;                       /* hubo scroll de verdad */
+    if (dist > TOLERANCIA) return;                 /* arrastre muy largo */
+    if (Date.now() - partida.t > MAX_MS) return;   /* pulsación larga */
+
+    /* El dedo puede levantarse sobre otra tarjeta; manda donde empezó */
     e.preventDefault();
-    open(row.dataset.sw);
+    abriendo = true;
+    setTimeout(() => { abriendo = false; }, 600);
+    open(partida.el.dataset.sw);
+  }, { passive: false });
+
+  document.addEventListener('touchcancel', () => { inicio = null; limpiar(); }, { passive: true });
+
+  /* Respaldo para navegadores que emiten eventos de puntero pero no
+     los táctiles clásicos (algunos navegadores integrados de apps). */
+  document.addEventListener('pointerup', e => {
+    if (e.pointerType === 'mouse') return;         /* el ratón va por `click` */
+    if (abriendo) return;
+    const el = destino(e.target);
+    if (!el) return;
+    abriendo = true;
+    setTimeout(() => { abriendo = false; }, 600);
+    open(el.dataset.sw);
+  });
+
+  /* Ratón, teclado y navegadores sin táctil siguen por aquí */
+  document.addEventListener('click', e => {
+    const el = destino(e.target);
+    if (!el) return;
+    e.preventDefault();
+    if (abriendo) return;                          /* ya lo abrió el toque */
+    open(el.dataset.sw);
   });
 })();
