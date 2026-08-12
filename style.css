@@ -894,7 +894,12 @@ footer { background: #020a0c; border-top: 1px solid rgba(0,212,200,0.07); paddin
   z-index: 0; pointer-events: none;
   opacity: 0.8;
 }
-.sw-sidebar, .sw-panel, .sw-toolbar, .sw-count, .sw-list { position: relative; z-index: 1; }
+/* La vista de tarjetas (.sw-cards) faltaba aquí: sin z-index quedaba
+   al mismo nivel que el canvas de partículas, mientras que la vista
+   lista (.sw-list) sí estaba protegida. De ahí que la franja larga
+   respondiera bien y las tarjetas no. */
+.sw-sidebar, .sw-panel, .sw-toolbar, .sw-count, .sw-list, .sw-cards,
+.sw-grid-group, .sw-group-head { position: relative; z-index: 1; }
 
 .sw-toolbar {
   display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
@@ -1008,6 +1013,8 @@ footer { background: #020a0c; border-top: 1px solid rgba(0,212,200,0.07); paddin
 }
 .sw-row.soon { opacity: .5; pointer-events: none; }
 .sw-row.soon:hover { background: rgba(255,255,255,0.03); color: #ccc; padding-left: 18px; }
+/* Igual que en las tarjetas: ningún hijo intercepta el clic */
+.sw-row > *, .sw-row > * > * { pointer-events: none; }
 
 .sw-row-ico { font-size: 16px; color: var(--ac, var(--teal)); flex-shrink: 0; transition: color .25s; }
 .sw-row:hover .sw-row-ico { color: #04100f; }
@@ -1070,13 +1077,23 @@ footer { background: #020a0c; border-top: 1px solid rgba(0,212,200,0.07); paddin
   background: linear-gradient(135deg, var(--ac, var(--teal)) 0%, transparent 60%);
   opacity: 0;
   transition: opacity .3s;
+  pointer-events: none;          /* nunca debe interceptar el clic */
 }
+/* El `transform: translateY(-3px)` hacía que la tarjeta se moviera
+   bajo el cursor: cerca del borde inferior se escapaba, el navegador
+   emitía mouseleave, volvía a bajar y entraba en un parpadeo donde el
+   clic no llegaba a cuajar. La sensación de elevarse se consigue con
+   sombra, que no altera la zona sensible. */
 .sw-card:hover {
   background: rgba(255,255,255,0.06);
   border-color: var(--ac, var(--teal));
-  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45), 0 0 0 1px var(--ac, var(--teal));
 }
 .sw-card:hover::after { opacity: 0.05; }
+
+/* Toda la superficie de la tarjeta pertenece al enlace: ningún hijo
+   se queda con el clic, se pulse donde se pulse. */
+.sw-card > *, .sw-card > * > * { pointer-events: none; }
 
 .sw-card-top {
   display: flex; align-items: flex-start; justify-content: space-between;
