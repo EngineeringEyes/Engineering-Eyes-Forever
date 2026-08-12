@@ -1235,3 +1235,42 @@ footer { background: #020a0c; border-top: 1px solid rgba(0,212,200,0.07); paddin
   .sw-panel-title { font-size: 28px; }
   .sec-title { word-break: normal; overflow-wrap: anywhere; }
 }
+
+
+/* ═══════════════════════════════════════════════
+   TÁCTIL — respuesta al toque en el catálogo
+   En móvil el navegador deja el :hover "pegado" tras tocar,
+   así que el elemento se desplazaba bajo el dedo (la tarjeta
+   3px hacia arriba, la fila 12px de padding) y el toque se
+   perdía o tardaba. Aquí el hover solo se aplica en equipos
+   con puntero real; en táctil se usa :active, que responde
+   al instante y no desplaza nada.
+═══════════════════════════════════════════════ */
+@media (hover: none) {
+  /* Anula el desplazamiento del hover pegado */
+  .sw-card:hover { transform: none; }
+  .sw-row:hover  { padding-left: 18px; }
+
+  /* Área táctil cómoda y respuesta inmediata al apoyar el dedo */
+  .sw-card, .sw-row {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;   /* elimina la espera de ~300ms por doble toque */
+  }
+  .sw-card { min-height: 96px; }
+  .sw-row  { min-height: 52px; }
+
+  .sw-card:active {
+    background: rgba(255,255,255,0.10);
+    border-color: var(--ac, var(--teal));
+  }
+  .sw-row:active {
+    background: var(--ac, var(--teal));
+    color: #04100f;
+  }
+  .sw-row:active .sw-row-ico { color: #04100f; }
+
+  /* Mismo tratamiento en el resto de controles del catálogo */
+  .sw-nav-item, .sw-view-btn, .sw-chk, .sw-search { touch-action: manipulation; }
+  .sw-search { min-height: 44px; }   /* 44px = mínimo táctil recomendado */
+  .sw-nav-item { min-height: 44px; }
+}
