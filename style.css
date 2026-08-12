@@ -24,7 +24,11 @@ html, body {
   width: 100vw;
   margin: 0; padding: 0;
   overflow-x: hidden;
-  overscroll-behavior: none;
+  /* `overscroll-behavior: none` (ambos ejes) impedía desplazar la página
+     arrastrando el dedo: en móvil solo funcionaba la barra lateral.
+     Se conserva el bloqueo HORIZONTAL, que es el que evita el rebote
+     lateral, y se libera el vertical. */
+  overscroll-behavior-x: none;
 }
 
 /* ═══════════════════════════════════════════════
@@ -602,7 +606,7 @@ main {
   position: relative; width: 100%; max-width: 740px;
   height: 2000px;
   margin-left: auto; margin-right: auto;
-  overscroll-behavior: none;
+  overscroll-behavior-x: none;   /* solo horizontal: el vertical debe fluir */
 }
 
 #world3d { position: fixed; left: 0; top: var(--tabletVerticaloffset); z-index: -1; perspective: 1000px; overflow: visible; width: 90vw; max-width: 1200px; padding-top: 5vw; }
@@ -1318,3 +1322,37 @@ footer { background: #020a0c; border-top: 1px solid rgba(0,212,200,0.07); paddin
 }
 .sw-row.sw-pulsado .sw-row-ico,
 .sw-row.sw-pulsado .sw-row-vers { color: #04100f; }
+
+
+/* ═══════════════════════════════════════════════
+   SCROLL TÁCTIL — secciones que atrapaban el gesto
+   ───────────────────────────────────────────────
+   Una sección con `overflow: hidden` cuyo contenido es más alto que
+   su caja se convierte en contenedor desplazable: al arrastrar el
+   dedo dentro, Chrome intenta desplazar ESA sección (que no puede
+   moverse) y no cede el gesto a la página. Resultado: en el móvil
+   solo funcionaba la barra lateral del navegador.
+
+   Medido en el hero: caja 915px · contenido 999px → 84px de exceso.
+
+   `overflow: clip` recorta exactamente igual pero NO crea contenedor
+   de scroll, así que el gesto pasa limpio a la página.
+═══════════════════════════════════════════════ */
+.hero,
+.cursos-section,
+.cta-section,
+.glitch-section,
+#intercambios,
+#diplomados,
+.cyber-cards-section .cc-card,
+#switch-cnt {
+  overflow: clip;
+}
+/* Respaldo para navegadores sin `clip` (Chrome <90, Safari <16):
+   con esto el contenido nunca sobresale y la sección deja de atrapar. */
+@supports not (overflow: clip) {
+  .hero, .cursos-section, .cta-section, .glitch-section,
+  #intercambios, #diplomados, .cyber-cards-section .cc-card, #switch-cnt {
+    overflow: hidden; touch-action: pan-y;
+  }
+}
