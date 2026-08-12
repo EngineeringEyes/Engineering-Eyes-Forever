@@ -1065,3 +1065,12 @@
   .cyber-cards-section .cc-counting-desc { font-size: 8px; line-height: 1.35; }
   .cyber-cards-section .cc-color-tone { display: none; }
 }
+
+
+/* El SVG del borde sobresale 2px de la tarjeta; con `overflow: hidden`
+   eso convertía cada tarjeta en contenedor desplazable y se tragaba el
+   arrastre del dedo en el móvil. `clip` recorta igual sin crear scroll. */
+.cyber-cards-section .cc-card { overflow: clip; }
+@supports not (overflow: clip) {
+  .cyber-cards-section .cc-card { overflow: hidden; touch-action: pan-y; }
+}
