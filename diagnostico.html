@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico — Engineering Eyes</title>
+<style>
+  body { margin:0; background:#050b0d; color:#cfe; font:13px/1.5 monospace; padding:14px 12px 60px; }
+  h1 { font-size:15px; color:#00d4c8; margin:0 0 4px; }
+  p.sub { color:#7aa; margin:0 0 14px; font-size:12px; }
+  .caja { border:1px solid rgba(0,212,200,.3); border-radius:8px; padding:10px 12px; margin-bottom:12px; }
+  .ok { color:#4ade80; } .mal { color:#f87171; } .avi { color:#fbbf24; }
+  b { color:#fff; }
+  #log { white-space:pre-wrap; word-break:break-word; }
+  button { background:#00d4c8; color:#04100f; border:0; padding:12px 18px; border-radius:8px;
+           font:700 13px monospace; margin:4px 4px 4px 0; }
+  #zona { position:fixed; left:0; right:0; bottom:0; background:rgba(0,0,0,.92);
+          border-top:1px solid #00d4c8; padding:8px 12px; font-size:12px; }
+</style>
+</head>
+<body>
+<h1>Diagnóstico del catálogo</h1>
+<p class="sub">Sube este archivo junto a index.html y ábrelo en el móvil donde falla.</p>
+
+<div class="caja">
+  <b>1. Archivos cargados</b>
+  <div id="archivos">comprobando…</div>
+</div>
+
+<div class="caja">
+  <b>2. Prueba de toque</b>
+  <p class="sub" style="margin:6px 0">Pulsa el botón y luego toca una tarjeta que NO te funcione en el sitio real. Vuelve aquí y lee el registro.</p>
+  <button onclick="abrirSitio()">Abrir el sitio en otra pestaña</button>
+  <button onclick="location.reload()">Reiniciar</button>
+</div>
+
+<div class="caja">
+  <b>3. Registro</b>
+  <div id="log">—</div>
+</div>
+
+<div id="zona">Toca aquí para probar el detector: <span id="zres">—</span></div>
+
+<script>
+const log = m => document.getElementById('log').textContent = m + '\n' + document.getElementById('log').textContent;
+
+/* 1. ¿Están todos los archivos y en su versión nueva? */
+(async () => {
+  const objetivo = [
+    ['style.css',       'sw-cards',            'z-index de la vista tarjetas'],
+    ['style.css',       'sw-pulsado',          'realimentación al toque'],
+    ['style.css',       'pointer-events: none','superficie completa sensible'],
+    ['script.js',       'touchstart',          'apertura por toque'],
+    ['script.js',       'pointerup',           'respaldo de puntero'],
+    ['data/catalogo.js','EE_CATALOGO',         'catálogo único'],
+    ['accordion.html',  'EE_USD',              'cálculo de precios']
+  ];
+  const cache = {};
+  const filas = [];
+  for (const [archivo, marca, desc] of objetivo) {
+    try {
+      if (!cache[archivo]) cache[archivo] = await (await fetch(archivo + '?t=' + Date.now())).text();
+      const hay = cache[archivo].includes(marca);
+      filas.push(`<span class="${hay?'ok':'mal'}">${hay?'✔':'✘'}</span> ${archivo} — ${desc}`);
+    } catch (e) {
+      filas.push(`<span class="mal">✘</span> ${archivo} — NO SE PUDO CARGAR`);
+    }
+  }
+  document.getElementById('archivos').innerHTML = filas.join('<br>');
+})();
+
+/* 2. Detector de toques: informa de qué elemento recibe cada toque */
+document.getElementById('zona').addEventListener('touchstart', e => {
+  const t = e.touches[0];
+  const el = document.elementFromPoint(t.clientX, t.clientY);
+  document.getElementById('zres').innerHTML =
+    '<span class="ok">recibido</span> en ' + (el ? (el.id || el.tagName) : '?');
+}, {passive:true});
+
+function abrirSitio(){ window.open('index.html', '_blank'); }
+
+/* 3. Datos del entorno */
+log('Pantalla: ' + innerWidth + 'x' + innerHeight + ' · DPR ' + devicePixelRatio);
+log('Navegador: ' + navigator.userAgent.slice(0, 110));
+log('Táctil: ' + ('ontouchstart' in window ? 'sí' : 'NO') + ' · puntos: ' + (navigator.maxTouchPoints || 0));
+log('hover:none → ' + matchMedia('(hover: none)').matches + ' · pointer:coarse → ' + matchMedia('(pointer: coarse)').matches);
+log('Movimiento reducido: ' + matchMedia('(prefers-reduced-motion: reduce)').matches);
+</script>
+</body>
+</html>
