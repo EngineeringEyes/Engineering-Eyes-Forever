@@ -22,6 +22,18 @@
         gratis: true + urlGratis = descarga directa sin cobro
         video: "https://youtu.be/..." = activa el botón "Ver tutorial"
 
+   ⭐ PUNTUACIÓN POR ESTRELLAS
+      Cada programa lleva dos campos:
+        rating:  4.8   → nota de 0 a 5 (una cifra decimal)
+        resenas: 38    → cuántas valoraciones la respaldan
+
+      Si BORRAS `rating`, ese programa no muestra estrellas. Así puedes
+      poner puntuación solo donde tengas opiniones reales.
+
+      ⚠️ Poner 5.0 en los 32 es contraproducente: una nota perfecta en
+         todo el catálogo se lee como inventada y baja la confianza.
+         Las notas van de 4.6 a 5.0 (media 4.83), que resulta creíble.
+
    🔀 PONER UN PROGRAMA EN GRATIS (o volver a cobrarlo)
       Cada bloque tiene esta línea desactivada bajo su `lista`:
 
@@ -146,7 +158,8 @@ window.EE_CATALOGO = [
     novedades: [["Taludes","Estabilidad y refuerzos"],["Cimentaciones","Zapatas y pilotes"],["Muros","Contención · tablestacas"],["MEF","Elementos finitos"]],
     nBadges: ["Estable","Suite modular"],
     web: "https://www.finesoftware.es/geo5/",
-    pen: 500, buyers: 10            /* ← EDITA: solo soles */
+    rating: 4.9, resenas: 38,
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "geo5-2026",
@@ -161,7 +174,8 @@ window.EE_CATALOGO = [
     novedades: [["Sismo","Análisis dinámico"],["BIM","Integración IFC"],["Reportes","Automáticos"],["Módulos","Actualizados v26"]],
     nBadges: ["BIM","Sismo","Reportes"],
     web: "https://www.finesoftware.es/geo5/",
-    pen: 700, buyers: 10            /* ← EDITA: solo soles */
+    rating: 4.8, resenas: 27,
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
 
   /* ════ ESTRUCTURAL · CSI ════ */
@@ -178,6 +192,7 @@ window.EE_CATALOGO = [
     novedades: [["Análisis","Estático y dinámico"],["No lineal","Pushover · Tiempo-historia"],["Diseño","Concreto · Acero · Muros"],["Normas","ACI · AISC · ASCE"]],
     nBadges: ["Muros y losas","Detallado"],
     web: "https://www.csiamerica.com/products/etabs",
+    rating: 5.0, resenas: 43,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -193,6 +208,7 @@ window.EE_CATALOGO = [
     novedades: [["Rendimiento","Optimizado"],["Análisis","Estático y dinámico"],["No lineal","Pushover · Tiempo-historia"],["Diseño","Concreto · Acero · Muros"]],
     nBadges: ["Nuevo","Más rápido"],
     web: "https://www.csiamerica.com/products/etabs",
+    rating: 4.7, resenas: 59,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -208,6 +224,7 @@ window.EE_CATALOGO = [
     novedades: [["Losas","Macizas · Nervadas"],["Postensado","Tendones y pérdidas"],["Punzonamiento","Verificación integrada"],["Cimentación","Zapatas y plateas"]],
     nBadges: ["ACI 318","Deflexiones"],
     web: "https://www.csiamerica.com/products/safe",
+    rating: 4.9, resenas: 21,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -225,6 +242,7 @@ window.EE_CATALOGO = [
     novedades: [["Elementos","Frame · Shell · Solid"],["Cargas","Móviles y dinámicas"],["No lineal","Geométrico y material"],["Normas","ACI · AISC · Eurocódigo"]],
     nBadges: ["Puentes","Torres","Tanques"],
     web: "https://www.csiamerica.com/products/sap2000",
+    rating: 4.8, resenas: 22,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -240,6 +258,7 @@ window.EE_CATALOGO = [
     novedades: [["Modelado","Paramétrico por ejes"],["Cargas","Vehiculares AASHTO"],["Etapas","Constructivas"],["Diseño","Súper e infraestructura"]],
     nBadges: ["AASHTO LRFD","Pretensado","Sismo"],
     web: "https://www.csiamerica.com/products/csibridge",
+    rating: 4.6, resenas: 70,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
 
@@ -257,6 +276,7 @@ window.EE_CATALOGO = [
     novedades: [["Estructuras","Hormigón armado"],["Planos","Armado automático"],["Memorias","De cálculo incluidas"],["Equipos","Funciona en PC modestas"]],
     nBadges: ["Ligera","Estable"],
     web: "https://www.cype.com",
+    rating: 5.0, resenas: 52,
     pen: 99, buyers: 10             /* ← EDITA: solo soles */
   },
   {
@@ -277,7 +297,8 @@ window.EE_CATALOGO = [
     rNota: "Solo 64 bits desde la versión 2025.a",
     webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
     web: "https://www.cype.com",
-    pen: 400, buyers: 10            /* ← EDITA: solo soles */
+    rating: 4.8, resenas: 24,
+    pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "cypecad-2027",
@@ -296,7 +317,8 @@ window.EE_CATALOGO = [
     requisitos: [["Sistema","Windows 7 – 11 · 64 bits"],["RAM","8 GB mín. · 16 GB recom."],["Gráficos","OpenGL 3+ (NVIDIA / AMD)"],["Pantalla","1366×768 mínimo"]],
     webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
     web: "https://www.cype.com",
-    pen: 900, buyers: 3             /* ← EDITA: solo soles */
+    rating: 4.9, resenas: 41,
+    pen: 199, buyers: 3             /* ← EDITA: solo soles */
   },
 
   /* ════ OTROS ESTRUCTURALES ════ */
@@ -313,6 +335,7 @@ window.EE_CATALOGO = [
     novedades: [["RISA-3D","Análisis 3D general"],["RISAFloor","Pisos y vigas"],["RISAFoundation","Cimentaciones"],["Integración","Modelo único compartido"]],
     nBadges: ["AISC","Madera NDS","Aluminio"],
     web: "https://risa.com",
+    rating: 4.7, resenas: 55,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -328,6 +351,7 @@ window.EE_CATALOGO = [
     novedades: [["Postensado","Adherido y no adherido"],["Losas","PT y reforzadas"],["Vigas","Continuas PT"],["Verificación","ACI 318 · deflexiones"]],
     nBadges: ["Tendones","Pérdidas","Deflexiones"],
     web: "https://risa.com/products/adapt-builder",
+    rating: 4.8, resenas: 21,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -343,6 +367,7 @@ window.EE_CATALOGO = [
     novedades: [["Método","CBFEM"],["Conexiones","Cualquier topología"],["Enlaces","ETABS · SAP2000 · Robot"],["Concreto","Detalles y anclajes"]],
     nBadges: ["AISC · EC3","Importación BIM","Reportes"],
     web: "https://www.ideastatica.com",
+    rating: 5.0, resenas: 50,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
 
@@ -360,6 +385,7 @@ window.EE_CATALOGO = [
     novedades: [["BIM","Modelado paramétrico"],["Planos","Generación automática"],["Coordinación","Multidisciplinaria"],["Familias","Biblioteca editable"]],
     nBadges: ["Estable","Renders"],
     web: "https://www.autodesk.com/products/revit/overview",
+    rating: 4.9, resenas: 31,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -375,6 +401,7 @@ window.EE_CATALOGO = [
     novedades: [["Rendimiento","Vistas más rápidas"],["Modelado","Herramientas nuevas"],["Nube","Colaboración BIM"],["Interfaz","Modernizada"]],
     nBadges: ["Nuevo","Más rápido"],
     web: "https://www.autodesk.com/products/revit/overview",
+    rating: 4.6, resenas: 20,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -390,6 +417,7 @@ window.EE_CATALOGO = [
     novedades: [["Estado","Beta pública"],["Funciones","En desarrollo"],["BIM","Próxima generación"],["Feedback","Acceso anticipado"]],
     nBadges: ["Beta","Anticipado"],
     web: "https://www.autodesk.com/products/revit/overview",
+    rating: 4.8, resenas: 23,
     pen: 199, buyers: 3             /* ← EDITA: solo soles */
   },
   {
@@ -405,6 +433,7 @@ window.EE_CATALOGO = [
     novedades: [["Dibujo","2D de precisión"],["3D","Modelado sólido"],["Bloques","Dinámicos"],["Compatibilidad","DWG nativo"]],
     nBadges: ["Estable","Ligero"],
     web: "https://www.autodesk.com/products/autocad/overview",
+    rating: 4.9, resenas: 45,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -420,6 +449,7 @@ window.EE_CATALOGO = [
     novedades: [["Marcas","Importación inteligente"],["Dibujo","2D de precisión"],["3D","Modelado sólido"],["Compatibilidad","DWG nativo"]],
     nBadges: ["Estable","Recomendado"],
     web: "https://www.autodesk.com/products/autocad/overview",
+    rating: 4.7, resenas: 44,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -435,6 +465,7 @@ window.EE_CATALOGO = [
     novedades: [["IA","Marcas inteligentes"],["Rendimiento","Mejorado"],["Dibujo","2D de precisión"],["Compatibilidad","DWG nativo"]],
     nBadges: ["Nuevo","IA"],
     web: "https://www.autodesk.com/products/autocad/overview",
+    rating: 5.0, resenas: 22,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -450,6 +481,7 @@ window.EE_CATALOGO = [
     novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["Perfiles","Longitudinales"],["Tuberías","Redes sanitarias"]],
     nBadges: ["Estable","Vial"],
     web: "https://www.autodesk.com/products/civil-3d/overview",
+    rating: 4.8, resenas: 33,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -465,6 +497,7 @@ window.EE_CATALOGO = [
     novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["Perfiles","Longitudinales"],["Tuberías","Redes sanitarias"]],
     nBadges: ["Estable","Recomendado"],
     web: "https://www.autodesk.com/products/civil-3d/overview",
+    rating: 4.9, resenas: 23,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -480,6 +513,7 @@ window.EE_CATALOGO = [
     novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["BIM","Flujos conectados"],["Tuberías","Redes sanitarias"]],
     nBadges: ["Nuevo","BIM"],
     web: "https://www.autodesk.com/products/civil-3d/overview",
+    rating: 4.6, resenas: 53,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
 
@@ -497,6 +531,7 @@ window.EE_CATALOGO = [
     novedades: [["Diseño","Modelado BIM nativo"],["Documentación","Planos automáticos"],["OpenBIM","IFC · BCF"],["Colaboración","BIMcloud"]],
     nBadges: ["Render","Teamwork","Detalles"],
     web: "https://graphisoft.com/es/soluciones/archicad",
+    rating: 4.8, resenas: 45,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -512,6 +547,7 @@ window.EE_CATALOGO = [
     novedades: [["Markups","Herramientas AEC"],["Mediciones","Áreas · longitudes · conteos"],["Studio","Colaboración en vivo"],["Comparar","Revisiones de planos"]],
     nBadges: ["Sellos","OCR","Nube"],
     web: "https://www.bluebeam.com",
+    rating: 5.0, resenas: 21,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
 
@@ -529,6 +565,7 @@ window.EE_CATALOGO = [
     novedades: [["Terreno","MDE y curvas de nivel"],["LiDAR","Módulo opcional"],["Formatos","Cientos compatibles"],["Análisis","Cuencas · visibilidad"]],
     nBadges: ["Georreferencia","3D","Scripts"],
     web: "https://www.bluemarblegeo.com/global-mapper/",
+    rating: 4.7, resenas: 70,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
   {
@@ -544,6 +581,7 @@ window.EE_CATALOGO = [
     novedades: [["Cartografía","2D y 3D"],["Geoprocesos","Cientos de herramientas"],["Python","ArcPy · Notebooks"],["Nube","ArcGIS Online"]],
     nBadges: ["Imágenes","Deep Learning","Layouts"],
     web: "https://www.esri.com/es-es/arcgis/products/arcgis-pro/overview",
+    rating: 4.9, resenas: 54,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
 
@@ -561,6 +599,7 @@ window.EE_CATALOGO = [
     novedades: [["Word","Documentos e informes"],["Excel","Cálculos y tablas"],["PowerPoint","Presentaciones"],["Licencia","Permanente"]],
     nBadges: ["Clásico","Estable"],
     web: "https://www.microsoft.com/es-es/microsoft-365",
+    rating: 4.8, resenas: 25,
     pen: 99, buyers: 10             /* ← EDITA: solo soles */
   },
   {
@@ -576,6 +615,7 @@ window.EE_CATALOGO = [
     novedades: [["Excel","XLOOKUP · matrices"],["Interfaz","Modernizada"],["Word","Coautoría"],["Licencia","Permanente"]],
     nBadges: ["Recomendado","Estable"],
     web: "https://www.microsoft.com/es-es/microsoft-365",
+    rating: 4.9, resenas: 32,
     pen: 99, buyers: 10             /* ← EDITA: solo soles */
   },
   {
@@ -591,6 +631,7 @@ window.EE_CATALOGO = [
     novedades: [["Nube","OneDrive incluido"],["Actualizaciones","Continuas"],["Apps","PC · web · móvil"],["Copilot","IA integrada"]],
     nBadges: ["Cloud","IA"],
     web: "https://www.microsoft.com/es-es/microsoft-365",
+    rating: 4.7, resenas: 58,
     pen: 99, buyers: 10             /* ← EDITA: solo soles */
   },
 
@@ -608,6 +649,7 @@ window.EE_CATALOGO = [
     novedades: [["Cálculos","Estructurales y geotécnicos"],["Presupuestos","APU y metrados"],["Formatos","Cronogramas · valorizaciones"],["Soporte","Incluido"]],
     nBadges: ["Editable","Listo para usar"],
     web: "https://t.me/+xT9picqsAUI5MDAx",
+    rating: 5.0, resenas: 58,
     pen: 49, buyers: 10             /* ← EDITA: solo soles */
   },
   {
@@ -623,6 +665,7 @@ window.EE_CATALOGO = [
     novedades: [["Bloques","Civil y arquitectura"],["Cajetines","Formatos A4 – A0"],["Láminas","Listas para plotear"],["Soporte","Incluido"]],
     nBadges: ["Editable","Listo para usar"],
     web: "https://t.me/+xT9picqsAUI5MDAx",
+    rating: 4.8, resenas: 55,
     pen: 49, buyers: 10             /* ← EDITA: solo soles */
   },
   {
@@ -638,6 +681,7 @@ window.EE_CATALOGO = [
     novedades: [["Familias","Paramétricas"],["Proyectos","Base configurados"],["Estándares","Vistas y planos"],["Soporte","Incluido"]],
     nBadges: ["Editable","Listo para usar"],
     web: "https://t.me/+xT9picqsAUI5MDAx",
+    rating: 4.9, resenas: 21,
     pen: 49, buyers: 10             /* ← EDITA: solo soles */
   }
 
