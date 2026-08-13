@@ -518,27 +518,26 @@ CATALOGO.forEach(c => { SW_DETAIL[c.llave] = makeSW(c); });
       .catch(() => {});                                    /* Falla → se queda en USD */
   })();
 
+  /* Estrellas de valoración. Devuelve '' si el programa no tiene `rating`,
+     para no inventar puntuaciones donde no las hay. */
+  function estrellasHTML(rating, resenas, clase) {
+    if (!rating) return '';
+    const n = Math.max(0, Math.min(5, Number(rating) || 0));
+    const llenas = Math.round(n);
+    let sv = '';
+    for (let i = 1; i <= 5; i++) sv += `<span class="star${i <= llenas ? ' on' : ''}">\u2605</span>`;
+    const c = Number(resenas) || 0;
+    return `<div class="${clase || 'fine buy-rating'}" aria-label="Valoración ${n} de 5">${sv}` +
+           `<span class="nota">${n.toFixed(1)}</span>` +
+           (c ? `<span class="cuenta">(${c} valoraciones)</span>` : '') + `</div>`;
+  }
+
   /* Tarjeta derecha (meta): si el panel tiene "buy" se vuelve PRECIO;
      si no, se construye EXACTAMENTE como el original. */
   const buildMeta = p => {
     if (p.buy) {
       const b = p.buy;
-      /* Puntuación por estrellas. Sale de `rating` y `resenas` del
-         programa (data/catalogo.js). Sin `rating` no se muestra nada,
-         para no inventar valoraciones donde no las hay. */
-      const proof = b.rating
-        ? (() => {
-            const n = Math.max(0, Math.min(5, Number(b.rating) || 0));
-            const llenas = Math.round(n);
-            let sv = '';
-            for (let i = 1; i <= 5; i++) sv += `<span class="star${i <= llenas ? ' on' : ''}">\u2605</span>`;
-            const cuenta = Number(b.resenas) || 0;
-            return `<div class="fine buy-rating" aria-label="Valoración ${n} de 5">${sv}` +
-                   `<span class="nota">${n.toFixed(1)}</span>` +
-                   (cuenta ? `<span class="cuenta">(${cuenta} valoraciones)</span>` : '') +
-                   `</div>`;
-          })()
-        : '';
+      const proof = estrellasHTML(b.rating, b.resenas);
       /* Programa GRATUITO: muestra "GRATIS" sin montos ni conversión. */
       if (b.gratis) {
         return `<div class="meta-top">
@@ -668,7 +667,7 @@ CATALOGO.forEach(c => { SW_DETAIL[c.llave] = makeSW(c); });
               <div class="cur">Dólares</div><div class="amt">${esc(moneyUSD(b.usd))}</div><div class="cur" data-fxeq style="display:none;margin-top:4px"></div>
             </div>
           </div>
-          ${b.buyers ? `<div class="bm-proof"><span class="buy-live" aria-hidden="true"></span><b data-countup="${Number(b.buyers)||0}">0</b>&nbsp;personas ya lo adquirieron</div>` : ''}
+          ${estrellasHTML(b.rating, b.resenas, 'bm-proof buy-rating')}
           <div class="bm-note">El precio en USD ya incluye la comisión de pago.</div>
           <div class="bm-actions">
             <button class="ghost-btn" type="button" data-bm="close">Cancelar</button>
