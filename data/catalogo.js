@@ -159,7 +159,7 @@ window.EE_CATALOGO = [
     nBadges: ["Estable","Suite modular"],
     web: "https://www.finesoftware.es/geo5/",
     rating: 4.9, resenas: 38,
-    pen: 199, buyers: 10            /* ← EDITA: solo soles */
+    pen: 500, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "geo5-2026",
@@ -175,7 +175,7 @@ window.EE_CATALOGO = [
     nBadges: ["BIM","Sismo","Reportes"],
     web: "https://www.finesoftware.es/geo5/",
     rating: 4.8, resenas: 27,
-    pen: 199, buyers: 10            /* ← EDITA: solo soles */
+    pen: 900, buyers: 10            /* ← EDITA: solo soles */
   },
 
   /* ════ ESTRUCTURAL · CSI ════ */
@@ -298,7 +298,7 @@ window.EE_CATALOGO = [
     webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
     web: "https://www.cype.com",
     rating: 4.8, resenas: 24,
-    pen: 199, buyers: 10            /* ← EDITA: solo soles */
+    pen: 500, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "cypecad-2027",
@@ -318,7 +318,7 @@ window.EE_CATALOGO = [
     webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
     web: "https://www.cype.com",
     rating: 4.9, resenas: 41,
-    pen: 199, buyers: 3             /* ← EDITA: solo soles */
+    pen: 900, buyers: 3             /* ← EDITA: solo soles */
   },
 
   /* ════ OTROS ESTRUCTURALES ════ */
