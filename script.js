@@ -553,15 +553,17 @@ document.querySelectorAll('.slide-bg[data-bg]').forEach(el => {
     try { localStorage.setItem(EE_REG_KEY, '1'); } catch (e) { /* modo privado */ }
   }
 
-  /* Auto-open al cargar — solo para visitantes nuevos */
+  /* La página abre limpia: el modal de registro YA NO se muestra solo.
+     Solo aparece cuando el visitante pulsa el botón REGISTRAR, que queda
+     visible desde el principio.
+     (Para volver a la apertura automática, descomenta el bloque de abajo.) */
   window.addEventListener('load', () => {
-    if (yaRegistrado()) {
-      if (loginOpenBtn) loginOpenBtn.classList.add('show');   /* queda accesible a mano */
-      return;
-    }
-    setTimeout(() => {
-      openLogin();
-    }, 1850);
+    if (loginOpenBtn) loginOpenBtn.classList.add('show');
+
+    /* ── Apertura automática DESACTIVADA ──
+    if (yaRegistrado()) return;
+    setTimeout(() => { openLogin(); }, 1850);
+    ── fin ── */
   });
 
   function openLogin() {
