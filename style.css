@@ -1356,3 +1356,48 @@ footer { background: #020a0c; border-top: 1px solid rgba(0,212,200,0.07); paddin
     overflow: hidden; touch-action: pan-y;
   }
 }
+
+
+/* ═══════════════════════════════════════════════
+   BUSCADOR DEL CATÁLOGO — visibilidad
+   ───────────────────────────────────────────────
+   Antes pasaba desapercibido: borde al 25% de opacidad y un
+   placeholder #3a6a6a que daba 3.31:1 de contraste, por debajo
+   del mínimo accesible de 4.5:1. Ahora: borde más marcado, fondo
+   propio, icono de lupa (SVG embebido, sin depender del CDN de
+   iconos) y placeholder legible.
+═══════════════════════════════════════════════ */
+.sw-toolbar { gap: 14px; margin-bottom: 22px; }
+
+.sw-search {
+  min-width: 260px;
+  background-color: rgba(0,18,20,0.85);
+  border: 1px solid rgba(0,212,200,0.55);
+  color: #d6fbf8;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  padding: 15px 18px 15px 48px;   /* hueco izquierdo para la lupa */
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px rgba(0,212,200,0.08), 0 4px 18px rgba(0,0,0,0.45);
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d4c8' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M21 21l-4.3-4.3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 16px center;
+  background-size: 20px 20px;
+}
+.sw-search::placeholder { color: #7fb8b4; }   /* 9.03:1 · cumple AAA */
+
+.sw-search:focus {
+  border-color: var(--teal);
+  background-color: rgba(0,26,28,0.95);
+  box-shadow: 0 0 0 3px rgba(0,212,200,0.18), 0 0 26px rgba(0,212,200,0.18);
+}
+
+/* En móvil la lupa se reduce para no comerse el espacio del texto */
+@media (max-width: 600px) {
+  .sw-search {
+    font-size: 13px;
+    padding: 14px 14px 14px 42px;
+    background-position: 13px center;
+    background-size: 18px 18px;
+  }
+}
