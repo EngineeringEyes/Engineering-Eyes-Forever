@@ -20,7 +20,7 @@
   /* ── Fecha de cierre REAL de matrícula ──────────────────────────
      Antes era Date.now() + N días, así que el contador se reiniciaba
      en cada recarga y nunca llegaba a cero. Ahora es una fecha fija:
-       cierra('2026-09-15')  →  15/09/2026 a las 23:59 hora local.
+       cierra('2026-11-30')  →  30/11/2026 a las 23:59 hora local.
      ⚠️ Actualiza estas fechas cuando abras una nueva convocatoria;
         al pasarse, la tarjeta se marca como FINALIZADO sola.
   ─────────────────────────────────────────────────────────────── */
@@ -43,7 +43,7 @@
       img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=400&q=80',
       desc: 'Domina Revit + ETABS 23 desde modelado hasta análisis sísmico completo con proyecto real de edificio multifamiliar.',
       features: ['Revit 2025/2026', 'ETABS 23', 'SAP2000', 'Certificado digital', 'Proyecto final', 'Soporte 6 meses'],
-      endDate: cierra('2026-09-15')   /* cierre de matrícula */
+      endDate: cierra('2026-12-15')   /* cierre de matrícula */
     },
     {
       id: 2,
@@ -56,7 +56,7 @@
       img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&q=80',
       desc: 'GEO5 2025/2026 completo: cimentaciones, taludes, muros y análisis de estabilidad con casos reales.',
       features: ['GEO5 2025 + 2026', 'Análisis de estabilidad', 'Muros de contención', 'Reportes profesionales'],
-      endDate: cierra('2026-09-30')
+      endDate: cierra('2026-11-20')
     },
     {
       id: 3,
@@ -69,7 +69,7 @@
       img: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&q=80',
       desc: 'Diseño de carreteras, intersecciones, movimiento de tierras y señalización con Civil 3D. Proyecto real incluido.',
       features: ['Civil 3D 2025', 'Diseño geométrico', 'Pavimentos', 'Señalización vial', 'Proyecto carretera'],
-      endDate: cierra('2026-08-31')
+      endDate: cierra('2027-01-15')
     },
     {
       id: 4,
@@ -82,7 +82,7 @@
       img: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=400&q=80',
       desc: 'Diseño y cálculo estructural con CYPECAD 2026: pórticos, losas, muros y exportación a BIM.',
       features: ['CYPECAD 2026.c', 'Diseño en concreto', 'Exportación BIM', 'Normativa NEC/NSR'],
-      endDate: cierra('2026-10-15')
+      endDate: cierra('2026-12-05')
     },
     {
       id: 5,
@@ -95,7 +95,7 @@
       img: 'https://images.unsplash.com/photo-1542621334-a254cf47733d?w=400&q=80',
       desc: 'AutoCAD 2025 para ingeniería civil: planos estructurales, detalles, bloques dinámicos y layouts.',
       features: ['AutoCAD 2025', 'Bloques dinámicos', 'Layouts y plot', 'Planos estructurales'],
-      endDate: cierra('2026-09-20')
+      endDate: cierra('2027-01-31')
     },
     {
       id: 6,
@@ -108,7 +108,7 @@
       img: 'https://images.unsplash.com/photo-1496247749665-49cf5b1022e9?w=400&q=80',
       desc: 'Análisis tiempo-historia, diseño por desempeño y disipadores de energía con ETABS 23 y SAP2000.',
       features: ['ETABS 23', 'SAP2000', 'Análisis no lineal', 'Diseño por desempeño', 'Disipadores sísmicos'],
-      endDate: cierra('2026-10-05')
+      endDate: cierra('2026-11-30')
     }
   ];
 
@@ -266,6 +266,7 @@
     clearCountdowns();   /* limpia antes de crear nuevos */
     document.querySelectorAll('[data-countdown]').forEach(el => {
       const endTime = parseInt(el.dataset.countdown);
+      let iv = null;        /* declarado ANTES de update() */
 
       function update() {
         const diff = Math.max(0, endTime - Date.now());
@@ -273,7 +274,10 @@
           el.textContent   = 'FINALIZADO';
           el.style.color   = '#ff0055';
           el.closest('.dip-card')?.classList.add('expired');
-          clearInterval(iv);
+          /* Antes esto era `clearInterval(iv)` con `iv` declarado más
+             abajo: si la fecha ya había vencido, el primer update()
+             reventaba con ReferenceError y tumbaba el resto del script. */
+          if (iv) clearInterval(iv);
           return;
         }
         /* Con fechas reales el margen suele ser de semanas: "360:00:00"
@@ -286,7 +290,7 @@
       }
 
       update();
-      const iv = setInterval(update, 1000);
+      iv = setInterval(update, 1000);
       countdownIntervals.push(iv);
     });
   }
