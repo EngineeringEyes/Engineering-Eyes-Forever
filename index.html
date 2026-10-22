@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Engineering Eyes — Recursos de ingeniería civil: software, cursos, diplomados y BIM.">
 <title>Engineering Eyes — Civil & BIM</title>
-<link rel="canonical" href="https://engineeringeyes.github.io/">
+<link rel="canonical" href="https://engineeringeyes.github.io/Engineering-Eyes-Forever/">
 <meta name="theme-color" content="#030c0e">
 
 <!-- Favicon en línea (sin archivo extra): cuadro teal del logo -->
@@ -17,12 +17,12 @@
 <meta property="og:locale" content="es_ES">
 <meta property="og:title" content="Engineering Eyes — Civil & BIM">
 <meta property="og:description" content="Software, cursos y diplomados de ingeniería civil y BIM en un solo lugar.">
-<meta property="og:url" content="https://engineeringeyes.github.io/">
-<meta property="og:image" content="https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes/main/fondo.jpg">
+<meta property="og:url" content="https://engineeringeyes.github.io/Engineering-Eyes-Forever/">
+<meta property="og:image" content="https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes-Forever/main/portada.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Engineering Eyes — Civil & BIM">
 <meta name="twitter:description" content="Software, cursos y diplomados de ingeniería civil y BIM en un solo lugar.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes/main/fondo.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes-Forever/main/portada.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,8 +32,51 @@
 <link rel="stylesheet" href="cyber-cards.css">
 <link rel="stylesheet" href="glitch-sections.css">
 <link rel="stylesheet" href="recent-courses.css">
+<link rel="stylesheet" href="servicios.css">
 </head>
 <body>
+
+<!-- Filtros del carrusel de servicios: desplazan el canal rojo y el
+     cian en sentidos opuestos (aberración cromática) y ondulan la
+     imagen con una turbulencia. Tres intensidades según lo lejos
+     que esté la tarjeta del centro. Invisibles por sí mismos. -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <filter id="eeAb1" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.016" numOctaves="2" seed="4" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="7" xChannelSelector="R" yChannelSelector="G" result="warp"/>
+      <feColorMatrix in="warp" type="matrix" result="rojo"
+        values="1 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 1 0"/>
+      <feOffset in="rojo" dx="-3" dy="0" result="rojoD"/>
+      <feColorMatrix in="warp" type="matrix" result="cian"
+        values="0 0 0 0 0   0 1 0 0 0   0 0 1 0 0   0 0 0 1 0"/>
+      <feOffset in="cian" dx="3" dy="0" result="cianD"/>
+      <feBlend in="rojoD" in2="cianD" mode="screen"/>
+    </filter>
+    <filter id="eeAb2" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.016" numOctaves="2" seed="5" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="15" xChannelSelector="R" yChannelSelector="G" result="warp"/>
+      <feColorMatrix in="warp" type="matrix" result="rojo"
+        values="1 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 1 0"/>
+      <feOffset in="rojo" dx="-7" dy="0" result="rojoD"/>
+      <feColorMatrix in="warp" type="matrix" result="cian"
+        values="0 0 0 0 0   0 1 0 0 0   0 0 1 0 0   0 0 0 1 0"/>
+      <feOffset in="cian" dx="7" dy="0" result="cianD"/>
+      <feBlend in="rojoD" in2="cianD" mode="screen"/>
+    </filter>
+    <filter id="eeAb3" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.016" numOctaves="2" seed="6" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="24" xChannelSelector="R" yChannelSelector="G" result="warp"/>
+      <feColorMatrix in="warp" type="matrix" result="rojo"
+        values="1 0 0 0 0   0 0 0 0 0   0 0 0 0 0   0 0 0 1 0"/>
+      <feOffset in="rojo" dx="-12" dy="0" result="rojoD"/>
+      <feColorMatrix in="warp" type="matrix" result="cian"
+        values="0 0 0 0 0   0 1 0 0 0   0 0 1 0 0   0 0 0 1 0"/>
+      <feOffset in="cian" dx="12" dy="0" result="cianD"/>
+      <feBlend in="rojoD" in2="cianD" mode="screen"/>
+    </filter>
+  </defs>
+</svg>
 <div class="preloader">
   <div class="loader-logo">ENGINEERING EYES</div>
   <div class="loader-bar"></div>
@@ -53,7 +96,7 @@
   <div class="nav-links">
     <a href="#inicio" class="active">Inicio</a>
     <a href="#softwares">Software</a>
-    <a href="#cursos">Cursos</a>
+    <a href="#servicios">Servicios</a>
     <a href="#diplomados">Diplomados</a>
     <a href="#intercambios">Intercambios</a>
   </div>
@@ -642,114 +685,25 @@
 
 <div class="divider-line"></div>
 
-<!-- CURSOS -->
-<section class="cursos-section" id="cursos" style="padding-top:140px;position:relative;">
-  <div class="cursos-header reveal" style="position:relative;text-align:center;max-width:800px;margin:0 auto;padding:0 24px;">
-    <div class="sec-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Formación Profesional</div></div>
-    <div class="sec-title">CURSOS<br><span class="dim">& MAESTRÍAS</span></div>
+<!-- SERVICIOS -->
+<section class="srv-section" id="servicios" aria-label="Servicios">
+  <div class="srv-head reveal">
+    <div class="sec-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Trabajamos contigo</div></div>
+    <div class="sec-title">SERVICIOS<br><span class="dim">PROFESIONALES</span></div>
     <p class="sec-desc" style="margin:0 auto;max-width:520px;">
-      Domina las herramientas más potentes de la ingeniería civil con proyectos reales y metodología 100% práctica.
+      Instalación, asesoría y proyectos de ingeniería civil resueltos por especialistas.
     </p>
   </div>
 
-  <main>
-    <div class="cards-wrapper">
-      <div class="card-wrap">
-        <div class="card" id="codepen">
-          <header class="type">
-            <span class="tp">Alvisión Civil</span><br>
-            <span class="tp" style="color:var(--teal);font-size:0.9em;">— Aprende sin Límites —</span>
-          </header>
-        </div>
-      </div>
-      <div class="card-wrap">
-        <div class="card" id="html">
-          <code id="c0">
-            <dl>
-              <dt><span class="tp wd">CURSO ESTRUCTURAL</span><span class="tp"> AVANZADO</span></dt><br>
-              <dd>
-                <span class="tp">• Revit 2025/2026 + ETABS 23</span><br>
-                <span class="tp">• Análisis Sísmico y Diseño de Acero/Concreto</span><br>
-                <span class="tp">• Modelado BIM + Planos Automáticos</span><br>
-                <span class="tp">• Proyecto Final: Edificio de 15 pisos</span>
-              </dd><br>
-              <dt><span class="tp" style="color:var(--teal);">48 HORAS • NIVEL AVANZADO</span></dt>
-            </dl>
-          </code>
-        </div>
-      </div>
-      <div class="card-wrap">
-        <div class="card" id="css">
-          <code class="type">
-            <dl>
-              <dt><span class="tp wd">GEO5</span><span class="tp"> MASTERY</span></dt><br>
-              <dd>
-                <span class="tp">• GEO5 2025 + 2026 Completo</span><br>
-                <span class="tp">• Cimentaciones • Taludes • Muros</span><br>
-                <span class="tp">• Análisis de Estabilidad y Retención</span><br>
-                <span class="tp">• Proyectos Reales + Reportes Profesionales</span>
-              </dd><br>
-              <dt><span class="tp" style="color:var(--teal);">36 HORAS • NIVEL PROFESIONAL</span></dt>
-            </dl>
-          </code>
-        </div>
-      </div>
-      <div class="card-wrap">
-        <div class="card" id="js">
-          <code class="type">
-            <dl>
-              <dt><span class="tp wd">CIVIL 3D</span><span class="tp"> INFRAESTRUCTURA</span></dt><br>
-              <dd>
-                <span class="tp">• Diseño de Carreteras y Corredores</span><br>
-                <span class="tp">• Perfiles • Volúmenes • Movimiento de Tierra</span><br>
-                <span class="tp">• Intersecciones y Señalización Vial</span><br>
-                <span class="tp">• Proyecto Final: Carretera Real</span>
-              </dd><br>
-              <dt><span class="tp" style="color:var(--teal);">52 HORAS • NIVEL INTERMEDIO-AVANZADO</span></dt>
-            </dl>
-          </code>
-        </div>
-      </div>
-    </div>
+  <div class="srv-stage" id="srvStage">
+    <div class="srv-track" id="srvTrack"></div>
+  </div>
 
-    <div class="expand-panel" id="expandPanel">
-      <div class="expand-header">
-        <span id="panelTitle">CURSO ESTRUCTURAL AVANZADO</span>
-        <button type="button" class="close-panel" id="closePanelBtn" aria-label="Cerrar panel">✕</button>
-      </div>
-      <div class="scroll-controls">
-        <button type="button" class="scroll-btn" id="scrollUpBtn" aria-label="Subir lista">↑</button>
-        <button type="button" class="scroll-btn" id="scrollDownBtn" aria-label="Bajar lista">↓</button>
-      </div>
-      <div class="course-list" id="courseList">
-        <button type="button" class="course-btn" data-title="Curso de Modelado y Detallado de Estructuras de Acero utilizando Tekla Structures" data-desc="Contenido: obtendrás video y material únicamente.">
-          Curso de Modelado y Detallado de Estructuras de Acero utilizando Tekla Structures
-        </button>
-        <button type="button" class="course-btn" data-title="Revit en Edificaciones para Principiantes" data-desc="Contenido: obtendrás video y material únicamente.">
-          Revit en Edificaciones para Principiantes
-        </button>
-        <button type="button" class="course-btn" data-title="Diseño y Análisis Estructural utilizando ETABS 23" data-desc="Contenido: obtendrás video y material únicamente.">
-          Diseño y Análisis Estructural utilizando ETABS 23
-        </button>
-        <button type="button" class="course-btn" data-title="Especialización Profesional en Civil 3D para Infraestructura Vial" data-desc="Contenido: obtendrás video y material únicamente.">
-          Especialización Profesional en Civil 3D para Infraestructura Vial
-        </button>
-      </div>
-      <div class="course-info">
-        <h3 id="courseName">Selecciona un curso</h3>
-        <p id="courseDescription">Aquí aparecerá la descripción.</p>
-        <div class="panel-actions">
-          <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="contact-btn">CONTACTAR</a>
-        </div>
-      </div>
-    </div>
-
-    <div id="world3d"><div id="tablet"></div></div>
-    <svg id="svgPaths" width="740" height="2000" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <use href="#linePath01" /><use href="#linePath02" />
-      <use href="#linePath03" /><use href="#linePath04" />
-    </svg>
-  </main>
+  <div class="srv-nav">
+    <button type="button" class="srv-arrow" id="srvPrev" aria-label="Servicio anterior">&#8249;</button>
+    <div class="srv-dots" id="srvDots" aria-label="Elegir servicio"></div>
+    <button type="button" class="srv-arrow" id="srvNext" aria-label="Servicio siguiente">&#8250;</button>
+  </div>
 </section>
 
 <div class="divider-line"></div>
@@ -878,7 +832,7 @@
     <nav class="footer-links" aria-label="Links del footer">
       <a href="#inicio">Inicio</a>
       <a href="#softwares">Software</a>
-      <a href="#cursos">Cursos</a>
+      <a href="#servicios">Servicios</a>
       <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer">Telegram</a>
     </nav>
     <div class="footer-copy">© 2025 Engineering Eyes</div>
@@ -922,6 +876,8 @@
 <script src="cyber-cards.js"></script>
 <script src="script.js"></script>
 <script src="glitch-sections.js"></script>
+<script src="data/servicios.js"></script>
+<script src="servicios.js"></script>
 <script src="recent-courses.js"></script>
 </body>
 </html>
