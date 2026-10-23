@@ -157,9 +157,9 @@ window.EE_CATALOGO = [
     version: "2025", vIntro: "Versión estable de la suite geotécnica profesional.",
     novedades: [["Taludes","Estabilidad y refuerzos"],["Cimentaciones","Zapatas y pilotes"],["Muros","Contención · tablestacas"],["MEF","Elementos finitos"]],
     nBadges: ["Estable","Suite modular"],
-    web: "https://www.finesoftware.es/geo5/",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.9, resenas: 38,
-    pen: 500, buyers: 10            /* ← EDITA: solo soles */
+    pen: 300, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "geo5-2026",
@@ -173,9 +173,9 @@ window.EE_CATALOGO = [
     version: "2026", vIntro: "Nueva versión: módulos avanzados y flujo BIM.",
     novedades: [["Sismo","Análisis dinámico"],["BIM","Integración IFC"],["Reportes","Automáticos"],["Módulos","Actualizados v26"]],
     nBadges: ["BIM","Sismo","Reportes"],
-    web: "https://www.finesoftware.es/geo5/",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.8, resenas: 27,
-    pen: 900, buyers: 10            /* ← EDITA: solo soles */
+    pen: 500, buyers: 10            /* ← EDITA: solo soles */
   },
 
   /* ════ ESTRUCTURAL · CSI ════ */
@@ -191,7 +191,7 @@ window.EE_CATALOGO = [
     version: "v22",
     novedades: [["Análisis","Estático y dinámico"],["No lineal","Pushover · Tiempo-historia"],["Diseño","Concreto · Acero · Muros"],["Normas","ACI · AISC · ASCE"]],
     nBadges: ["Muros y losas","Detallado"],
-    web: "https://www.csiamerica.com/products/etabs",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 5.0, resenas: 43,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
@@ -207,7 +207,7 @@ window.EE_CATALOGO = [
     version: "v23",
     novedades: [["Rendimiento","Optimizado"],["Análisis","Estático y dinámico"],["No lineal","Pushover · Tiempo-historia"],["Diseño","Concreto · Acero · Muros"]],
     nBadges: ["Nuevo","Más rápido"],
-    web: "https://www.csiamerica.com/products/etabs",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.7, resenas: 59,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
@@ -223,7 +223,7 @@ window.EE_CATALOGO = [
     version: "v22",
     novedades: [["Losas","Macizas · Nervadas"],["Postensado","Tendones y pérdidas"],["Punzonamiento","Verificación integrada"],["Cimentación","Zapatas y plateas"]],
     nBadges: ["ACI 318","Deflexiones"],
-    web: "https://www.csiamerica.com/products/safe",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.9, resenas: 21,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
@@ -241,7 +241,7 @@ window.EE_CATALOGO = [
     version: "v25",
     novedades: [["Elementos","Frame · Shell · Solid"],["Cargas","Móviles y dinámicas"],["No lineal","Geométrico y material"],["Normas","ACI · AISC · Eurocódigo"]],
     nBadges: ["Puentes","Torres","Tanques"],
-    web: "https://www.csiamerica.com/products/sap2000",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.8, resenas: 22,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
@@ -275,7 +275,7 @@ window.EE_CATALOGO = [
     version: "2019", vIntro: "Versión clásica, ligera y probada en miles de proyectos.",
     novedades: [["Estructuras","Hormigón armado"],["Planos","Armado automático"],["Memorias","De cálculo incluidas"],["Equipos","Funciona en PC modestas"]],
     nBadges: ["Ligera","Estable"],
-    web: "https://www.cype.com",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 5.0, resenas: 52,
     pen: 99, buyers: 10             /* ← EDITA: solo soles */
   },
@@ -296,9 +296,9 @@ window.EE_CATALOGO = [
     requisitos: [["Sistema","Windows 10 / 11 · 64 bits"],["RAM","8 GB mín. · 16 GB recom."],["Gráficos","OpenGL 3+ (NVIDIA / AMD)"],["Pantalla","1366×768 mínimo"]],
     rNota: "Solo 64 bits desde la versión 2025.a",
     webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
-    web: "https://www.cype.com",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.8, resenas: 24,
-    pen: 500, buyers: 10            /* ← EDITA: solo soles */
+    pen: 300, buyers: 10            /* ← EDITA: solo soles */
   },
   {
     llave: "cypecad-2027",
@@ -316,9 +316,9 @@ window.EE_CATALOGO = [
     webNovedades: "https://info.cype.com/es/novedades/version-2027-a/",
     requisitos: [["Sistema","Windows 7 – 11 · 64 bits"],["RAM","8 GB mín. · 16 GB recom."],["Gráficos","OpenGL 3+ (NVIDIA / AMD)"],["Pantalla","1366×768 mínimo"]],
     webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
-    web: "https://www.cype.com",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.9, resenas: 41,
-    pen: 900, buyers: 3             /* ← EDITA: solo soles */
+    pen: 500, buyers: 3             /* ← EDITA: solo soles */
   },
 
   /* ════ OTROS ESTRUCTURALES ════ */
@@ -432,7 +432,7 @@ window.EE_CATALOGO = [
     version: "2023",
     novedades: [["Dibujo","2D de precisión"],["3D","Modelado sólido"],["Bloques","Dinámicos"],["Compatibilidad","DWG nativo"]],
     nBadges: ["Estable","Ligero"],
-    web: "https://www.autodesk.com/products/autocad/overview",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.9, resenas: 45,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
@@ -448,7 +448,7 @@ window.EE_CATALOGO = [
     version: "2024",
     novedades: [["Marcas","Importación inteligente"],["Dibujo","2D de precisión"],["3D","Modelado sólido"],["Compatibilidad","DWG nativo"]],
     nBadges: ["Estable","Recomendado"],
-    web: "https://www.autodesk.com/products/autocad/overview",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.7, resenas: 44,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
@@ -464,7 +464,7 @@ window.EE_CATALOGO = [
     version: "2025",
     novedades: [["IA","Marcas inteligentes"],["Rendimiento","Mejorado"],["Dibujo","2D de precisión"],["Compatibilidad","DWG nativo"]],
     nBadges: ["Nuevo","IA"],
-    web: "https://www.autodesk.com/products/autocad/overview",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 5.0, resenas: 22,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
@@ -480,7 +480,7 @@ window.EE_CATALOGO = [
     version: "2023",
     novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["Perfiles","Longitudinales"],["Tuberías","Redes sanitarias"]],
     nBadges: ["Estable","Vial"],
-    web: "https://www.autodesk.com/products/civil-3d/overview",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.8, resenas: 33,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
@@ -496,7 +496,7 @@ window.EE_CATALOGO = [
     version: "2024",
     novedades: [["Corredores","Diseño vial"],["Superficies","MDT y volúmenes"],["Perfiles","Longitudinales"],["Tuberías","Redes sanitarias"]],
     nBadges: ["Estable","Recomendado"],
-    web: "https://www.autodesk.com/products/civil-3d/overview",
+    web: "https://t.me/+xT9picqsAUI5MDAx",
     rating: 4.9, resenas: 23,
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
