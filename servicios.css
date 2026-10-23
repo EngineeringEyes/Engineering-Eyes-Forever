@@ -246,3 +246,12 @@
 @supports not (overflow: clip) {
   .srv-card { overflow: hidden; touch-action: pan-y; }
 }
+
+/* Con una o dos tarjetas sobran las flechas y los puntos:
+   el JS añade esta clase al contenedor de la sección. */
+.srv-section.es-duo .srv-nav { display: none; }
+.srv-section.es-duo .srv-stage { height: 500px; }
+@media (max-width: 900px) {
+  .srv-section.es-duo .srv-nav { display: flex; }   /* en móvil sí hacen falta */
+  .srv-section.es-duo .srv-stage { height: auto; }
+   }
