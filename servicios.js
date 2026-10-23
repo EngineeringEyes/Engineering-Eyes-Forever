@@ -81,7 +81,8 @@
 
   const cards = [...track.querySelectorAll('.srv-card')];
   const total = cards.length;
-  let actual = Math.floor(total / 2);
+  /* Con 3 o más arranca en la del medio; con 1 o 2, en la primera. */
+  let actual = total > 2 ? Math.floor(total / 2) : 0;
 
   /* ── Puntos de navegación ── */
   datos.forEach((s, i) => {
@@ -99,6 +100,35 @@
 
   function pintar() {
     const estrecho = window.innerWidth < 900;
+
+    /* ── Modo dúo ──────────────────────────────────────────────
+       Con una o dos tarjetas el coverflow no tiene sentido: una
+       taparía a la otra y el conjunto queda descentrado. En
+       pantalla ancha se colocan lado a lado, las dos legibles,
+       con una inclinación suave que conserva el aire 3D.
+       En móvil no caben dos, así que sigue el carrusel normal. */
+    if (total <= 2 && !estrecho) {
+      const ancho = cards[0].offsetWidth || 300;
+      const hueco = 38;
+      cards.forEach((c, i) => {
+        const centro = (total - 1) / 2;
+        const x = (i - centro) * (ancho + hueco);
+        const giro = -(i - centro) * 7;
+        c.style.transform = `translate3d(${x}px, 0, 0) rotateY(${giro}deg)`;
+        c.style.opacity = '1';
+        c.style.zIndex = '10';
+        c.style.pointerEvents = 'auto';
+        c.classList.remove('ab1', 'ab2', 'ab3');
+        c.classList.add('is-active');          /* ambas activas: botón visible */
+        c.setAttribute('aria-hidden', 'false');
+        c.style.boxShadow = '0 26px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.07)';
+      });
+      dots.forEach(d => d.classList.remove('on'));
+      stage.closest('.srv-section')?.classList.add('es-duo');
+      return;
+    }
+    stage.closest('.srv-section')?.classList.remove('es-duo');
+
     const sepX  = estrecho ? 150 : 215;    /* separación horizontal */
     const sepZ  = estrecho ? 180 : 230;    /* hundimiento en profundidad */
     const giro  = estrecho ? 38  : 46;     /* grados de rotación */
