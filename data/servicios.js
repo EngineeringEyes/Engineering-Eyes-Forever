@@ -31,9 +31,9 @@ window.EE_SERVICIOS = [
     img:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&q=80",
     color:"#00d4c8", cta:"Solicitar", url:"https://t.me/+xT9picqsAUI5MDAx" },
 
-  { tag:"Asesoría", titulo:"Asesoría técnica", pen: 120, unidad:"por hora",
-    desc:"Resolvemos tu modelo en vivo: dudas de modelado, errores de cálculo e interpretación de resultados.",
-    puntos:["ETABS · SAP2000","GEO5 · CYPECAD","Grabación incluida"],
+  { tag:"Asesoría", titulo:"Ingeniería Inversa", pen: 1000, unidad:"por hora",
+    desc:"Necesitas liberar un binario? nosotros lo evaluaremos.",
+    puntos:["IDA Pro · Ghidra","x64dbg · dnSpy","Analisis"],
     img:"https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=80",
     color:"#f7d152", cta:"Agendar", url:"https://t.me/+xT9picqsAUI5MDAx" },
 
