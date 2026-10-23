@@ -16,6 +16,40 @@
   const dotsC = document.getElementById('srvDots');
   const esc = s => { const d = document.createElement('div'); d.textContent = String(s == null ? '' : s); return d.innerHTML; };
 
+
+  /* ── Precio ────────────────────────────────────────────────────
+     Si el servicio trae `pen` (soles), el dólar se calcula con la
+     MISMA fórmula del catálogo (window.EE_USD, en data/catalogo.js):
+     un solo tipo de cambio y una sola comisión para todo el sitio.
+     Si trae `precio` como texto ("A convenir"), se muestra tal cual
+     y no se convierte nada. ── */
+  function precioHTML(s) {
+    const esNum = s.pen !== undefined && s.pen !== null && !isNaN(s.pen) && Number(s.pen) > 0;
+
+    if (!esNum) {
+      return `<div class="srv-precio-fila">` +
+               `<span class="srv-precio">${esc(s.precio || '')}</span>` +
+               `<span class="srv-unidad">${esc(s.unidad || '')}</span>` +
+             `</div>`;
+    }
+
+    const soles = Number(s.pen);
+    const usd = (typeof window.EE_USD === 'function')
+      ? window.EE_USD(soles, s.usd)
+      : (s.usd || 0);
+
+    const desde = s.desde ? 'Desde ' : '';
+    const linea = usd
+      ? `<span class="srv-usd">\u2248 $ ${usd} USD</span>`
+      : '';
+
+    return `<div class="srv-precio-fila">` +
+             `<span class="srv-precio">${esc(desde)}S/ ${soles}</span>` +
+             `<span class="srv-unidad">${esc(s.unidad || '')}</span>` +
+             linea +
+           `</div>`;
+  }
+
   /* ── Construir las tarjetas ── */
   datos.forEach((s, i) => {
     const card = document.createElement('article');
@@ -32,10 +66,7 @@
       `<div class="srv-body">` +
         `<span class="srv-tag">${esc(s.tag || '')}</span>` +
         `<h3 class="srv-titulo">${esc(s.titulo || '')}</h3>` +
-        `<div class="srv-precio-fila">` +
-          `<span class="srv-precio">${esc(s.precio || '')}</span>` +
-          `<span class="srv-unidad">${esc(s.unidad || '')}</span>` +
-        `</div>` +
+        precioHTML(s) +
         `<p class="srv-desc">${esc(s.desc || '')}</p>` +
         `<ul class="srv-puntos">${puntos}</ul>` +
         `<a class="srv-cta" href="${esc(s.url || '#')}" target="_blank" rel="noopener noreferrer">${esc(s.cta || 'Consultar')}</a>` +
