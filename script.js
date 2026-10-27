@@ -773,6 +773,9 @@ document.querySelectorAll('.slide-bg[data-bg]').forEach(el => {
     requestAnimationFrame(() => overlay.classList.add('visible'));
     document.body.style.overflow = 'hidden';
   }
+  /* El buscador global del inicio abre las fichas con esto */
+  window.EE_ABRIR_FICHA = function (llave) { open(llave); };
+
   function close(){
     if (!overlay) return;
     overlay.classList.remove('visible');
@@ -780,7 +783,8 @@ document.querySelectorAll('.slide-bg[data-bg]').forEach(el => {
     setTimeout(() => { overlay.classList.remove('open'); window.scrollTo(0, savedScroll); }, 350);
   }
 
-  const SELECTOR = '.sw-row[data-sw], a.sw-row[data-sw], .sw-card[data-sw], a.sw-card[data-sw]';
+  const SELECTOR = '.sw-row[data-sw], a.sw-row[data-sw], .sw-card[data-sw], a.sw-card[data-sw], ' +
+                   '.dst-card[data-sw], .top-row[data-sw]';   /* tarjetas del nuevo inicio */
   function destino(nodo) {
     return nodo && nodo.closest ? nodo.closest(SELECTOR) : null;
   }
