@@ -29,10 +29,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Code+Pro:wght@400;600&family=Barlow+Condensed:wght@300;400;600;700;900&family=Rajdhani:wght@500;700&family=Anton&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="cyber-cards.css">
 <link rel="stylesheet" href="glitch-sections.css">
 <link rel="stylesheet" href="recent-courses.css">
 <link rel="stylesheet" href="servicios.css">
+<link rel="stylesheet" href="inicio.css">
 </head>
 <body>
 
@@ -111,187 +111,73 @@
 </nav>
 
 <!-- ═══════════════════════════════════════
-     HERO — SLIDER CINEMATOGRÁFICO
+     INICIO — Buscador global · Destacados · Top software
+     (sustituye al antiguo slider; datos en data/catalogo.js
+      y data/destacados.js)
 ═══════════════════════════════════════ -->
-<section class="hero" id="inicio">
+<section class="ini-sec" id="inicio" aria-label="Inicio">
+<div class="ini">
 
-  <!-- SLIDE 1 — GEO5 -->
-  <div class="hero-slide active" id="slide-0">
-    <div class="slide-bg" data-bg="https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes/main/fondo.jpg" role="img" aria-label="Fondo GEO5 2025"></div>
-    <div class="slide-overlay" aria-hidden="true"></div>
-    <div class="scanlines" aria-hidden="true"></div>
-    <div class="slide-content-left">
-      <div class="slide-tag">
-        <span class="slide-num">01 —</span>
-        Software Geotécnico · 2025
-      </div>
-      <div class="slide-title">GEO5<br><span class="accent">2025</span></div>
-      <div class="slide-sub">Análisis Geotécnico · Cimentaciones · Taludes</div>
-      <div class="slide-btns">
-        <a href="https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/geo5.html" target="_blank" rel="noopener noreferrer" class="btn-play">
-          <i class="ti ti-download" aria-hidden="true"></i> Descargar
-        </a>
-        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-trailer">
-          <i class="ti ti-brand-telegram" aria-hidden="true"></i> Soporte
-        </a>
-      </div>
+  <!-- BUSCADOR GLOBAL -->
+  <div class="bus">
+    <h1 class="bus-t">Encuentra tu <span>software</span> de ingeniería</h1>
+    <p class="bus-p">Busca entre <b id="busN">32</b> programas por nombre, marca o categoría.</p>
+    <div class="bus-campo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input class="bus-in" id="busIn" type="search" placeholder="Ej.: ETABS, Revit, GEO5, CYPE…" autocomplete="off" aria-label="Buscar software">
+      <span class="bus-kbd mono">/</span>
+      <button class="bus-go" id="busGo" type="button">Buscar</button>
     </div>
-    <div class="slide-content-right">
-      <div class="slide-right-tag">GEO5 2025</div>
-      <div class="slide-right-meta">
-        v25.0 <span class="badge">DISPONIBLE</span> Geotecnia
-      </div>
-      <div class="slide-right-desc">
-        Suite completa para análisis geotécnico. Diseño de cimentaciones superficiales y profundas, análisis de taludes y muros de contención.
-      </div>
-      <div class="version-chips">
-        <div class="vchip active">2025</div>
-        <div class="vchip" data-slide="1">2026 →</div>
-      </div>
+    <div class="bus-chips">
+      <small>Populares</small>
+      <button class="bus-chip" data-q="Estructural">Estructural</button>
+      <button class="bus-chip" data-q="Geotecnia">Geotecnia</button>
+      <button class="bus-chip" data-q="BIM">BIM &amp; CAD</button>
+      <button class="bus-chip" data-q="GIS">GIS</button>
+      <button class="bus-chip" data-q="Autodesk">Autodesk</button>
+      <button class="bus-chip" data-q="CSI">CSI</button>
+    </div>
+    <div class="bus-res" id="busRes" role="listbox"></div>
+  </div>
+
+  <div class="ini-head">
+    <div>
+      <div class="ini-kick"><i></i>Engineering Eyes</div>
+      <h2 class="ini-h">Destacados<span class="cnt mono" id="dstCnt"></span></h2>
+      <p class="ini-sub">Software de ingeniería civil, verificado y listo para instalar.</p>
+    </div>
+    <a class="ini-all" href="#softwares">Ver catálogo →</a>
+  </div>
+
+  <div class="dst-view"><div class="dst-track" id="dstTrack"></div></div>
+  <div class="dst-ctrl">
+    <div class="dst-page mono"><span id="dstA">01</span><span class="dst-prog"><i id="dstProg"></i></span><span id="dstB">05</span></div>
+    <div class="dst-arrows">
+      <button class="dst-btn" id="dstPrev" aria-label="Anterior">‹</button>
+      <button class="dst-btn" id="dstNext" aria-label="Siguiente">›</button>
     </div>
   </div>
 
-  <!-- SLIDE 2 — GEO5 2026 -->
-  <div class="hero-slide" id="slide-1">
-    <div class="slide-bg" data-bg="https://raw.githubusercontent.com/EngineeringEyes/Engineering_Eyes_2.0/main/fondo1.jpg" data-filter="saturate(0.6) brightness(0.45) hue-rotate(20deg)" role="img" aria-label="Fondo GEO5 2026"></div>
-    <div class="slide-overlay" aria-hidden="true"></div>
-    <div class="scanlines" aria-hidden="true"></div>
-    <div class="slide-content-left">
-      <div class="slide-tag">
-        <span class="slide-num">02 —</span>
-        Software Geotécnico · 2026
+  <div class="top">
+    <div class="ini-head">
+      <div>
+        <h2 class="ini-h">Top software</h2>
+        <p class="ini-sub">Los mejor valorados por la comunidad.</p>
       </div>
-      <div class="slide-title">GEO5<br><span class="accent">2026</span></div>
-      <div class="slide-sub">Nueva Versión · Módulos Avanzados · BIM Ready</div>
-      <div class="slide-btns">
-        <a href="https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/geo52026.html" target="_blank" rel="noopener noreferrer" class="btn-play">
-          <i class="ti ti-download" aria-hidden="true"></i> Descargar
-        </a>
-        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-trailer">
-          <i class="ti ti-brand-telegram" aria-hidden="true"></i> Soporte
-        </a>
+      <div class="top-tabs" role="tablist">
+        <button class="top-tab on" data-f="todos">Todos</button>
+        <button class="top-tab" data-f="pago">De pago</button>
+        <button class="top-tab" data-f="gratis">Gratis</button>
       </div>
+      <a class="ini-all" href="#softwares">Ver todo →</a>
     </div>
-    <div class="slide-content-right">
-      <div class="slide-right-tag">GEO5 2026</div>
-      <div class="slide-right-meta">
-        v26.0 <span class="badge">NUEVO</span> Geotecnia
-      </div>
-      <div class="slide-right-desc">
-        La versión más reciente con módulos actualizados para análisis dinámico sísmico, integración BIM y reportes automáticos.
-      </div>
-      <div class="version-chips">
-        <div class="vchip" data-slide="0">← 2025</div>
-        <div class="vchip active">2026</div>
-        <div class="vchip" data-slide="2">ETABS →</div>
-      </div>
-    </div>
+    <div class="top-grid" id="topGrid"></div>
   </div>
 
-  <!-- SLIDE 3 — ETABS -->
-  <div class="hero-slide" id="slide-2">
-    <div class="slide-bg" data-bg="https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes/main/fondo.jpg" data-filter="saturate(0.5) brightness(0.4) hue-rotate(180deg)" role="img" aria-label="Fondo ETABS"></div>
-    <div class="slide-overlay" aria-hidden="true"></div>
-    <div class="scanlines" aria-hidden="true"></div>
-    <div class="slide-content-left">
-      <div class="slide-tag">
-        <span class="slide-num">03 —</span>
-        CSI Software · Análisis Estructural
-      </div>
-      <div class="slide-title">ETABS<br><span class="accent">22/23</span></div>
-      <div class="slide-sub">Diseño Estructural · Análisis Sísmico · Edificios</div>
-      <div class="slide-btns">
-        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-play">
-          <i class="ti ti-download" aria-hidden="true"></i> Descargar
-        </a>
-        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-trailer">
-          <i class="ti ti-brand-telegram" aria-hidden="true"></i> Soporte
-        </a>
-      </div>
-    </div>
-    <div class="slide-content-right">
-      <div class="slide-right-tag">ETABS 22/23</div>
-      <div class="slide-right-meta">
-        v22 & v23 <span class="badge">CSI</span> Estructural
-      </div>
-      <div class="slide-right-desc">
-        El estándar mundial para análisis y diseño de estructuras de edificios. Análisis sísmico, diseño en concreto y acero.
-      </div>
-      <div class="version-chips">
-        <div class="vchip active">ETABS 22</div>
-        <div class="vchip">ETABS 23</div>
-        <div class="vchip">SAP2000</div>
-        <div class="vchip">SAFE 22</div>
-      </div>
-    </div>
-  </div>
+</div>
+</section>
 
-  <!-- SLIDE 4 — REVIT -->
-  <div class="hero-slide" id="slide-3">
-    <div class="slide-bg" data-bg="https://raw.githubusercontent.com/EngineeringEyes/Engineering_Eyes_2.0/main/fondo1.jpg" data-filter="saturate(0.4) brightness(0.4) hue-rotate(260deg)" role="img" aria-label="Fondo Revit"></div>
-    <div class="slide-overlay" aria-hidden="true"></div>
-    <div class="scanlines" aria-hidden="true"></div>
-    <div class="slide-content-left">
-      <div class="slide-tag">
-        <span class="slide-num">04 —</span>
-        Autodesk · BIM
-      </div>
-      <div class="slide-title">REVIT<br><span class="accent">2025/26</span></div>
-      <div class="slide-sub">Modelado BIM · Coordinación · Planos · Renders</div>
-      <div class="slide-btns">
-        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-play">
-          <i class="ti ti-download" aria-hidden="true"></i> Descargar
-        </a>
-        <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="btn-trailer">
-          <i class="ti ti-brand-telegram" aria-hidden="true"></i> Soporte
-        </a>
-      </div>
-    </div>
-    <div class="slide-content-right">
-      <div class="slide-right-tag">Revit BIM</div>
-      <div class="slide-right-meta">
-        <span class="badge">AUTODESK</span> BIM
-      </div>
-      <div class="slide-right-desc">
-        La plataforma BIM líder para modelado arquitectónico y estructural. Coordinación multidisciplinaria y generación automática de planos.
-      </div>
-      <div class="version-chips">
-        <div class="vchip active">Revit 2025</div>
-        <div class="vchip">Revit 2026</div>
-        <div class="vchip">Revit 2027</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="corner-teal" aria-hidden="true"></div>
-
-  <!-- DOTS -->
-  <div class="slide-dots" id="sdots" role="tablist" aria-label="Slides">
-    <div class="sdot active" role="tab" aria-selected="true"  aria-label="Slide 1" tabindex="0"></div>
-    <div class="sdot"        role="tab" aria-selected="false" aria-label="Slide 2" tabindex="-1"></div>
-    <div class="sdot"        role="tab" aria-selected="false" aria-label="Slide 3" tabindex="-1"></div>
-    <div class="sdot"        role="tab" aria-selected="false" aria-label="Slide 4" tabindex="-1"></div>
-  </div>
-
-  <!-- NAV BUTTONS -->
-  <div class="slider-nav">
-    <button class="snav-btn" id="prevSlideBtn" aria-label="Slide anterior"><i class="ti ti-arrow-left" aria-hidden="true"></i></button>
-    <button class="snav-btn" id="nextSlideBtn" aria-label="Slide siguiente"><i class="ti ti-arrow-right" aria-hidden="true"></i></button>
-  </div>
-
-  <!-- COUNTER -->
-  <div class="slide-counter" aria-hidden="true"><span id="snum">01</span> / 04</div>
-
-  <!-- SOCIAL -->
-  <div class="hero-social">
-    <div class="credit-line" aria-hidden="true"></div>
-    <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer">TELEGRAM</a>
-    <a href="http://t.me/engineeringeyes_bot" target="_blank" rel="noopener noreferrer">BOT</a>
-    <a href="#" target="_blank" rel="noopener noreferrer">YOUTUBE</a>
-    <div class="credit-line" aria-hidden="true"></div>
-  </div>
-
-<!-- LOGIN OVERLAY — dentro del hero -->
+<!-- LOGIN OVERLAY (modal de registro; position:fixed, va fuera de cualquier sección) -->
   <div class="login-overlay" id="loginOverlay" role="dialog" aria-modal="true" aria-label="Registro de correo">
     <div class="nm-wrapper">
       <div class="nm-brand">Engineering <span>Eyes</span></div>
@@ -343,240 +229,6 @@
       </div>
     </div>
   </div>
-
-</section><!-- /hero -->
-
-<!-- CYBER CARDS — FUERA DEL HERO -->
-<section class="cyber-cards-section" id="cyberSoftwareCards" aria-label="Software disponible">
-  <div class="cc-stage"
-       role="region"
-       aria-roledescription="carousel"
-       aria-label="Software disponible"
-       tabindex="0">
-
-    <div class="cc-lateral cc-lat-left-top" aria-hidden="true">GEOTECHNICAL</div>
-    <div class="cc-lateral cc-lat-left-bot" aria-hidden="true">SAN SEBASTIAN<br>SONATA ARC</div>
-    <div class="cc-lateral cc-lat-right-top" aria-hidden="true">V.2026</div>
-    <div class="cc-lateral cc-lat-right-bot" aria-hidden="true">ENTERPRISE</div>
-
-    <div class="cc-play-icons">
-      <button class="cc-play-icon active" id="ccPlayBtn" title="Play" aria-label="Reproducir carrusel">&#9655;</button>
-      <button class="cc-play-icon" id="ccPauseBtn" title="Pause" aria-label="Pausar carrusel">&#9646;&#9646;</button>
-    </div>
-
-    <div class="cc-cursor-zone left" aria-hidden="true"><span class="cc-cursor-arrow">&#8249;</span></div>
-    <div class="cc-cursor-zone right" aria-hidden="true"><span class="cc-cursor-arrow">&#8250;</span></div>
-
-    <!-- CARD 1: GEO5 -->
-    <div class="cc-card-wrap active" data-card="0"
-         data-category="GEOTECHNICAL" data-version="V.2026" data-status="ENTERPRISE"
-         role="tabpanel" aria-label="GEO5 2026">
-      <div class="cc-card">
-        <div class="cc-card-inner">
-          <div class="cc-failcode">FAIL CODE : GE0526ENT00112</div>
-          <div class="cc-badge">
-            <div class="cc-badge-icons" aria-hidden="true">&#10035; &#10035; &#10035;</div>
-            <div class="cc-badge-code">GE05 2026 ENTx</div>
-          </div>
-          <div class="cc-title-block">
-            <div class="cc-title-stack">
-              <span class="cc-title-main">GEO5</span>
-              <span class="cc-title-shadow" aria-hidden="true">GEO5</span>
-              <span class="cc-title-shadow" aria-hidden="true">GEO5</span>
-            </div>
-            <div class="cc-subtitle">ENTERPRISE x64</div>
-          </div>
-          <div class="cc-body-area">
-            <div class="cc-left-col">
-              <div class="cc-labels-row" aria-hidden="true">
-                <span class="cc-label-tag">SEND</span>
-                <span class="cc-label-tag">PROCESS</span>
-              </div>
-              <div class="cc-desc">Software geotécnico avanzado para análisis de cimentaciones, taludes, muros de contención y estabilidad de suelos.</div>
-              <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="cc-card-btn"><div class="cc-card-btn-inner"><span>ACCEDER AL SOFTWARE</span></div></a>
-            </div>
-            <div class="cc-right-col">
-              <div class="cc-counting-title">COUNTING ON YOU</div>
-              <div class="cc-counting-desc">Módulos especializados para cada tipo de problema geotécnico profesional.</div>
-              <div class="cc-big-number" aria-hidden="true">26</div>
-            </div>
-          </div>
-          <div class="cc-barcode-area" aria-hidden="true">
-            <svg class="cc-barcode-svg" viewBox="0 0 100 20"><rect x="2" width="2" height="18" fill="#1a1a1a"/><rect x="6" width="1" height="18" fill="#1a1a1a"/><rect x="9" width="3" height="18" fill="#1a1a1a"/><rect x="14" width="1" height="18" fill="#1a1a1a"/><rect x="17" width="2" height="18" fill="#1a1a1a"/><rect x="21" width="1" height="18" fill="#1a1a1a"/><rect x="24" width="3" height="18" fill="#1a1a1a"/><rect x="29" width="2" height="18" fill="#1a1a1a"/><rect x="33" width="1" height="18" fill="#1a1a1a"/><rect x="36" width="2" height="18" fill="#1a1a1a"/><rect x="40" width="3" height="18" fill="#1a1a1a"/><rect x="45" width="1" height="18" fill="#1a1a1a"/><rect x="48" width="2" height="18" fill="#1a1a1a"/><rect x="52" width="1" height="18" fill="#1a1a1a"/><rect x="55" width="3" height="18" fill="#1a1a1a"/><rect x="60" width="1" height="18" fill="#1a1a1a"/><rect x="63" width="2" height="18" fill="#1a1a1a"/><rect x="67" width="3" height="18" fill="#1a1a1a"/><rect x="72" width="1" height="18" fill="#1a1a1a"/><rect x="75" width="2" height="18" fill="#1a1a1a"/></svg>
-            <span class="cc-barcode-text">XYZ001928761</span>
-          </div>
-          <div class="cc-imperfection" aria-hidden="true">IMPERFECTION</div>
-          <div class="cc-color-tone" aria-hidden="true">
-            <div class="cc-ct-title">color tone.</div>
-            <div class="cc-ct-colors"><div class="cc-ct-swatch" style="background:#2ecc71"></div><div class="cc-ct-swatch" style="background:#b0b0a8"></div></div>
-            <div class="cc-ct-desc">Geotechnical analysis suite for professional soil mechanics.</div>
-          </div>
-        </div>
-        <svg class="cc-border-svg" viewBox="0 0 820 440" aria-hidden="true"><path class="cc-border-path" d="M3 3 L700 3 L700 10 L750 10 L750 3 L790 3 L817 30 L817 400 L800 425 L800 437 L740 437 L730 425 L30 425 L18 437 L3 437 Z"/></svg>
-      </div>
-    </div>
-
-    <!-- CARD 2: ETABS -->
-    <div class="cc-card-wrap" data-card="1"
-         data-category="STRUCTURAL" data-version="V.22/23" data-status="ANALYSIS"
-         role="tabpanel" aria-label="ETABS CSI Structural">
-      <div class="cc-card">
-        <div class="cc-card-inner">
-          <div class="cc-failcode">FAIL CODE : ET2223CSI00204</div>
-          <div class="cc-badge">
-            <div class="cc-badge-icons" aria-hidden="true">&#10035; &#10035; &#10035;</div>
-            <div class="cc-badge-code">0204 0504 0304</div>
-          </div>
-          <div class="cc-title-block">
-            <div class="cc-title-stack">
-              <span class="cc-title-main">ETABS</span>
-              <span class="cc-title-shadow" aria-hidden="true">ETABS</span>
-              <span class="cc-title-shadow" aria-hidden="true">ETABS</span>
-            </div>
-            <div class="cc-subtitle">CSI STRUCTURAL</div>
-          </div>
-          <div class="cc-body-area">
-            <div class="cc-left-col">
-              <div class="cc-labels-row" aria-hidden="true">
-                <span class="cc-label-tag">SEND</span>
-                <span class="cc-label-tag">PROCESS</span>
-              </div>
-              <div class="cc-desc">El estándar mundial para análisis y diseño de estructuras de edificios. Análisis sísmico, diseño en concreto y acero.</div>
-              <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="cc-card-btn"><div class="cc-card-btn-inner"><span>ACCEDER AL SOFTWARE</span></div></a>
-            </div>
-            <div class="cc-right-col">
-              <div class="cc-counting-title">COUNTING ON YOU</div>
-              <div class="cc-counting-desc">Modelado integrado con detallado automático para edificaciones.</div>
-              <div class="cc-big-number" aria-hidden="true">23</div>
-            </div>
-          </div>
-          <div class="cc-barcode-area" aria-hidden="true">
-            <svg class="cc-barcode-svg" viewBox="0 0 100 20"><rect x="2" width="2" height="18" fill="#1a1a1a"/><rect x="6" width="1" height="18" fill="#1a1a1a"/><rect x="9" width="3" height="18" fill="#1a1a1a"/><rect x="14" width="1" height="18" fill="#1a1a1a"/><rect x="17" width="2" height="18" fill="#1a1a1a"/><rect x="21" width="1" height="18" fill="#1a1a1a"/><rect x="24" width="3" height="18" fill="#1a1a1a"/><rect x="33" width="1" height="18" fill="#1a1a1a"/><rect x="36" width="2" height="18" fill="#1a1a1a"/><rect x="40" width="3" height="18" fill="#1a1a1a"/><rect x="45" width="1" height="18" fill="#1a1a1a"/><rect x="48" width="2" height="18" fill="#1a1a1a"/><rect x="52" width="1" height="18" fill="#1a1a1a"/><rect x="55" width="3" height="18" fill="#1a1a1a"/><rect x="60" width="1" height="18" fill="#1a1a1a"/><rect x="63" width="2" height="18" fill="#1a1a1a"/><rect x="67" width="3" height="18" fill="#1a1a1a"/><rect x="72" width="1" height="18" fill="#1a1a1a"/><rect x="75" width="2" height="18" fill="#1a1a1a"/></svg>
-            <span class="cc-barcode-text">ETB022304CSI</span>
-          </div>
-          <div class="cc-imperfection" aria-hidden="true">IMPERFECTION</div>
-          <div class="cc-color-tone" aria-hidden="true">
-            <div class="cc-ct-title">color tone.</div>
-            <div class="cc-ct-colors"><div class="cc-ct-swatch" style="background:#3498db"></div><div class="cc-ct-swatch" style="background:#888"></div></div>
-            <div class="cc-ct-desc">Structural analysis platform for seismic design.</div>
-          </div>
-        </div>
-        <svg class="cc-border-svg" viewBox="0 0 820 440" aria-hidden="true"><path class="cc-border-anim" fill="none" stroke-width="2" d="M3 3 L700 3 L700 10 L750 10 L750 3 L790 3 L817 30 L817 400 L800 425 L800 437 L740 437 L730 425 L30 425 L18 437 L3 437 Z"/><path class="cc-border-trail" fill="none" stroke-width="2" d="M3 3 L700 3 L700 10 L750 10 L750 3 L790 3 L817 30 L817 400 L800 425 L800 437 L740 437 L730 425 L30 425 L18 437 L3 437 Z"/></svg>
-      </div>
-    </div>
-
-    <!-- CARD 3: CYPECAD -->
-    <div class="cc-card-wrap" data-card="2"
-         data-category="REINFORCED" data-version="V.2024" data-status="DETAILING"
-         role="tabpanel" aria-label="CYPE CAD Structural">
-      <div class="cc-sweep-ring" aria-hidden="true"></div>
-      <div class="cc-card">
-        <div class="cc-card-inner">
-          <div class="cc-failcode">FAIL CODE : CY24CAD00301</div>
-          <div class="cc-badge">
-            <div class="cc-badge-icons" aria-hidden="true">&#10035; &#10035; &#10035;</div>
-            <div class="cc-badge-code">CY24 PCAD 0001</div>
-          </div>
-          <div class="cc-title-block">
-            <div class="cc-title-stack">
-              <span class="cc-title-main">CYPE</span>
-              <span class="cc-title-shadow" aria-hidden="true">CYPE</span>
-              <span class="cc-title-shadow" aria-hidden="true">CYPE</span>
-            </div>
-            <div class="cc-subtitle">CAD STRUCTURAL</div>
-          </div>
-          <div class="cc-body-area">
-            <div class="cc-left-col">
-              <div class="cc-labels-row" aria-hidden="true">
-                <span class="cc-label-tag">SEND</span>
-                <span class="cc-label-tag">PROCESS</span>
-              </div>
-              <div class="cc-desc">Diseño y cálculo de estructuras de hormigón armado. Generación automática de planos de armado y memorias de cálculo.</div>
-              <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="cc-card-btn"><div class="cc-card-btn-inner"><span>ACCEDER AL SOFTWARE</span></div></a>
-            </div>
-            <div class="cc-right-col">
-              <div class="cc-counting-title">COUNTING ON YOU</div>
-              <div class="cc-counting-desc">Cumplimiento normativo internacional para estructuras de concreto.</div>
-              <div class="cc-big-number" aria-hidden="true">24</div>
-            </div>
-          </div>
-          <div class="cc-barcode-area" aria-hidden="true">
-            <svg class="cc-barcode-svg" viewBox="0 0 100 20"><rect x="2" width="2" height="18" fill="#1a1a1a"/><rect x="6" width="1" height="18" fill="#1a1a1a"/><rect x="9" width="3" height="18" fill="#1a1a1a"/><rect x="14" width="1" height="18" fill="#1a1a1a"/><rect x="17" width="2" height="18" fill="#1a1a1a"/><rect x="21" width="1" height="18" fill="#1a1a1a"/><rect x="24" width="3" height="18" fill="#1a1a1a"/><rect x="29" width="2" height="18" fill="#1a1a1a"/><rect x="33" width="1" height="18" fill="#1a1a1a"/><rect x="36" width="2" height="18" fill="#1a1a1a"/><rect x="40" width="3" height="18" fill="#1a1a1a"/><rect x="45" width="1" height="18" fill="#1a1a1a"/><rect x="48" width="2" height="18" fill="#1a1a1a"/><rect x="52" width="1" height="18" fill="#1a1a1a"/><rect x="55" width="3" height="18" fill="#1a1a1a"/><rect x="60" width="1" height="18" fill="#1a1a1a"/><rect x="63" width="2" height="18" fill="#1a1a1a"/><rect x="67" width="3" height="18" fill="#1a1a1a"/><rect x="72" width="1" height="18" fill="#1a1a1a"/><rect x="75" width="2" height="18" fill="#1a1a1a"/></svg>
-            <span class="cc-barcode-text">CYP024STRUCT</span>
-          </div>
-          <div class="cc-imperfection" aria-hidden="true">IMPERFECTION</div>
-          <div class="cc-color-tone" aria-hidden="true">
-            <div class="cc-ct-title">color tone.</div>
-            <div class="cc-ct-colors"><div class="cc-ct-swatch" style="background:#e67e22"></div><div class="cc-ct-swatch" style="background:#f5e6d0"></div></div>
-            <div class="cc-ct-desc">Reinforced concrete design and automatic rebar detailing.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CARD 4: SAP2000 -->
-    <div class="cc-card-wrap" data-card="3"
-         data-category="ANALYSIS" data-version="V.26" data-status="ADVANCED"
-         role="tabpanel" aria-label="SAP2000 Advanced">
-      <div class="cc-card">
-        <div class="cc-card-inner">
-          <div class="cc-failcode">FAIL CODE : SP2600ADV00426</div>
-          <div class="cc-badge">
-            <div class="cc-badge-icons" aria-hidden="true">&#10035; &#10035; &#10035;</div>
-            <div class="cc-badge-code">SP26 2000 ADVx</div>
-          </div>
-          <div class="cc-title-block">
-            <div class="cc-title-stack">
-              <span class="cc-title-main">SAP</span>
-              <span class="cc-title-shadow" aria-hidden="true">SAP</span>
-              <span class="cc-title-shadow" aria-hidden="true">SAP</span>
-            </div>
-            <div class="cc-subtitle">2000 ADVANCED</div>
-          </div>
-          <div class="cc-body-area">
-            <div class="cc-left-col">
-              <div class="cc-labels-row" aria-hidden="true">
-                <span class="cc-label-tag">SEND</span>
-                <span class="cc-label-tag">PROCESS</span>
-              </div>
-              <div class="cc-desc">Análisis estructural avanzado por elementos finitos. Puentes, estructuras especiales, análisis no lineal y pushover.</div>
-              <a href="https://t.me/+xT9picqsAUI5MDAx" target="_blank" rel="noopener noreferrer" class="cc-card-btn"><div class="cc-card-btn-inner"><span>ACCEDER AL SOFTWARE</span></div></a>
-            </div>
-            <div class="cc-right-col">
-              <div class="cc-counting-title">COUNTING ON YOU</div>
-              <div class="cc-counting-desc">Herramienta de referencia mundial en ingeniería estructural avanzada.</div>
-              <div class="cc-big-number" aria-hidden="true">00</div>
-            </div>
-          </div>
-          <div class="cc-barcode-area" aria-hidden="true">
-            <svg class="cc-barcode-svg" viewBox="0 0 100 20"><rect x="2" width="2" height="18" fill="#1a1a1a"/><rect x="6" width="1" height="18" fill="#1a1a1a"/><rect x="9" width="3" height="18" fill="#1a1a1a"/><rect x="14" width="1" height="18" fill="#1a1a1a"/><rect x="17" width="2" height="18" fill="#1a1a1a"/><rect x="21" width="1" height="18" fill="#1a1a1a"/><rect x="24" width="3" height="18" fill="#1a1a1a"/><rect x="29" width="2" height="18" fill="#1a1a1a"/><rect x="33" width="1" height="18" fill="#1a1a1a"/><rect x="36" width="2" height="18" fill="#1a1a1a"/><rect x="40" width="3" height="18" fill="#1a1a1a"/><rect x="45" width="1" height="18" fill="#1a1a1a"/><rect x="48" width="2" height="18" fill="#1a1a1a"/><rect x="52" width="1" height="18" fill="#1a1a1a"/><rect x="55" width="3" height="18" fill="#1a1a1a"/><rect x="60" width="1" height="18" fill="#1a1a1a"/><rect x="63" width="2" height="18" fill="#1a1a1a"/><rect x="67" width="3" height="18" fill="#1a1a1a"/><rect x="72" width="1" height="18" fill="#1a1a1a"/><rect x="75" width="2" height="18" fill="#1a1a1a"/></svg>
-            <span class="cc-barcode-text">SAP2000ADV26</span>
-          </div>
-          <div class="cc-imperfection" aria-hidden="true">IMPERFECTION</div>
-          <div class="cc-color-tone" aria-hidden="true">
-            <div class="cc-ct-title">color tone.</div>
-            <div class="cc-ct-colors"><div class="cc-ct-swatch" style="background:#c0392b"></div><div class="cc-ct-swatch" style="background:#d4c5b0"></div></div>
-            <div class="cc-ct-desc">Finite element analysis for bridges and special structures.</div>
-          </div>
-        </div>
-        <svg class="cc-border-svg" viewBox="0 0 820 440" aria-hidden="true"><path class="cc-border-path" d="M3 3 L700 3 L700 10 L750 10 L750 3 L790 3 L817 30 L817 400 L800 425 L800 437 L740 437 L730 425 L30 425 L18 437 L3 437 Z"/></svg>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="cc-nav-dots" role="tablist" aria-label="Navegación de cards">
-    <button class="cc-dot active" data-accent="geo5"  role="tab" aria-selected="true"  aria-label="GEO5"></button>
-    <button class="cc-dot"        data-accent="etabs" role="tab" aria-selected="false" aria-label="ETABS"></button>
-    <button class="cc-dot"        data-accent="cype"  role="tab" aria-selected="false" aria-label="CYPE"></button>
-    <button class="cc-dot"        data-accent="sap"   role="tab" aria-selected="false" aria-label="SAP2000"></button>
-  </div>
-
-  <div class="cc-acceder-wrap">
-    <button class="cc-acceder-btn" id="ccAccederBtn">ACCEDER</button>
-  </div>
-
-</section><!-- /cyber-cards-section -->
 
 <!-- BOTÓN REGISTRAR -->
 <button class="login-open-btn" id="loginOpenBtn">
@@ -873,11 +525,13 @@
 <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <!-- FUENTE ÚNICA DE DATOS — debe ir antes de script.js -->
 <script src="data/catalogo.js"></script>
-<script src="cyber-cards.js"></script>
 <script src="script.js"></script>
+<script src="data/destacados.js"></script>
+<script src="inicio.js"></script>
+<script src="buscador.js"></script>
 <script src="glitch-sections.js"></script>
 <script src="data/servicios.js"></script>
 <script src="servicios.js"></script>
 <script src="recent-courses.js"></script>
 </body>
-</html>
+     </html>
