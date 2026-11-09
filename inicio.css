@@ -30,8 +30,15 @@
 .ini-all:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
 
 /* ── Destacados ── */
-.dst-view{overflow:hidden;margin:-8px -28px -14px -8px;padding:8px 28px 14px 8px}
-.dst-track{display:flex;gap:26px;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+/* El carril se desplaza de verdad (dedo, trackpad, ratón) y cada
+   tarjeta encaja al soltar. Sin barra de scroll visible. */
+.dst-view{overflow-x:auto;overflow-y:hidden;margin:-8px -28px -14px -8px;padding:8px 28px 14px 8px;
+  scroll-snap-type:x mandatory;scroll-padding-left:8px;scrollbar-width:none;overscroll-behavior-x:contain;cursor:grab}
+.dst-view::-webkit-scrollbar{display:none}
+.dst-view.arrastrando{cursor:grabbing;scroll-snap-type:none}
+.dst-view.arrastrando .dst-card{pointer-events:none}
+.dst-card{scroll-snap-align:start}
+.dst-track{display:flex;gap:26px;width:max-content}
 .dst-card{flex:0 0 272px;background:var(--paper);border:1.5px solid var(--ink);border-radius:16px;overflow:hidden;cursor:pointer;
   box-shadow:var(--sombra);transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
 .dst-card:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink)}
@@ -78,6 +85,7 @@
 .btn-ink{display:inline-flex;align-items:center;gap:6px;background:var(--ink);color:#fff;border:0;border-radius:10px;padding:10px 13px;
   font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap}
 .btn-ink:hover{background:var(--teal)}
+.btn-ink svg{width:14px;height:14px;flex:none}
 
 .dst-ctrl{display:flex;align-items:center;justify-content:space-between;margin-top:34px}
 .dst-page{display:flex;align-items:center;gap:14px;font-size:13px;font-weight:700;margin:0 auto}
@@ -86,6 +94,7 @@
 .dst-arrows{display:flex;gap:12px}
 .dst-btn{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--ink);background:var(--ink);color:#fff;font-size:20px;cursor:pointer;transition:.15s}
 .dst-btn:hover{background:var(--teal);border-color:var(--teal)}
+.dst-btn:disabled{background:#fff;color:#c4c8cf;border-color:#d9dce1;cursor:default}
 
 /* ── Top software ── */
 .top{margin-top:92px}
@@ -117,7 +126,8 @@
 @media (max-width:600px){
   .ini-h{font-size:31px}
   .dst-card{flex-basis:248px}
-  .dst-page{display:none}
+  .dst-page{gap:10px}
+  .dst-prog{width:70px}
   .top-tabs{order:3;width:100%}
   .top-tab{flex:1}
   .top-usd{display:none}
@@ -177,3 +187,16 @@
 @media (max-width:600px){ .login-open-btn{right:14px;bottom:16px} }
 .login-open-btn .pwr-ring,.login-open-btn .pwr-circle{width:56px;height:56px}
 .login-open-btn .pwr-label{font-size:10px}
+
+/* ── Selector de versión en la tarjeta de Destacados ──
+   Se ve igual que la etiqueta "v2026", con una flecha ▾.
+   Encima va un <select> nativo invisible que recibe el toque. */
+.ini-sec .ver-sel{position:relative;display:inline-flex;align-items:center;gap:3px;cursor:pointer;
+  border-color:#0d0f12;background:#fff;color:#0d0f12;padding-right:5px;transition:background .15s}
+.ini-sec .ver-sel svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.ini-sec .ver-sel:hover{background:#0d0f12;color:#fff}
+.ini-sec .ver-sel select{position:absolute;inset:-12px -8px;width:calc(100% + 16px);height:calc(100% + 24px);opacity:0;cursor:pointer;font-size:16px;border:0;-webkit-appearance:none;appearance:none}
+.ini-sec .ver-sel:focus-within{outline:2px solid var(--teal);outline-offset:2px}
+/* breve destello al cambiar de versión, para que se note el cambio */
+.ini-sec .dst-card.cambio .dst-price,.ini-sec .dst-card.cambio .dst-name{animation:verFlash .5s ease}
+@keyframes verFlash{0%{opacity:.25;transform:translateY(3px)}100%{opacity:1;transform:none}}
