@@ -77,16 +77,13 @@
       : `<div class="dst-splash">`;
 
     /* Una sola versión → etiqueta fija, como antes.
-       Varias → la misma etiqueta con ▾ y un selector nativo encima
-       (invisible). En el móvil abre el selector del sistema. */
+       Varias → la etiqueta lleva ▾ y abre un menú PROPIO dentro de
+       la tarjeta (mismo estilo de la tienda, con barra para desplazar
+       si hay muchas versiones). */
     const ver = vers.length < 2
       ? `<span class="ver mono">${esc(verTxt(c))}</span>`
-      : `<label class="ver ver-sel mono" title="Cambiar versión">${esc(verTxt(c))}` +
-          `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>` +
-          `<select aria-label="Versión de ${esc(c.nombre)}">` +
-            vers.map(v => `<option value="${esc(v.llave)}"${v.llave === c.llave ? ' selected' : ''}>` +
-              `${esc(verTxt(v))} — ${v.gratis ? 'Gratis' : 'S/ ' + esc(v.pen)}</option>`).join('') +
-          `</select></label>`;
+      : `<button type="button" class="ver ver-btn mono" aria-haspopup="listbox" aria-expanded="false" title="Cambiar versión">` +
+          `${esc(verTxt(c))}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>`;
 
     card.innerHTML =
       splash +
@@ -105,19 +102,143 @@
         `</div>` +
       `</div>`;
 
-    const sel = card.querySelector('.ver-sel select');
-    if (sel) {
-      /* Tocar el selector NO debe abrir la ficha ni arrastrar el carril */
-      ['click', 'mousedown', 'touchstart', 'touchend', 'pointerdown', 'pointerup']
-        .forEach(ev => sel.addEventListener(ev, e => e.stopPropagation(), { passive: true }));
-      sel.addEventListener('change', () => {
-        const nueva = por(sel.value);
-        if (!nueva) return;
-        pintarCard(card, nueva);
-        card.classList.remove('cambio'); void card.offsetWidth; card.classList.add('cambio');
+    const btn = card.querySelector('.ver-btn');
+    if (btn) {
+      aislar(btn);
+      btn.addEventListener('click', () => {
+        if (card.querySelector('.ver-menu')) cerrarMenu(); else abrirMenu(card, c, vers, btn);
       });
     }
   }
+
+  /* ── Menú de versiones ─────────────────────────────────────────
+     Vive DENTRO de la tarjeta (no se sale de ella). Su alto se ajusta
+     al espacio libre y, si no caben todas, aparece una barra para
+     desplazar la lista ahí mismo. */
+  /* Lo que se toque dentro del menú/etiqueta no abre la ficha ni
+     arrastra el carril (script.js e inicio.js escuchan esos eventos). */
+  const EVENTOS = ['click', 'mousedown', 'touchstart', 'touchend', 'pointerdown', 'pointerup'];
+  function aislar(el) { EVENTOS.forEach(ev => el.addEventListener(ev, e => e.stopPropagation(), { passive: true })); }
+
+  let abierto = null;          /* { card, menu, btn } */
+
+  function abrirMenu(card, c, vers, btn) {
+    cerrarMenu();
+    const body = card.querySelector('.dst-body');
+    const top = card.querySelector('.dst-top');
+    const menu = document.createElement('div');
+    menu.className = 'ver-menu';
+    menu.setAttribute('role', 'listbox');
+    menu.innerHTML =
+      `<div class="ver-menu-h"><span>Elige versión</span><b class="mono">${vers.length}</b></div>` +
+      `<div class="ver-menu-c"><div class="ver-menu-l">` +
+        vers.map(v => {
+          const on = v.llave === c.llave;
+          return `<button type="button" role="option" aria-selected="${on}" class="ver-op${on ? ' on' : ''}" data-k="${esc(v.llave)}">` +
+            `<span class="ver-op-v mono">${esc(verTxt(v))}</span>` +
+            `<span class="ver-op-p${v.gratis ? ' gratis' : ''}">${v.gratis ? 'Gratis' : 'S/ ' + esc(v.pen)}</span>` +
+            `<svg class="ver-op-ok" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>` +
+          `</button>`;
+        }).join('') +
+      `</div><div class="ver-riel" aria-hidden="true"><i class="ver-pulgar"></i></div></div>`;
+    body.appendChild(menu);
+    aislar(menu);
+
+    /* Posición y alto: justo debajo del nombre, sin pasar del borde inferior */
+    const y = top.offsetTop + top.offsetHeight + 8;
+    menu.style.top = y + 'px';
+    const lst = menu.querySelector('.ver-menu-l');
+    const libre = body.clientHeight - y - 12 - menu.querySelector('.ver-menu-h').offsetHeight;
+    lst.style.maxHeight = Math.max(90, libre) + 'px';
+    const sel = lst.querySelector('.on');
+    if (sel) lst.scrollTop = sel.offsetTop - lst.clientHeight / 2 + sel.offsetHeight / 2;
+    const riel = menu.querySelector('.ver-riel'), pulgar = riel.querySelector('.ver-pulgar');
+    const barra = () => {
+      marcarSombra(lst);
+      const sobra = lst.scrollHeight - lst.clientHeight;
+      riel.hidden = sobra <= 2;
+      if (riel.hidden) return;
+      const alto = Math.max(26, riel.clientHeight * lst.clientHeight / lst.scrollHeight);
+      pulgar.style.height = alto + 'px';
+      pulgar.style.transform = `translateY(${(riel.clientHeight - alto) * lst.scrollTop / sobra}px)`;
+    };
+    lst.addEventListener('scroll', barra, { passive: true });
+    barra();
+    /* La barra también se puede arrastrar (ratón o dedo) o tocar
+       en el riel para saltar a esa altura. */
+    riel.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      const r = riel.getBoundingClientRect();
+      const alto = pulgar.offsetHeight, sobra = lst.scrollHeight - lst.clientHeight;
+      const mover = y => { lst.scrollTop = Math.min(1, Math.max(0, (y - r.top - alto / 2) / (r.height - alto))) * sobra; };
+      mover(e.clientY);
+      riel.setPointerCapture(e.pointerId);
+      riel.classList.add('activo');
+      const mv = ev => mover(ev.clientY);
+      const fin = () => { riel.classList.remove('activo'); riel.removeEventListener('pointermove', mv); riel.removeEventListener('pointerup', fin); riel.removeEventListener('pointercancel', fin); };
+      riel.addEventListener('pointermove', mv);
+      riel.addEventListener('pointerup', fin);
+      riel.addEventListener('pointercancel', fin);
+    });
+
+    menu.querySelectorAll('.ver-op').forEach(o => o.addEventListener('click', () => {
+      const nueva = por(o.dataset.k);
+      cerrarMenu();
+      if (!nueva || nueva.llave === c.llave) return;
+      pintarCard(card, nueva);
+      card.classList.remove('cambio'); void card.offsetWidth; card.classList.add('cambio');
+    }));
+    menu.addEventListener('keydown', e => {
+      const ops = [...menu.querySelectorAll('.ver-op')];
+      const i = ops.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown') { e.preventDefault(); (ops[i + 1] || ops[0]).focus(); }
+      if (e.key === 'ArrowUp')   { e.preventDefault(); (ops[i - 1] || ops[ops.length - 1]).focus(); }
+    });
+
+    btn.setAttribute('aria-expanded', 'true');
+    card.classList.add('menu-abierto');
+    abierto = { card, menu, btn, desde: card.parentElement.parentElement.scrollLeft };
+    (sel || menu.querySelector('.ver-op')).focus({ preventScroll: true });
+  }
+
+  /* Degradado abajo/arriba que avisa que hay más versiones */
+  function marcarSombra(lst) {
+    lst.classList.toggle('mas-abajo', lst.scrollTop + lst.clientHeight < lst.scrollHeight - 2);
+    lst.classList.toggle('mas-arriba', lst.scrollTop > 2);
+  }
+
+  function cerrarMenu() {
+    if (!abierto) return;
+    abierto.menu.remove();
+    abierto.btn.setAttribute('aria-expanded', 'false');
+    abierto.card.classList.remove('menu-abierto');
+    abierto = null;
+  }
+
+  /* Tocar fuera cierra el menú, y ESE MISMO toque no hace nada más
+     (no abre la ficha de otra tarjeta por accidente). Se anula solo
+     hasta que termina ese toque (su 'click'); el siguiente funciona
+     normal. Si el toque era un deslizamiento y no hay 'click', se
+     libera a los 600 ms. */
+  let tragando = false, tragaT = 0;
+  ['mousedown', 'touchstart', 'pointerdown', 'pointerup', 'touchend', 'click'].forEach(ev =>
+    window.addEventListener(ev, e => {
+      if (abierto && !abierto.menu.contains(e.target) && !abierto.btn.contains(e.target)) {
+        cerrarMenu(); tragando = true;
+        clearTimeout(tragaT); tragaT = setTimeout(() => { tragando = false; }, 600);
+      }
+      if (tragando) {
+        e.stopPropagation();
+        if (ev === 'click') { e.preventDefault(); tragando = false; clearTimeout(tragaT); }
+      }
+    }, true));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && abierto) { const b = abierto.btn; cerrarMenu(); b.focus(); }
+  });
+  /* Solo si cambia el ANCHO (en el móvil el alto cambia solo al
+     mostrarse/ocultarse la barra del navegador). */
+  let anchoPrev = window.innerWidth;
+  window.addEventListener('resize', () => { if (window.innerWidth !== anchoPrev) { anchoPrev = window.innerWidth; cerrarMenu(); } });
 
   lista.forEach(c => {
     const card = document.createElement('article');
@@ -196,7 +317,12 @@
   /* Si se arrastró, ese "clic" no abre la ficha */
   view.addEventListener('click', e => { if (arr && arr.movio) { e.stopPropagation(); e.preventDefault(); } }, true);
 
-  view.addEventListener('scroll', () => requestAnimationFrame(pintar), { passive: true });
+  /* El menú se cierra solo si el carril se mueve de verdad (>6px),
+     no por un evento de scroll sin desplazamiento real. */
+  view.addEventListener('scroll', () => {
+    if (abierto && Math.abs(view.scrollLeft - abierto.desde) > 6) cerrarMenu();
+    requestAnimationFrame(pintar);
+  }, { passive: true });
   window.addEventListener('resize', pintar);
   pintar();
 
