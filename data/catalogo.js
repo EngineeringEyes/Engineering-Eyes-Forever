@@ -21,6 +21,7 @@
         buyers = contador de compradores (bórralo y desaparece)
         gratis: true + urlGratis = descarga directa sin cobro
         video: "https://youtu.be/..." = activa el botón "Ver tutorial"
+        mono:  "GN" = opcional, letras del icono (si no, salen del nombre)
 
    ⭐ PUNTUACIÓN POR ESTRELLAS
       Cada programa lleva dos campos:
@@ -176,6 +177,56 @@ window.EE_CATALOGO = [
     web: "https://www.finesoftware.es/geo5/",
     rating: 4.8, resenas: 27,
     pen: 900, buyers: 10            /* ← EDITA: solo soles */
+  },
+
+  /* ── Geotecnia · nuevos (MIDAS · Shinoak · Ensoft) ── */
+  {
+    llave: "midas-gts-nx",
+    lista: { cat: "Geotecnia", icon: "ti-mountain", versions: "Túneles · Excavaciones · MEF", ac: "#8bc34a", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "MIDAS GTS NX", color: "#8bc34a", mono: "GT",
+    categoria: "Geotecnia · Elementos finitos", dev: "MIDAS IT (Corea del Sur)",
+    desc: "Análisis geotécnico por elementos finitos en 2D y 3D: túneles, excavaciones profundas, taludes, cimentaciones y flujo de agua.",
+    ficha: [["Versión","2026 (v1.1)"],["Desarrollador","MIDAS IT"],["Enfoque","Geotecnia MEF 2D/3D"],["Sistema","Windows 64 bits"]],
+    badges: ["Túneles","Excavaciones","MEF 3D"],
+    version: "2026",
+    novedades: [["Túneles","Excavación por etapas"],["Excavaciones","Entibaciones y anclajes"],["Flujo","Infiltración y consolidación"],["Dinámico","Análisis sísmico"]],
+    nBadges: ["2D · 3D","Por etapas","Sísmico"],
+    web: "https://www.midasuser.com",
+    rating: 4.9, resenas: 24,
+    pen: 1180, usd: 350, buyers: 10   /* ← precio fijado en dólares: $350 USD · S/ 1180 */
+  },
+  {
+    llave: "utexas4",
+    lista: { cat: "Geotecnia", icon: "ti-trending-down", versions: "Estabilidad de taludes", ac: "#c9a227", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "UTEXAS4 2026", color: "#c9a227", mono: "UT",
+    categoria: "Geotecnia · Taludes", dev: "Shinoak Software · Ensoft (EE. UU.)",
+    desc: "Estabilidad de taludes y terraplenes por equilibrio límite (método de Spencer): busca superficies de falla circulares y no circulares y da el factor de seguridad.",
+    ficha: [["Versión","V4 2026"],["Desarrollador","Shinoak Software (S. G. Wright)"],["Distribuye","Ensoft"],["Sistema","Windows 64 bits"]],
+    badges: ["Taludes","Equilibrio límite","Spencer"],
+    version: "2026",
+    novedades: [["Taludes","Tierra y enrocado"],["Superficies","Circulares y no circulares"],["Resistencia","Mohr-Coulomb · no drenada"],["Resultado","Factor de seguridad"]],
+    nBadges: ["Spencer","2D","USACE · FHWA"],
+    web: "https://ensoftinc.com/products/utexas",
+    rating: 4.7, resenas: 16,
+    pen: 370, usd: 110, buyers: 10   /* ← precio fijado en dólares: $110 USD · S/ 370 */
+  },
+  {
+    llave: "lpile-2026",
+    lista: { cat: "Geotecnia", icon: "ti-arrow-bar-to-down", versions: "Pilotes · Carga lateral", ac: "#8d6e63", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "LPILE 2026", color: "#8d6e63", mono: "LP",
+    categoria: "Geotecnia · Cimentaciones profundas", dev: "Ensoft (EE. UU.)",
+    desc: "Análisis de pilotes y pilas bajo carga lateral con curvas p-y: deflexión, momento y cortante a lo largo del pilote.",
+    ficha: [["Versión","2026"],["Desarrollador","Ensoft"],["Enfoque","Pilotes con carga lateral"],["Sistema","Windows 64 bits"]],
+    badges: ["Pilotes","Curvas p-y","Carga lateral"],
+    version: "2026",
+    novedades: [["Pilotes","Carga lateral"],["Suelo","Curvas p-y"],["Resultados","Deflexión · momento · cortante"],["Secciones","Concreto y acero"]],
+    nBadges: ["p-y","Cimentaciones","Diseño"],
+    web: "https://www.ensoftinc.com/products/lpile",
+    rating: 4.8, resenas: 19,
+    pen: 370, usd: 110, buyers: 10   /* ← precio fijado en dólares: $110 USD · S/ 370 */
   },
 
   /* ════ ESTRUCTURAL · CSI ════ */
@@ -371,6 +422,104 @@ window.EE_CATALOGO = [
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
   },
 
+  /* ════ ESTRUCTURAL · MIDAS ════ */
+  {
+    llave: "midas-gen-nx",
+    lista: { cat: "Estructural", icon: "ti-building", versions: "Edificios · Nueva generación", ac: "#4f8cff", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "MIDAS GEN NX", color: "#4f8cff", mono: "GN",
+    categoria: "Estructuras · Edificios", dev: "MIDAS IT (Corea del Sur)",
+    desc: "Análisis y diseño de edificios y estructuras generales: modelado 3D, análisis sísmico, no lineal y por etapas, y diseño en concreto y acero.",
+    ficha: [["Versión","2026 (v2.1)"],["Desarrollador","MIDAS IT"],["Enfoque","Edificios · uso general"],["Sistema","Windows 64 bits"]],
+    badges: ["Nueva generación","Sísmico","Concreto y acero"],
+    version: "2026",
+    novedades: [["Análisis","Estático · dinámico · no lineal"],["Construcción","Análisis por etapas"],["Diseño","Concreto · acero · mixtas"],["Normas","ACI · AISC · Eurocódigo"]],
+    nBadges: ["Interfaz NX","Pushover","Reportes"],
+    web: "https://www.midasuser.com/en/product/gen-nx",
+    rating: 4.9, resenas: 26,
+    pen: 1180, usd: 350, buyers: 10   /* ← precio fijado en dólares: $350 USD · S/ 1180 */
+  },
+  {
+    llave: "midas-gen",
+    lista: { cat: "Estructural", icon: "ti-building", versions: "Edificios · Clásico", ac: "#3d7bd9", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "MIDAS GEN", color: "#3d7bd9", mono: "GE",
+    categoria: "Estructuras · Edificios", dev: "MIDAS IT (Corea del Sur)",
+    desc: "La versión clásica de midas Gen: análisis y diseño de edificios y estructuras de uso general, con el flujo de trabajo de siempre.",
+    ficha: [["Versión","2026 (v1.1)"],["Desarrollador","MIDAS IT"],["Enfoque","Edificios · uso general"],["Sistema","Windows 64 bits"]],
+    badges: ["Clásico","Sísmico","Concreto y acero"],
+    version: "2026",
+    novedades: [["Análisis","Lineal y no lineal"],["Sismo","Espectral · tiempo-historia"],["Diseño","Concreto · acero"],["Modelado","Edificios y estructuras especiales"]],
+    nBadges: ["Interfaz clásica","Estable","Reportes"],
+    web: "https://www.midasuser.com",
+    rating: 4.8, resenas: 22,
+    pen: 1180, usd: 350, buyers: 10   /* ← precio fijado en dólares: $350 USD · S/ 1180 */
+  },
+  {
+    llave: "midas-ngen",
+    lista: { cat: "Estructural", icon: "ti-building-skyscraper", versions: "Modelado · Planos · Metrados", ac: "#7a6cff", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "MIDAS nGEN", color: "#7a6cff", mono: "nG",
+    categoria: "Estructuras · Edificios", dev: "MIDAS IT (Corea del Sur)",
+    desc: "Del modelo a los planos: modelado a partir de planos CAD, análisis, diseño, planos estructurales, memorias y metrados automáticos en concreto y acero.",
+    ficha: [["Versión","2023 (v1.1) · verifica"],["Desarrollador","MIDAS IT"],["Enfoque","Edificios: modelo → planos"],["Sistema","Windows 64 bits"]],
+    badges: ["Planos automáticos","Metrados","Concreto y acero"],
+    version: "2023",
+    novedades: [["Modelado","Desde planos CAD"],["Cargas","Viento y sismo automáticos"],["Diseño","Predimensionamiento óptimo"],["Entregables","Planos · memorias · metrados"]],
+    nBadges: ["DWG/DXF","Enlace Revit","Compatible con GEN"],
+    web: "https://www.midasuser.com/en/product/ngen",
+    rating: 4.8, resenas: 18,
+    pen: 1180, usd: 350, buyers: 10   /* ← precio fijado en dólares: $350 USD · S/ 1180 */
+  },
+  {
+    llave: "midas-design-plus",
+    lista: { cat: "Estructural", icon: "ti-checklist", versions: "Diseño de elementos", ac: "#00b3a4", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "MIDAS DESIGN+", color: "#00b3a4", mono: "D+",
+    categoria: "Estructuras · Diseño de elementos", dev: "MIDAS IT (Corea del Sur)",
+    desc: "Diseño y verificación rápida de elementos sueltos (vigas, columnas, muros, zapatas, conexiones) con memorias de cálculo listas para entregar.",
+    ficha: [["Versión","2026 (v1.1)"],["Desarrollador","MIDAS IT"],["Enfoque","Diseño de elementos"],["Sistema","Windows 64 bits"]],
+    badges: ["Elementos","Memorias","Concreto y acero"],
+    version: "2026",
+    novedades: [["Concreto","Vigas · columnas · muros"],["Acero","Miembros y conexiones"],["Cimentaciones","Zapatas"],["Memorias","Reportes de cálculo"]],
+    nBadges: ["Rápido","Normas","Reportes"],
+    web: "https://www.midasuser.com",
+    rating: 4.7, resenas: 15,
+    pen: 1180, usd: 350, buyers: 10   /* ← precio fijado en dólares: $350 USD · S/ 1180 */
+  },
+  {
+    llave: "midas-civil-nx",
+    lista: { cat: "Estructural", icon: "ti-building-bridge", versions: "Puentes · Nueva generación", ac: "#2bb3ff", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "MIDAS CIVIL NX", color: "#2bb3ff", mono: "CV",
+    categoria: "Puentes", dev: "MIDAS IT (Corea del Sur)",
+    desc: "Análisis y diseño de puentes: modelado por etapas constructivas, cargas móviles, postensado, efectos diferidos y diseño según normas.",
+    ficha: [["Versión","2026 (v2.1)"],["Desarrollador","MIDAS IT"],["Enfoque","Puentes · infraestructura"],["Sistema","Windows 64 bits"]],
+    badges: ["Puentes","Cargas móviles","Por etapas"],
+    version: "2026",
+    novedades: [["Etapas","Construcción por etapas"],["Cargas","Móviles · AASHTO"],["Postensado","Tendones y pérdidas"],["Diferidos","Fluencia y retracción"]],
+    nBadges: ["Interfaz NX","Postensado","AASHTO · EC"],
+    web: "https://www.midasuser.com",
+    rating: 4.9, resenas: 21,
+    pen: 1180, usd: 350, buyers: 10   /* ← precio fijado en dólares: $350 USD · S/ 1180 */
+  },
+  {
+    llave: "midas-fea-nx",
+    lista: { cat: "Estructural", icon: "ti-box", versions: "Análisis detallado · MEF", ac: "#e05d8c", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "MIDAS FEA NX", color: "#e05d8c", mono: "FE",
+    categoria: "Estructuras · Elementos finitos", dev: "MIDAS IT (Corea del Sur)",
+    desc: "Análisis detallado por elementos finitos de piezas y zonas críticas: no linealidad de materiales, fisuración del concreto, contacto y fatiga.",
+    ficha: [["Versión","2026 (v1.1)"],["Desarrollador","MIDAS IT"],["Enfoque","MEF detallado"],["Sistema","Windows 64 bits"]],
+    badges: ["MEF","No lineal","Detalle local"],
+    version: "2026",
+    novedades: [["Materiales","No linealidad · fisuración"],["Contacto","Uniones e interfaces"],["Fatiga","Elementos de acero"],["Mallado","Automático 3D"]],
+    nBadges: ["Sólidos 3D","Concreto","Acero"],
+    web: "https://www.midasuser.com/en/product/fea-nx",
+    rating: 4.8, resenas: 14,
+    pen: 1180, usd: 350, buyers: 10   /* ← precio fijado en dólares: $350 USD · S/ 1180 */
+  },
+
   /* ════ BIM & CAD · AUTODESK ════ */
   {
     llave: "revit-2025",
@@ -551,6 +700,24 @@ window.EE_CATALOGO = [
     pen: 149, buyers: 10            /* ← EDITA: solo soles */
   },
 
+  /* ── MIDAS CIM ── */
+  {
+    llave: "midas-cim",
+    lista: { cat: "BIM & CAD", icon: "ti-route", versions: "Puentes · Túneles · 3D por eje", ac: "#ff8a3d", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "MIDAS CIM", color: "#ff8a3d", mono: "CM",
+    categoria: "Infraestructura · BIM", dev: "MIDAS IT (Corea del Sur)",
+    desc: "CAD 3D basado en alineamientos para infraestructura: modela puentes y túneles a lo largo del eje, con armaduras, tendones y planos 2D enlazados al modelo.",
+    ficha: [["Versión","V210"],["Desarrollador","MIDAS IT"],["Enfoque","Puentes y túneles · BIM"],["Sistema","Windows 64 bits"]],
+    badges: ["Alineamientos","Puentes","Túneles"],
+    version: "V210",
+    novedades: [["Modelado","3D a lo largo del eje"],["Plantillas","Puentes y túneles"],["Refuerzo","Armaduras y tendones"],["Planos","2D enlazados al 3D"]],
+    nBadges: ["BIM","Infraestructura","Planos"],
+    web: "https://www.midasuser.com/en/product/cim",
+    rating: 4.7, resenas: 12,
+    pen: 1180, usd: 350, buyers: 10   /* ← precio fijado en dólares: $350 USD · S/ 1180 */
+  },
+
   /* ════ GIS ════ */
   {
     llave: "global-mapper",
@@ -583,6 +750,24 @@ window.EE_CATALOGO = [
     web: "https://www.esri.com/es-es/arcgis/products/arcgis-pro/overview",
     rating: 4.9, resenas: 54,
     pen: 199, buyers: 10            /* ← EDITA: solo soles */
+  },
+
+  /* ════ HIDRÁULICA ════ */
+  {
+    llave: "irricad-v22",
+    lista: { cat: "Hidráulica", icon: "ti-droplet", versions: "Diseño de riego", ac: "#1fa2d8", url: "https://t.me/+xT9picqsAUI5MDAx" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "IRRICAD V22", color: "#1fa2d8", mono: "IR",
+    categoria: "Hidráulica · Riego", dev: "Lincoln Agritech (Nueva Zelanda)",
+    desc: "Diseño de sistemas de riego por goteo, aspersión y pivote: trazado sobre CAD, cálculo hidráulico de tuberías y lista de materiales.",
+    ficha: [["Versión","V22"],["Desarrollador","Lincoln Agritech"],["Enfoque","Riego agrícola y paisajismo"],["Sistema","Windows 64 bits"]],
+    badges: ["Riego","Hidráulica","Goteo y aspersión"],
+    version: "22",
+    novedades: [["Diseño","Goteo · aspersión · pivote"],["Hidráulica","Cálculo de tuberías"],["CAD","Trazado sobre planos"],["Materiales","Lista y presupuesto"]],
+    nBadges: ["Agricultura","Paisajismo","Bombeo"],
+    web: "https://nelsonirrigation.com/products/software/irricad",
+    rating: 4.8, resenas: 17,
+    pen: 840, usd: 250, buyers: 10   /* ← precio fijado en dólares: $250 USD · S/ 840 */
   },
 
   /* ════ PRODUCTIVIDAD ════ */
