@@ -589,7 +589,10 @@ CATALOGO.forEach(c => { SW_DETAIL[c.llave] = makeSW(c); });
   let conf = null;
   if (rawKey) {
     const nk = norm(rawKey);
-    for (const k in SW_DETAIL) {
+    /* 1º coincidencia EXACTA: así "midas-gen" no cae en "midas-gen-nx"
+       (que empieza igual). Solo si no hay exacta se usa la tolerante. */
+    for (const k in SW_DETAIL) { if (norm(k) === nk) { conf = SW_DETAIL[k]; break; } }
+    if (!conf) for (const k in SW_DETAIL) {
       const nm = norm(k);
       if (nm === nk || (nm.length >= 4 && (nk.startsWith(nm) || nm.startsWith(nk)))) { conf = SW_DETAIL[k]; break; }
     }
