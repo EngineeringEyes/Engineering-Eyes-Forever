@@ -11,6 +11,10 @@
   /* Monograma del icono, como lo haría una tienda de apps:
      "ETABS 23"→ET · "AutoCAD 2025"→AC · "ArcGIS Pro"→AP · "GEO5 2026"→G5 */
   function mono(nombre) {
+    /* Si el programa trae  mono: "GN"  en catalogo.js, ese manda
+       (útil en familias como MIDAS, donde todos darían "MG"). */
+    const fijo = CAT.find(c => c.nombre === nombre && c.mono);
+    if (fijo) return String(fijo.mono).slice(0, 3);
     const pal = String(nombre).replace(/[^A-Za-z0-9 ]/g, ' ').split(/\s+/)
       .filter(w => w.length > 1 && !/^\d+$/.test(w) && !/^v\d/i.test(w));
     if (pal.length >= 2 && !/^(pro|suite)$/i.test(pal[1])) return (pal[0][0] + pal[1][0]).toUpperCase();
@@ -238,7 +242,15 @@
   /* Solo si cambia el ANCHO (en el móvil el alto cambia solo al
      mostrarse/ocultarse la barra del navegador). */
   let anchoPrev = window.innerWidth;
-  window.addEventListener('resize', () => { if (window.innerWidth !== anchoPrev) { anchoPrev = window.innerWidth; cerrarMenu(); } });
+  /* Se espera 150 ms y se compara de nuevo: ignora cambios de tamaño
+     momentáneos (p. ej. al hacer una captura de pantalla). */
+  let tRes = 0;
+  window.addEventListener('resize', () => {
+    clearTimeout(tRes);
+    tRes = setTimeout(() => {
+      if (window.innerWidth !== anchoPrev) { anchoPrev = window.innerWidth; cerrarMenu(); }
+    }, 150);
+  });
 
   lista.forEach(c => {
     const card = document.createElement('article');
