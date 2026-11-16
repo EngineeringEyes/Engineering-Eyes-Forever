@@ -382,7 +382,7 @@ function makeSW(c) {
                rating: c.rating, resenas: c.resenas,
                product: c.nombre, urlGratis: c.urlGratis },
         ctaText: c.gratis ? (c.textoGratis || "Descargar gratis") : "Comprar",
-        ghostText: "Web oficial", ghostUrl: c.web },
+        ghostText: "Unirse", ghostUrl: BUY_CONFIG.telegram },   /* grupo de Telegram (BUY_CONFIG.telegram) */
       { accent: c.color, bg: img(1),
         id: "02", title: "Novedades", pill: "Actualización", pillGhost: c.version,
         subtitle: c.vIntro || "Lo más reciente de esta versión.", specs: c.novedades,
