@@ -254,6 +254,14 @@ body {
 .bm-actions { display: flex; gap: 10px; justify-content: flex-end; }
 .bm-actions.col { flex-direction: column; justify-content: stretch; }
 .bm-actions.col .cta, .bm-actions.col .ghost-btn { justify-content: center; text-align: center; }
+
+/* ═══ BORDES: cada panel es una tarjeta; el abierto se ilumina con el color del programa (--acc) ═══ */
+.stage { border: 1.5px solid rgba(255,255,255,.18); background: rgba(255,255,255,.025); }
+.accordion { gap: 6px; padding: 6px; }
+.buy-rating .cuenta { white-space: nowrap; }
+.panel { border-radius: 13px; border: 1px solid rgba(255,255,255,.16); transition: flex var(--dur) var(--ease), filter var(--dur) var(--ease), border-color .25s, box-shadow .25s; }
+.panel:not(.active):hover { border-color: rgba(255,255,255,.36); }
+.panel.active { border: 1.5px solid color-mix(in srgb, var(--acc) 80%, transparent); box-shadow: 0 0 22px -6px color-mix(in srgb, var(--acc) 55%, transparent); }
 </style>
 </head>
 <body>
@@ -615,7 +623,7 @@ CATALOGO.forEach(c => { SW_DETAIL[c.llave] = makeSW(c); });
       ? `<a class="ghost-btn" href="${esc(p.ghostUrl)}" target="_blank" rel="noopener noreferrer">${esc(p.ghostText||'')}</a>`
       : `<button class="ghost-btn" type="button">${esc(p.ghostText||'')}</button>`;
     return `
-      <article class="panel${i===0?' active':''}" data-title="${esc(p.title)}" data-accent="${esc(p.accent)}" style="--bg: url('${esc(p.bg)}');">
+      <article class="panel${i===0?' active':''}" data-title="${esc(p.title)}" data-accent="${esc(p.accent)}" style="--bg: url('${esc(p.bg)}'); --acc: ${esc(p.accent)};">
         <div class="panel-bg" aria-hidden="true"></div>
         <div class="panel-content">
           <div class="panel-kicker">
