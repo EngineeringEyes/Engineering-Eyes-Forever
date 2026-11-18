@@ -6,7 +6,7 @@
 ═══════════════════════════════════════════════════════════════ */
 window.EE_DESTACADOS = [
   /* Geotecnia */    "geo5-2026",
-  /* CYPE */         "cypecad-2027",
+  /* CYPE */         "cypecad-2027b",
   /* CSI */          "etabs-23", "sap2000-v25", "safe-22", "csibridge",
   /* Estructural */  "idea-statica", "risa-suite", "adapt-builder",
   /* BIM & CAD */    "revit-2026", "autocad-2025", "civil-3d-2025", "archicad-28", "bluebeam-revu",
