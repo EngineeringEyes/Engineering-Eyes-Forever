@@ -371,6 +371,26 @@ window.EE_CATALOGO = [
     rating: 4.9, resenas: 41,
     pen: 900, buyers: 3             /* ← EDITA: solo soles */
   },
+  {
+    llave: "cypecad-2027b",
+    lista: { cat: "Estructural", icon: "ti-box", versions: "Estructuras · Más reciente", ac: "#f6b73c", url: "https://t.me/+xT9picqsAUI5MDAx", img: "https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes-Forever/main/cypecad.png" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "Cypecad 2027.b", color: "#f6b73c",
+    categoria: "Estructuras", dev: "CYPE Ingenieros",
+    desc: "Cálculo y dimensionamiento de estructuras de hormigón armado y mixtas, integrado en el flujo de trabajo Open BIM.",
+    ficha: [["Versión","2027.b"],["Desarrollador","CYPE Ingenieros"],["Idioma","Español · Inglés"],["Sistema","Windows 64 bits"]],
+    badges: ["Open BIM","Modo oscuro","Análisis sísmico"],
+    version: "2027.b", vIntro: "La más reciente: actualización de la serie 2027, con todo lo de la 2027.a más mejoras y correcciones.",
+    novedades: [["Micropilotes","Nuevo módulo IV"],["Losas aligeradas","Generación optimizada"],["Normas","ASCE 7-22 · NBR 6118:2026"],["CYPE 3D","2.º orden · Pushover"]],
+    vNota: "Publicada el 17 de noviembre de 2026",
+    nBadges: ["Serie 2027","Uniones paramétricas","Nuevas normativas"],
+    webNovedades: "https://info.cype.com/es/novedades/",
+    requisitos: [["Sistema","Windows 7 – 11 · 64 bits"],["RAM","8 GB mín. · 16 GB recom."],["Gráficos","OpenGL 3+ (NVIDIA / AMD)"],["Pantalla","1366×768 mínimo"]],
+    webReq: "https://learning.cype.com/es/faq/requisitos-minimos-cype/",
+    web: "https://www.cype.com",
+    rating: 4.9, resenas: 12,
+    pen: 900, buyers: 2             /* ← EDITA: solo soles (mismo precio que la 2027.a) */
+  },
 
   /* ════ OTROS ESTRUCTURALES ════ */
   {
