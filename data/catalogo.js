@@ -164,19 +164,37 @@ window.EE_CATALOGO = [
   },
   {
     llave: "geo5-2026",
-    lista: { cat: "Geotecnia", icon: "ti-world", versions: "v26 · Nuevo", ac: "#2ecc71", url: "https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/geo52026.html", img: "https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes-Forever/main/geo5.png" },
+    lista: { cat: "Geotecnia", icon: "ti-world", versions: "v26 · Estable", ac: "#2ecc71", url: "https://engineeringeyes.github.io/Engineering_Eyes_2.0/redirect/geo52026.html", img: "https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes-Forever/main/geo5.png" },
     // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
     nombre: "GEO5 2026", color: "#2ecc71",
     categoria: "Geotecnia", dev: "Fine (Chequia)",
-    desc: "La versión más reciente: módulos actualizados para análisis dinámico sísmico, integración BIM y reportes automáticos.",
+    desc: "Módulos actualizados para análisis dinámico sísmico, integración BIM y reportes automáticos.",
     ficha: [["Versión","2026 (v26)"],["Desarrollador","Fine"],["Idioma","Español · Inglés"],["Sistema","Windows 64 bits"]],
-    badges: ["Nuevo","Análisis dinámico","BIM Ready"],
-    version: "2026", vIntro: "Nueva versión: módulos avanzados y flujo BIM.",
+    badges: ["Estable","Análisis dinámico","BIM Ready"],
+    version: "2026", vIntro: "Versión 2026: módulos avanzados y flujo BIM.",
     novedades: [["Sismo","Análisis dinámico"],["BIM","Integración IFC"],["Reportes","Automáticos"],["Módulos","Actualizados v26"]],
     nBadges: ["BIM","Sismo","Reportes"],
     web: "https://www.finesoftware.es/geo5/",
     rating: 4.8, resenas: 27,
     pen: 900, buyers: 10            /* ← EDITA: solo soles */
+  },
+  {
+    llave: "geo5-2027",
+    lista: { cat: "Geotecnia", icon: "ti-world", versions: "v27 · Nuevo", ac: "#2ecc71", url: "https://t.me/+xT9picqsAUI5MDAx", img: "https://raw.githubusercontent.com/EngineeringEyes/Engineering-Eyes-Forever/main/geo5.png" },
+    // gratis: true,   /* ← QUITA las dos barras para ponerlo GRATIS · vuelve a ponerlas para cobrar */
+    nombre: "GEO5 2027", color: "#2ecc71",
+    categoria: "Geotecnia", dev: "Fine (Chequia)",
+    desc: "La versión más reciente: Eurocódigo 7 de segunda generación, varias tareas en un mismo archivo y curvas p-y para pilotes con carga lateral.",
+    ficha: [["Versión","2027"],["Desarrollador","Fine"],["Idioma","Español · Inglés"],["Sistema","Windows 64 bits"]],
+    badges: ["Nuevo","Eurocódigo 7 (2.ª gen.)","Pilotes p-y"],
+    version: "2027", vIntro: "Nueva versión, publicada el 12 de noviembre de 2026.",
+    novedades: [["Normas","Eurocódigo 7 · 2.ª generación"],["Archivos","Varias tareas en uno"],["Pilotes","Curvas p-y desde DMT/CPT"],["Estratigrafía","Malla 3D · fondo CAD"]],
+    vNota: "Publicada el 12 de noviembre de 2026",
+    nBadges: ["EN 1997","Licuefacción (CPT/SPT)","Instalación silenciosa"],
+    webNovedades: "https://www.finesoftware.eu/versions",
+    web: "https://www.finesoftware.es/geo5/",
+    rating: 4.9, resenas: 12,
+    pen: 900, buyers: 2             /* ← EDITA: solo soles (mismo precio que la 2026) */
   },
 
   /* ── Geotecnia · nuevos (MIDAS · Shinoak · Ensoft) ── */
