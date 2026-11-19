@@ -5,7 +5,7 @@
    de la tarjeta (las toma solas de catalogo.js).
 ═══════════════════════════════════════════════════════════════ */
 window.EE_DESTACADOS = [
-  /* Geotecnia */    "geo5-2026",
+  /* Geotecnia */    "geo5-2027",
   /* CYPE */         "cypecad-2027b",
   /* CSI */          "etabs-23", "sap2000-v25", "safe-22", "csibridge",
   /* Estructural */  "idea-statica", "risa-suite", "adapt-builder",
